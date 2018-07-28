@@ -1,13 +1,20 @@
 import 'dart:async';
 import 'package:tmdb_dart/tmdb_dart.dart';
 
-Future main() async {
-  TmdbService service = new TmdbService("apikey");
+Future main(List<String> arguments) async {
+  assert(arguments.length == 1);
+  TmdbService service = new TmdbService(arguments[0]);
   await service.initConfiguration();
 
   var pagedResult = await service.searchMovies("harry");
 
   for (var movie in pagedResult.results) {
+    print("${movie.title} - ${movie.voteAverage}");
+  }
+
+  var popular = await service.getPopularMovies(new MovieSearchSettings());
+
+  for (var movie in popular.results) {
     print("${movie.title} - ${movie.voteAverage}");
   }
 }

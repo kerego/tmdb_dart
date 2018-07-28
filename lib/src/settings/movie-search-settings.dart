@@ -11,8 +11,9 @@ class MovieSearchSettings {
   Resolution posterResolution;
   Resolution backdropResolution;
 
-  MovieSearchSettings(this.query,
-      {this.language = "en-US",
+  MovieSearchSettings(
+      {this.query,
+      this.language = "en-US",
       this.page = 1,
       this.includeAdult = false,
       this.posterResolution = Resolution.Mid,
