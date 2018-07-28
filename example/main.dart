@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:tmdb_dart/tmdb.dart';
+import 'package:tmdb_dart/tmdb_dart.dart';
 
 Future main() async {
   TmdbService service = new TmdbService("apikey");

@@ -1,5 +1,5 @@
 name: tmdb_dart
-version: 0.0.1
+version: 0.0.1+1
 description: >-
   API client for TheMovieDB 
 environment:
@@ -7,4 +7,4 @@ environment:
 author: Marian Bejenari <kerego@outlook.com>
 homepage: https://github.com/Kerego/dart_tmdb
 dependencies:
-  http: 0.11.3+17
+  http: ^0.11.3+17

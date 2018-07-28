@@ -1,4 +1,4 @@
-import 'package:tmdb_dart/tmdb.dart';
+import 'package:tmdb_dart/tmdb_dart.dart';
 
 class MovieBase {
   String posterPath;
