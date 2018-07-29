@@ -8,7 +8,10 @@
             "name": "Dart",
             "program": "example/main.dart",
             "request": "launch",
-            "type": "dart"
+            "type": "dart",
+            "args": [
+                "api_key"
+            ]
         }
     ]
 }

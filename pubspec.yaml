@@ -1,7 +1,7 @@
 name: tmdb_dart
-version: 0.0.2
+version: 0.0.3
 description: >-
-  API client for TheMovieDB 
+  Type Safe API client for TheMovieDB 
 environment:
   sdk: '>=2.0.0-dev <3.0.0'
 author: Marian Bejenari <kerego@outlook.com>

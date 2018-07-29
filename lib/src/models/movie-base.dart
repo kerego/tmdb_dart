@@ -1,6 +1,7 @@
 import 'package:tmdb_dart/tmdb_dart.dart';
 
 class MovieBase {
+  int id;
   String posterPath;
   bool adult;
   String overview;
@@ -17,22 +18,20 @@ class MovieBase {
 
   MovieBase() {}
 
-  MovieBase.fromJson(Map<String, dynamic> json, Configuration configuration,
-      MovieSearchSettings settings) {
-    posterPath = configuration.getPosterPath(
-        json["poster_path"], settings.posterResolution);
-    adult = json["adult"];
-    overview = json["overview"];
-    releaseDate = DateTime.parse(json["release_date"]);
+  MovieBase.fromJson(Map<String, dynamic> map, AssetResolver resolver) {
+    id = map["id"];
+    posterPath = resolver.getPosterPath(map["poster_path"]);
+    adult = map["adult"];
+    overview = map["overview"];
+    releaseDate = DateTime.parse(map["release_date"]);
     genreIds = List.castFrom(["genre_ids"]);
-    originalTitle = json["original_title"];
-    originalLanguage = json["original_language"];
-    title = json["title"];
-    backdropPath = configuration.getBackdropPath(
-        json["backdrop_path"], settings.backdropResolution);
-    popularity = json["popularity"];
-    voteCount = json["vote_count"];
-    video = json["video"];
-    voteAverage = json["vote_average"];
+    originalTitle = map["original_title"];
+    originalLanguage = map["original_language"];
+    title = map["title"];
+    backdropPath = resolver.getBackdropPath(map["backdrop_path"]);
+    popularity = map["popularity"];
+    voteCount = map["vote_count"];
+    video = map["video"];
+    voteAverage = map["vote_average"];
   }
 }

@@ -1,6 +1,15 @@
 export 'package:tmdb_dart/src/settings/configuration.dart';
+export 'package:tmdb_dart/src/settings/asset-resolver.dart';
 export 'package:tmdb_dart/src/settings/movie-search-settings.dart';
-export 'package:tmdb_dart/src/paged-result.dart';
+export 'package:tmdb_dart/src/settings/movie-append-settings.dart';
+export 'package:tmdb_dart/src/settings/quality-settings.dart';
+export 'package:tmdb_dart/src/models/paged-result.dart';
 export 'package:tmdb_dart/src/models/movie.dart';
+export 'package:tmdb_dart/src/models/genre.dart';
+export 'package:tmdb_dart/src/models/country.dart';
+export 'package:tmdb_dart/src/models/company.dart';
+export 'package:tmdb_dart/src/models/collection.dart';
+export 'package:tmdb_dart/src/models/image.dart';
+export 'package:tmdb_dart/src/models/image-collection.dart';
 export 'package:tmdb_dart/src/models/movie-base.dart';
 export 'package:tmdb_dart/src/services/tmdb-service.dart';

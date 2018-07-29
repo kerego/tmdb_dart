@@ -35,6 +35,38 @@ abstract class MovieService {
           MovieSearchSettings settings) =>
       _fetchPagedResult(settings, "3/movie/latest");
 
+  Future<Movie> getMovie(int id,
+      {String language = "en-US",
+      List<String> imageLanguages = const ["en", null],
+      MovieAppendSettings appendSettings,
+      QualitySettings qualitySettings}) async {
+    appendSettings = appendSettings ?? new MovieAppendSettings();
+    qualitySettings = qualitySettings ?? new QualitySettings();
+
+    var queryParams = {
+      "api_key": _apiKey,
+      "language": language,
+      "include_image_language": imageLanguages.join(","),
+      "append_to_response": appendSettings.toString()
+    };
+
+    Uri uri = _buildUri("3/movie/$id", queryParams);
+
+    Response response = await getWithResilience(uri);
+
+    if (response.statusCode != 200)
+      throw new Exception("request status not successful");
+
+    var map = json.decode(response.body);
+
+    var assetResolver = new AssetResolver(_configuration, qualitySettings);
+
+    var movie = new Movie.fromJson(map, assetResolver);
+    return movie;
+  }
+
+  Future<Response> getWithResilience(Uri uri);
+
   Future<PagedResult<MovieBase>> _fetchPagedResult(
       MovieSearchSettings settings, String url) async {
     var queryParams = settings.toJson()..["api_key"] = _apiKey;
@@ -42,19 +74,22 @@ abstract class MovieService {
 
     Response response = await getWithResilience(uri);
 
+    if (response.statusCode != 200)
+      throw new Exception("request status not successful");
+
     PagedResult<MovieBase> pagedResult =
         await _decodeToPagedResult(response, settings);
 
     return pagedResult;
   }
 
-  Future<Response> getWithResilience(Uri uri);
-
   Future<PagedResult<MovieBase>> _decodeToPagedResult(
       Response response, MovieSearchSettings settings) async {
     var map = json.decode(response.body);
+
+    var assetResolver = new AssetResolver(_configuration, settings.quality);
     var movieBaseFactory =
-        (json) => new MovieBase.fromJson(json, _configuration, settings);
+        (json) => new MovieBase.fromJson(json, assetResolver);
     PagedResult<MovieBase> pagedResult =
         new PagedResult<MovieBase>.fromJson(map, movieBaseFactory);
     return pagedResult;

@@ -21,8 +21,4 @@ abstract class ConfigurationService {
 
     return json.encode(config);
   }
-
-  String getPosterPath(String content) {
-    return _configuration.getPosterPath(content);
-  }
 }

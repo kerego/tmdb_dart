@@ -8,19 +8,19 @@ class MovieSearchSettings {
   String region;
   int year;
   int primaryReleaseYear;
-  Resolution posterResolution;
-  Resolution backdropResolution;
+  QualitySettings quality;
 
   MovieSearchSettings(
       {this.query,
       this.language = "en-US",
       this.page = 1,
       this.includeAdult = false,
-      this.posterResolution = Resolution.Mid,
-      this.backdropResolution = Resolution.Mid,
       this.region,
       this.year,
-      this.primaryReleaseYear}) {}
+      this.primaryReleaseYear,
+      QualitySettings quality}) {
+    this.quality = quality ?? new QualitySettings();
+  }
 
   Map<String, dynamic> toJson() {
     var map = new Map<String, dynamic>();
