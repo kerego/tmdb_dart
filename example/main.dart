@@ -18,8 +18,12 @@ Future main(List<String> arguments) async {
     print("${movie.title} - ${movie.voteAverage}");
   }
 
-  var movie = await service.getMovie(671);
-  print(movie.images.posters.length);
+  var movie = await service.getMovie(671,
+      appendSettings: MovieAppendSettings(
+          includeRecommendations: true, includeSimilarMovies: true));
+
+  print("${movie.recommendations[0].title}");
+  print("${movie.similar[0].title}");
 }
 
 // generate many requests

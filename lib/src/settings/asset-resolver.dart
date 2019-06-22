@@ -1,31 +1,32 @@
-import 'package:tmdb_dart/tmdb_dart.dart';
+import 'configuration.dart';
+import 'quality-settings.dart';
 
 class AssetResolver {
   Configuration _configuration;
   QualitySettings _qualitySettings;
   AssetResolver(this._configuration, this._qualitySettings) {}
 
-  getBackdropPath(String assetUrl) {
+  String getBackdropPath(String assetUrl) {
     return _getPathWithResolution(assetUrl, _configuration.backdropSizes,
         _qualitySettings.backdropQuality);
   }
 
-  getLogoPath(String assetUrl) {
+  String getLogoPath(String assetUrl) {
     return _getPathWithResolution(
         assetUrl, _configuration.logoSizes, _qualitySettings.logoQuality);
   }
 
-  getPosterPath(String assetUrl) {
+  String getPosterPath(String assetUrl) {
     return _getPathWithResolution(
         assetUrl, _configuration.posterSizes, _qualitySettings.posterQuality);
   }
 
-  getProfilePath(String assetUrl) {
+  String getProfilePath(String assetUrl) {
     return _getPathWithResolution(
         assetUrl, _configuration.profileSizes, _qualitySettings.profileQuality);
   }
 
-  getStillPath(String assetUrl) {
+  String getStillPath(String assetUrl) {
     return _getPathWithResolution(
         assetUrl, _configuration.stillSizes, _qualitySettings.stillQuality);
   }

@@ -1,4 +1,4 @@
-import 'package:tmdb_dart/tmdb_dart.dart';
+import '../settings/asset-resolver.dart';
 
 class Collection {
   int id;

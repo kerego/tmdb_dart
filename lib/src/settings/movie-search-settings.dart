@@ -1,4 +1,4 @@
-import 'package:tmdb_dart/tmdb_dart.dart';
+import 'quality-settings.dart';
 
 class MovieSearchSettings {
   String language;

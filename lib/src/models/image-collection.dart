@@ -1,4 +1,5 @@
-import 'package:tmdb_dart/tmdb_dart.dart';
+import 'image.dart';
+import '../settings/asset-resolver.dart';
 
 class ImageCollection {
   List<Image> backdrops;

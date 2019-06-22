@@ -1,4 +1,4 @@
-import 'package:tmdb_dart/tmdb_dart.dart';
+import '../settings/asset-resolver.dart';
 
 class MovieBase {
   int id;
@@ -16,8 +16,6 @@ class MovieBase {
   bool video;
   num voteAverage;
 
-  MovieBase() {}
-
   MovieBase.fromJson(Map<String, dynamic> map, AssetResolver resolver) {
     id = map["id"];
     posterPath = resolver.getPosterPath(map["poster_path"]);
@@ -34,4 +32,7 @@ class MovieBase {
     video = map["video"];
     voteAverage = map["vote_average"];
   }
+  
+  static List<MovieBase> listFromJson(List<dynamic> list, AssetResolver resolver) =>
+      list.map((x) => new MovieBase.fromJson(x, resolver)).toList(growable: false);
 }

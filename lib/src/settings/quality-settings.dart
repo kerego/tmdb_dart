@@ -1,4 +1,4 @@
-import 'package:tmdb_dart/tmdb_dart.dart';
+import 'asset-resolver.dart';
 
 class QualitySettings {
   AssetQuality posterQuality;
