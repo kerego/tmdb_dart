@@ -33,3 +33,8 @@
     5. Videos
     6. Recommendations
     7. Similar Movies
+
+## 0.0.6
+
+* Asset Resolver now resolves null urls to null instead of prepending image url
+* MovieBase constructor does not fail anymore on null release date

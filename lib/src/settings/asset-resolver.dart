@@ -33,6 +33,10 @@ class AssetResolver {
 
   _getPathWithResolution(
       String contentUrl, List<String> sizes, AssetQuality resolution) {
+    if (contentUrl == null || contentUrl.isEmpty) {
+      return null;
+    }
+
     switch (resolution) {
       case AssetQuality.Highest:
         return _getPathWithSize(contentUrl, sizes, sizes.length - 1);
@@ -44,11 +48,9 @@ class AssetResolver {
   }
 
   _getPathWithSize(String contentUrl, List<String> sizes, int size) {
-    if (size < 0)
-      size = 0;
-    else if (size > sizes.length - 1) size = sizes.length - 1;
+    final clampedSize = size.clamp(0, sizes.length - 1);
 
-    var sizeUrl = sizes[size];
+    final sizeUrl = sizes[clampedSize];
     return "${_configuration.secureBaseUrl}$sizeUrl$contentUrl";
   }
 }

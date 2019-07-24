@@ -21,7 +21,7 @@ class MovieBase {
     posterPath = resolver.getPosterPath(map["poster_path"]);
     adult = map["adult"];
     overview = map["overview"];
-    releaseDate = DateTime.parse(map["release_date"]);
+    releaseDate = DateTime.tryParse(map["release_date"]);
     genreIds = List.castFrom(["genre_ids"]);
     originalTitle = map["original_title"];
     originalLanguage = map["original_language"];
