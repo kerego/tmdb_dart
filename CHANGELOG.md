@@ -38,3 +38,7 @@
 
 * Asset Resolver now resolves null urls to null instead of prepending image url
 * MovieBase constructor does not fail anymore on null release date
+
+## 0.0.7
+
+* Fix for null properties in serialized movie search settings

@@ -26,11 +26,14 @@ class MovieSearchSettings {
     var map = new Map<String, dynamic>();
     map["language"] = language;
     map["query"] = query;
-    map["page"] = page.toString();
-    map["include_adult"] = includeAdult.toString();
+    map["page"] = page?.toString();
+    map["include_adult"] = includeAdult?.toString();
     map["region"] = region;
-    map["year"] = year.toString();
-    map["primary_release_year"] = primaryReleaseYear.toString();
+    map["year"] = year?.toString();
+    map["primary_release_year"] = primaryReleaseYear?.toString();
+
+    map.removeWhere((_, value) => value == null);
+
     return map;
   }
 }

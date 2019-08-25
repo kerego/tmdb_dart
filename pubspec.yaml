@@ -1,5 +1,5 @@
 name: tmdb_dart
-version: 0.0.6
+version: 0.0.7
 description: >-
   Type Safe API client for TheMovieDB 
 environment:
