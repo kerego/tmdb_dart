@@ -19,5 +19,5 @@ class TmdbService extends Object
   Configuration _configuration;
   final String _apiKey;
 
-  TmdbService(this._apiKey) {}
+  TmdbService(this._apiKey);
 }

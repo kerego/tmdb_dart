@@ -42,3 +42,8 @@
 ## 0.0.7
 
 * Fix for null properties in serialized movie search settings
+
+## 0.0.8
+
+* Fix code style according to dartfmt
+* Rename Image to ImageInfo for better import resolution when used with flutter

@@ -1,4 +1,4 @@
-class Image {
+class ImageInfo {
   num aspectRatio;
   String filePath;
   int height;
@@ -7,7 +7,8 @@ class Image {
   int voteCount;
   int width;
 
-  Image.fromJson(Map<String, dynamic> map, String resolveAsset(String path)) {
+  ImageInfo.fromJson(
+      Map<String, dynamic> map, String resolveAsset(String path)) {
     aspectRatio = map["aspect_ratio"];
     filePath = resolveAsset(map["file_path"]);
     height = map["height"];
@@ -17,9 +18,9 @@ class Image {
     width = map["width"];
   }
 
-  static List<Image> listFromJson(
+  static List<ImageInfo> listFromJson(
           List<dynamic> list, String resolveAsset(String path)) =>
       list
-          .map((x) => new Image.fromJson(x, resolveAsset))
+          .map((x) => new ImageInfo.fromJson(x, resolveAsset))
           .toList(growable: false);
 }

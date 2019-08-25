@@ -54,8 +54,9 @@ abstract class MovieService {
 
     Response response = await getWithResilience(uri);
 
-    if (response.statusCode != 200)
+    if (response.statusCode != 200) {
       throw new Exception("request status not successful");
+    }
 
     var map = json.decode(response.body);
 
@@ -74,8 +75,9 @@ abstract class MovieService {
 
     Response response = await getWithResilience(uri);
 
-    if (response.statusCode != 200)
+    if (response.statusCode != 200) {
       throw new Exception("request status not successful");
+    }
 
     PagedResult<MovieBase> pagedResult =
         await _decodeToPagedResult(response, settings);

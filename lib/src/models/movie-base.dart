@@ -32,7 +32,10 @@ class MovieBase {
     video = map["video"];
     voteAverage = map["vote_average"];
   }
-  
-  static List<MovieBase> listFromJson(List<dynamic> list, AssetResolver resolver) =>
-      list.map((x) => new MovieBase.fromJson(x, resolver)).toList(growable: false);
+
+  static List<MovieBase> listFromJson(
+          List<dynamic> list, AssetResolver resolver) =>
+      list
+          .map((x) => new MovieBase.fromJson(x, resolver))
+          .toList(growable: false);
 }

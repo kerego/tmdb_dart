@@ -12,5 +12,5 @@ class QualitySettings {
       this.backdropQuality = AssetQuality.Mid,
       this.logoQuality = AssetQuality.Mid,
       this.profileQuality = AssetQuality.Mid,
-      this.stillQuality = AssetQuality.Mid}) {}
+      this.stillQuality = AssetQuality.Mid});
 }

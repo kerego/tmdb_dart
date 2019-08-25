@@ -4,7 +4,7 @@ import 'quality-settings.dart';
 class AssetResolver {
   Configuration _configuration;
   QualitySettings _qualitySettings;
-  AssetResolver(this._configuration, this._qualitySettings) {}
+  AssetResolver(this._configuration, this._qualitySettings);
 
   String getBackdropPath(String assetUrl) {
     return _getPathWithResolution(assetUrl, _configuration.backdropSizes,

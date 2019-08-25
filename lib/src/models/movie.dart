@@ -58,31 +58,39 @@ class Movie extends MovieBase {
     status = map["status"];
     tagline = map["tagline"];
 
-    if (map.containsKey("images"))
+    if (map.containsKey("images")) {
       images = new ImageCollection.fromJson(map["images"], assetResolver);
+    }
 
-    if (map.containsKey("alternative_titles"))
+    if (map.containsKey("alternative_titles")) {
       alternativeTitles =
           AlternativeTitle.listFromJson(map["alternative_titles"]["titles"]);
+    }
 
-    if (map.containsKey("credits"))
+    if (map.containsKey("credits")) {
       credits = Credits.fromJson(map["credits"], assetResolver);
+    }
 
-    if (map.containsKey("external_ids"))
+    if (map.containsKey("external_ids")) {
       externalIds = ExternalInfo.fromJson(map["external_ids"]);
+    }
 
-    if (map.containsKey("keywords"))
+    if (map.containsKey("keywords")) {
       keywords = Keyword.listFromJson(map["keywords"]["keywords"]);
+    }
 
-    if (map.containsKey("videos"))
+    if (map.containsKey("videos")) {
       videos = Video.listFromJson(map["videos"]["results"]);
+    }
 
-    if (map.containsKey("recommendations"))
+    if (map.containsKey("recommendations")) {
       recommendations = MovieBase.listFromJson(
           map["recommendations"]["results"], assetResolver);
+    }
 
-    if (map.containsKey("similar_movies"))
+    if (map.containsKey("similar_movies")) {
       similar = MovieBase.listFromJson(
           map["similar_movies"]["results"], assetResolver);
+    }
   }
 }

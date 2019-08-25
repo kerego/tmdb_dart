@@ -1,14 +1,15 @@
-import 'image.dart';
+import 'image-info.dart';
 import '../settings/asset-resolver.dart';
 
 class ImageCollection {
-  List<Image> backdrops;
-  List<Image> posters;
+  List<ImageInfo> backdrops;
+  List<ImageInfo> posters;
 
   ImageCollection.fromJson(
       Map<String, dynamic> map, AssetResolver assetResolver) {
-    posters = Image.listFromJson(map["posters"], assetResolver.getPosterPath);
+    posters =
+        ImageInfo.listFromJson(map["posters"], assetResolver.getPosterPath);
     backdrops =
-        Image.listFromJson(map["backdrops"], assetResolver.getBackdropPath);
+        ImageInfo.listFromJson(map["backdrops"], assetResolver.getBackdropPath);
   }
 }

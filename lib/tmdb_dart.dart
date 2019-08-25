@@ -9,7 +9,7 @@ export 'src/models/genre.dart';
 export 'src/models/country.dart';
 export 'src/models/company.dart';
 export 'src/models/collection.dart';
-export 'src/models/image.dart';
+export 'src/models/image-info.dart';
 export 'src/models/image-collection.dart';
 export 'src/models/movie-base.dart';
 
