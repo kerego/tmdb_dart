@@ -22,7 +22,7 @@ class MovieBase {
     adult = map["adult"];
     overview = map["overview"];
     releaseDate = DateTime.tryParse(map["release_date"]);
-    genreIds = List.castFrom(["genre_ids"]);
+    genreIds = List.castFrom(map["genre_ids"]);
     originalTitle = map["original_title"];
     originalLanguage = map["original_language"];
     title = map["title"];
