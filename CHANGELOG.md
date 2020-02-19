@@ -47,3 +47,7 @@
 
 * Fix code style according to dartfmt
 * Rename Image to ImageInfo for better import resolution when used with flutter
+
+## 0.0.9
+
+* [Akash Mondal](https://github.com/Akash98Sky) - fix typo in MovieBase constructor causing exceptions when accesing movie genres
