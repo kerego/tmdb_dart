@@ -1,8 +1,6 @@
 part of 'tmdb-service.dart';
 
 abstract class ResilientService {
-  String _apiKey;
-
   Future<Response> getWithResilience(Uri uri) async {
     var response = await get(uri);
     if (response.statusCode == 429) {

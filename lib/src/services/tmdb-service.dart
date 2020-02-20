@@ -16,8 +16,9 @@ part 'resilient-service.dart';
 
 class TmdbService extends Object
     with MovieService, ConfigurationService, ResilientService {
-  Configuration _configuration;
   final String _apiKey;
 
-  TmdbService(this._apiKey);
+  TmdbService(this._apiKey) : assert(_apiKey != null);
+
+  Future<Configuration> initConfiguration() => _initConfiguration(_apiKey);
 }

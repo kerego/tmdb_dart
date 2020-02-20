@@ -1,24 +1,22 @@
 part of 'tmdb-service.dart';
 
 abstract class ConfigurationService {
+  final String _configUrl = "https://api.themoviedb.org/3/configuration";
+
   Configuration _configuration;
 
-  String _configUrl = "https://api.themoviedb.org/3/configuration";
-  String _apiKey;
+  Configuration get configuration => _configuration;
 
-  void provideConfiguration(String configuration) {
-    var map = json.decode(configuration);
-    _configuration = Configuration.fromJson(map);
+  void set configuration(Configuration configuration) {
+    assert(configuration != null);
+    _configuration = configuration;
   }
 
-  Future<String> initConfiguration() async {
-    String url = "$_configUrl?api_key=$_apiKey";
-    Response response = await get(url);
+  Future<Configuration> _initConfiguration(String apiKey) async {
+    Response response = await get("$_configUrl?api_key=$apiKey");
     Map<String, dynamic> map = json.decode(response.body);
-    Configuration config = Configuration.fromJson(map);
+    _configuration = Configuration.fromJson(map);
 
-    _configuration = config;
-
-    return json.encode(config);
+    return _configuration;
   }
 }
