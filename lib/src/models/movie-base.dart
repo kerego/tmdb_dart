@@ -36,8 +36,8 @@ class MovieBase {
   }
 
   static List<MovieBase> listFromJson(
-          List<dynamic> list, AssetResolver resolver) =>
-      list
-          .map((x) => new MovieBase.fromJson(x, resolver))
-          .toList(growable: false);
+    List<dynamic> list,
+    AssetResolver resolver,
+  ) =>
+      list.map((x) => MovieBase.fromJson(x, resolver)).toList(growable: false);
 }

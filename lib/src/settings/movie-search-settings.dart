@@ -19,11 +19,11 @@ class MovieSearchSettings {
       this.year,
       this.primaryReleaseYear,
       QualitySettings quality}) {
-    this.quality = quality ?? new QualitySettings();
+    this.quality = quality ?? QualitySettings();
   }
 
   Map<String, dynamic> toJson() {
-    var map = new Map<String, dynamic>();
+    var map = Map<String, dynamic>();
     map["language"] = language;
     map["query"] = query;
     map["page"] = page?.toString();

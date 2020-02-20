@@ -8,14 +8,14 @@ abstract class ConfigurationService {
 
   void provideConfiguration(String configuration) {
     var map = json.decode(configuration);
-    _configuration = new Configuration.fromJson(map);
+    _configuration = Configuration.fromJson(map);
   }
 
   Future<String> initConfiguration() async {
     String url = "$_configUrl?api_key=$_apiKey";
     Response response = await get(url);
     Map<String, dynamic> map = json.decode(response.body);
-    Configuration config = new Configuration.fromJson(map);
+    Configuration config = Configuration.fromJson(map);
 
     _configuration = config;
 

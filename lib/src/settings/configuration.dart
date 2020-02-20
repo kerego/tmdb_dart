@@ -8,8 +8,8 @@ class Configuration {
   List<String> stillSizes;
 
   Map<String, dynamic> toJson() {
-    Map<String, dynamic> map = new Map<String, dynamic>();
-    Map<String, dynamic> imagesMap = new Map<String, dynamic>();
+    Map<String, dynamic> map = Map<String, dynamic>();
+    Map<String, dynamic> imagesMap = Map<String, dynamic>();
 
     imagesMap["base_url"] = baseUrl;
     imagesMap["secure_base_url"] = secureBaseUrl;
@@ -30,11 +30,11 @@ class Configuration {
     baseUrl = json["base_url"];
     secureBaseUrl = json["secure_base_url"];
     backdropSizes =
-        new List<String>.from(json["backdrop_sizes"], growable: false);
-    logoSizes = new List<String>.from(json["logo_sizes"], growable: false);
-    posterSizes = new List<String>.from(json["poster_sizes"], growable: false);
+        List<String>.from(json["backdrop_sizes"], growable: false);
+    logoSizes = List<String>.from(json["logo_sizes"], growable: false);
+    posterSizes = List<String>.from(json["poster_sizes"], growable: false);
     profileSizes =
-        new List<String>.from(json["profile_sizes"], growable: false);
-    stillSizes = new List<String>.from(json["still_sizes"], growable: false);
+        List<String>.from(json["profile_sizes"], growable: false);
+    stillSizes = List<String>.from(json["still_sizes"], growable: false);
   }
 }

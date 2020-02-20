@@ -10,5 +10,5 @@ class AlternativeTitle {
   }
 
   static List<AlternativeTitle> listFromJson(List<dynamic> list) =>
-      list.map((x) => new AlternativeTitle.fromJson(x)).toList(growable: false);
+      list.map((x) => AlternativeTitle.fromJson(x)).toList(growable: false);
 }

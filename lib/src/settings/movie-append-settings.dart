@@ -27,7 +27,7 @@ class MovieAppendSettings {
 
   @override
   String toString() {
-    var buffer = new StringBuffer();
+    var buffer = StringBuffer();
     if (includeAlternativeTitles) {
       buffer.write("alternative_titles,");
     }

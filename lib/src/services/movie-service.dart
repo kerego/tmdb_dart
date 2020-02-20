@@ -5,7 +5,7 @@ abstract class MovieService {
   String _apiKey;
 
   Future<PagedResult<MovieBase>> searchMovies(String query, {int page}) {
-    var settings = new MovieSearchSettings(query: query, page: page);
+    var settings = MovieSearchSettings(query: query, page: page);
     return advancedSearchMovies(settings);
   }
 
@@ -40,8 +40,8 @@ abstract class MovieService {
       List<String> imageLanguages = const ["en", null],
       MovieAppendSettings appendSettings,
       QualitySettings qualitySettings}) async {
-    appendSettings = appendSettings ?? new MovieAppendSettings();
-    qualitySettings = qualitySettings ?? new QualitySettings();
+    appendSettings = appendSettings ?? MovieAppendSettings();
+    qualitySettings = qualitySettings ?? QualitySettings();
 
     var queryParams = {
       "api_key": _apiKey,
@@ -55,14 +55,14 @@ abstract class MovieService {
     Response response = await getWithResilience(uri);
 
     if (response.statusCode != 200) {
-      throw new Exception("request status not successful");
+      throw Exception("request status not successful");
     }
 
     var map = json.decode(response.body);
 
-    var assetResolver = new AssetResolver(_configuration, qualitySettings);
+    var assetResolver = AssetResolver(_configuration, qualitySettings);
 
-    var movie = new Movie.fromJson(map, assetResolver);
+    var movie = Movie.fromJson(map, assetResolver);
     return movie;
   }
 
@@ -76,7 +76,7 @@ abstract class MovieService {
     Response response = await getWithResilience(uri);
 
     if (response.statusCode != 200) {
-      throw new Exception("request status not successful");
+      throw Exception("request status not successful");
     }
 
     PagedResult<MovieBase> pagedResult =
@@ -89,16 +89,16 @@ abstract class MovieService {
       Response response, MovieSearchSettings settings) async {
     var map = json.decode(response.body);
 
-    var assetResolver = new AssetResolver(_configuration, settings.quality);
-    var movieBaseFactory =
-        (json) => new MovieBase.fromJson(json, assetResolver);
+    var assetResolver = AssetResolver(_configuration, settings.quality);
+    var movieBaseFactory = (json) => MovieBase.fromJson(json, assetResolver);
+
     PagedResult<MovieBase> pagedResult =
-        new PagedResult<MovieBase>.fromJson(map, movieBaseFactory);
+        PagedResult<MovieBase>.fromJson(map, movieBaseFactory);
     return pagedResult;
   }
 
   Uri _buildUri(String path, Map<String, dynamic> queryParams) {
-    Uri uri = new Uri(
+    Uri uri = Uri(
         scheme: "https",
         host: "api.themoviedb.org",
         path: path,

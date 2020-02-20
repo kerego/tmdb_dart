@@ -43,7 +43,7 @@ class Movie extends MovieBase {
   Movie.fromJson(Map<String, dynamic> map, AssetResolver assetResolver)
       : super.fromJson(map, assetResolver) {
     belongsToCollection = map["belongs_to_collection"] != null
-        ? new Collection.fromJson(map["belongs_to_collection"], assetResolver)
+        ? Collection.fromJson(map["belongs_to_collection"], assetResolver)
         : null;
     budget = map["budget"];
     genres = Genre.listFromJson(map["genres"]);
@@ -59,7 +59,7 @@ class Movie extends MovieBase {
     tagline = map["tagline"];
 
     if (map.containsKey("images")) {
-      images = new ImageCollection.fromJson(map["images"], assetResolver);
+      images = ImageCollection.fromJson(map["images"], assetResolver);
     }
 
     if (map.containsKey("alternative_titles")) {
