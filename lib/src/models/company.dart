@@ -14,8 +14,10 @@ class Company {
   }
 
   static List<Company> listFromJson(
-          List<dynamic> list, AssetResolver assetResolver) =>
+    List<dynamic> list,
+    AssetResolver assetResolver,
+  ) =>
       list
-          .map((x) => new Company.fromJson(x, assetResolver))
+          .map((x) => Company.fromJson(x, assetResolver))
           .toList(growable: false);
 }

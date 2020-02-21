@@ -1,15 +1,15 @@
 class Configuration {
-  String baseUrl;
-  String secureBaseUrl;
-  List<String> backdropSizes;
-  List<String> logoSizes;
-  List<String> posterSizes;
-  List<String> profileSizes;
-  List<String> stillSizes;
+  final String baseUrl;
+  final String secureBaseUrl;
+  final List<String> backdropSizes;
+  final List<String> logoSizes;
+  final List<String> posterSizes;
+  final List<String> profileSizes;
+  final List<String> stillSizes;
 
   Map<String, dynamic> toJson() {
-    Map<String, dynamic> map = new Map<String, dynamic>();
-    Map<String, dynamic> imagesMap = new Map<String, dynamic>();
+    Map<String, dynamic> map = Map<String, dynamic>();
+    Map<String, dynamic> imagesMap = Map<String, dynamic>();
 
     imagesMap["base_url"] = baseUrl;
     imagesMap["secure_base_url"] = secureBaseUrl;
@@ -24,17 +24,33 @@ class Configuration {
     return map;
   }
 
-  Configuration.fromJson(Map<String, dynamic> json) {
+  Configuration({
+    this.baseUrl,
+    this.secureBaseUrl,
+    this.backdropSizes,
+    this.logoSizes,
+    this.posterSizes,
+    this.profileSizes,
+    this.stillSizes,
+  })  : assert(baseUrl != null),
+        assert(secureBaseUrl != null),
+        assert(backdropSizes != null && backdropSizes.isNotEmpty),
+        assert(logoSizes != null && logoSizes.isNotEmpty),
+        assert(posterSizes != null && posterSizes.isNotEmpty),
+        assert(profileSizes != null && profileSizes.isNotEmpty),
+        assert(stillSizes != null && stillSizes.isNotEmpty);
+
+  factory Configuration.fromJson(Map<String, dynamic> json) {
     json = json["images"];
 
-    baseUrl = json["base_url"];
-    secureBaseUrl = json["secure_base_url"];
-    backdropSizes =
-        new List<String>.from(json["backdrop_sizes"], growable: false);
-    logoSizes = new List<String>.from(json["logo_sizes"], growable: false);
-    posterSizes = new List<String>.from(json["poster_sizes"], growable: false);
-    profileSizes =
-        new List<String>.from(json["profile_sizes"], growable: false);
-    stillSizes = new List<String>.from(json["still_sizes"], growable: false);
+    return Configuration(
+      baseUrl: json["base_url"],
+      secureBaseUrl: json["secure_base_url"],
+      backdropSizes: List<String>.from(json["backdrop_sizes"], growable: false),
+      logoSizes: List<String>.from(json["logo_sizes"], growable: false),
+      posterSizes: List<String>.from(json["poster_sizes"], growable: false),
+      profileSizes: List<String>.from(json["profile_sizes"], growable: false),
+      stillSizes: List<String>.from(json["still_sizes"], growable: false),
+    );
   }
 }

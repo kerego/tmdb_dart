@@ -8,5 +8,5 @@ class Genre {
   }
 
   static List<Genre> listFromJson(List<dynamic> list) =>
-      list.map((x) => new Genre.fromJson(x)).toList(growable: false);
+      list.map((x) => Genre.fromJson(x)).toList(growable: false);
 }

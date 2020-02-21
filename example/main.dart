@@ -3,7 +3,9 @@ import 'package:tmdb_dart/tmdb_dart.dart';
 
 Future main(List<String> arguments) async {
   assert(arguments.length == 1);
-  TmdbService service = new TmdbService(arguments[0]);
+  TmdbService service = TmdbService(arguments[0]);
+
+  // auto configure api based on default configuration
   await service.initConfiguration();
 
   var pagedResult = await service.searchMovies("harry");
@@ -12,7 +14,18 @@ Future main(List<String> arguments) async {
     print("${movie.title} - ${movie.voteAverage}");
   }
 
-  var popular = await service.getPopularMovies(new MovieSearchSettings());
+  // OR custom configure api based on your requirments
+  service.configuration = Configuration(
+    baseUrl: "http://image.tmdb.org/t/p/",
+    secureBaseUrl: "https://image.tmdb.org/t/p/",
+    backdropSizes: ["original"],
+    logoSizes: ["original"],
+    posterSizes: ["original"],
+    profileSizes: ["original"],
+    stillSizes: ["original"],
+  );
+
+  var popular = await service.getPopularMovies(MovieSearchSettings());
 
   for (var movie in popular.results) {
     print("${movie.title} - ${movie.voteAverage}");
@@ -30,7 +43,7 @@ Future main(List<String> arguments) async {
 // number of requests is over the allowed threshold
 // but thanks to integrated resilience, all the requests are completed successfully
 Future resilienceExample(TmdbService service) async {
-  var futures = new Iterable.generate(100)
+  var futures = Iterable.generate(100)
       .map((x) => service.searchMovies(x.toString()))
       .toList();
   await Future.wait(futures);

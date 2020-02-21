@@ -8,5 +8,5 @@ class Country {
   }
 
   static List<Country> listFromJson(List<dynamic> list) =>
-      list.map((x) => new Country.fromJson(x)).toList(growable: false);
+      list.map((x) => Country.fromJson(x)).toList(growable: false);
 }

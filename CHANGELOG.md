@@ -50,4 +50,11 @@
 
 ## 0.0.9
 
-* [Akash Mondal](https://github.com/Akash98Sky) - fix typo in MovieBase constructor causing exceptions when accesing movie genres
+* [Akash Mondal](https://github.com/Akash98Sky) - Fix typo in MovieBase constructor causing exceptions when accesing movie genres
+
+## 0.0.10
+
+* [Akash Mondal](https://github.com/Akash98Sky) - Fix Exception:ArgumentError while parsing release_date at MovieBase.fromJson() constructor
+* [Akash Mondal](https://github.com/Akash98Sky) - Remove unnecessary new keywords and Re-format some code
+* [Akash Mondal](https://github.com/Akash98Sky) - Fix warnings due to unused variables and Improve some codes
+* [Akash Mondal](https://github.com/Akash98Sky) - Add assertion to parameters of TmdbService, Configuration constructors

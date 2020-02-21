@@ -25,8 +25,8 @@ class Cast {
   }
 
   static List<Cast> listFromJson(
-          List<dynamic> list, AssetResolver assetResolver) =>
-      list
-          .map((x) => new Cast.fromJson(x, assetResolver))
-          .toList(growable: false);
+    List<dynamic> list,
+    AssetResolver assetResolver,
+  ) =>
+      list.map((x) => Cast.fromJson(x, assetResolver)).toList(growable: false);
 }

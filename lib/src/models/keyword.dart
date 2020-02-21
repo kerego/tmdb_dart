@@ -8,5 +8,5 @@ class Keyword {
   }
 
   static List<Keyword> listFromJson(List<dynamic> list) =>
-      list.map((x) => new Keyword.fromJson(x)).toList(growable: false);
+      list.map((x) => Keyword.fromJson(x)).toList(growable: false);
 }

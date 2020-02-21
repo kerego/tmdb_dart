@@ -21,7 +21,9 @@ class MovieBase {
     posterPath = resolver.getPosterPath(map["poster_path"]);
     adult = map["adult"];
     overview = map["overview"];
-    releaseDate = DateTime.tryParse(map["release_date"]);
+    releaseDate = map["release_date"] == null
+        ? null
+        : DateTime.tryParse(map["release_date"]);
     genreIds = List.castFrom(map["genre_ids"]);
     originalTitle = map["original_title"];
     originalLanguage = map["original_language"];
@@ -34,8 +36,8 @@ class MovieBase {
   }
 
   static List<MovieBase> listFromJson(
-          List<dynamic> list, AssetResolver resolver) =>
-      list
-          .map((x) => new MovieBase.fromJson(x, resolver))
-          .toList(growable: false);
+    List<dynamic> list,
+    AssetResolver resolver,
+  ) =>
+      list.map((x) => MovieBase.fromJson(x, resolver)).toList(growable: false);
 }

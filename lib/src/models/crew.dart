@@ -25,6 +25,6 @@ class Crew {
   static List<Crew> listFromJson(
           List<dynamic> list, AssetResolver assetResolver) =>
       list
-          .map((x) => new Crew.fromJson(x, assetResolver))
+          .map((x) => Crew.fromJson(x, assetResolver))
           .toList(growable: false);
 }
