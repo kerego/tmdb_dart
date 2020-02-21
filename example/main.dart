@@ -4,6 +4,8 @@ import 'package:tmdb_dart/tmdb_dart.dart';
 Future main(List<String> arguments) async {
   assert(arguments.length == 1);
   TmdbService service = TmdbService(arguments[0]);
+
+  // auto configure api based on default configuration
   await service.initConfiguration();
 
   var pagedResult = await service.searchMovies("harry");
@@ -11,6 +13,17 @@ Future main(List<String> arguments) async {
   for (var movie in pagedResult.results) {
     print("${movie.title} - ${movie.voteAverage}");
   }
+
+  // OR custom configure api based on your requirments
+  service.configuration = Configuration(
+    baseUrl: "http://image.tmdb.org/t/p/",
+    secureBaseUrl: "https://image.tmdb.org/t/p/",
+    backdropSizes: ["original"],
+    logoSizes: ["original"],
+    posterSizes: ["original"],
+    profileSizes: ["original"],
+    stillSizes: ["original"],
+  );
 
   var popular = await service.getPopularMovies(MovieSearchSettings());
 
