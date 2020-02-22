@@ -31,32 +31,48 @@ class AssetResolver {
         assetUrl, _configuration.stillSizes, _qualitySettings.stillQuality);
   }
 
-  _getPathWithResolution(
-      String contentUrl, List<String> sizes, AssetQuality resolution) {
-    if (contentUrl == null || contentUrl.isEmpty) {
-      return null;
-    }
+  String _getPathWithResolution(
+    String contentUrl,
+    List<String> sizes,
+    AssetQuality resolution,
+  ) {
+    if (contentUrl == null || contentUrl.isEmpty) return null;
 
     switch (resolution) {
-      case AssetQuality.Highest:
-        return _getPathWithSize(contentUrl, sizes, sizes.length - 1);
-      case AssetQuality.Lowest:
-        return _getPathWithSize(contentUrl, sizes, 0);
+      case AssetQuality.Original:
+        return _getPathWithSize(
+          contentUrl,
+          sizes[sizes.length - 1],
+        );
+      case AssetQuality.High:
+        return _getPathWithSize(
+          contentUrl,
+          sizes[(sizes.length - 2).clamp(0, sizes.length)],
+        );
+      case AssetQuality.Low:
+        return _getPathWithSize(
+          contentUrl,
+          sizes[0],
+        );
       case AssetQuality.Mid:
-        return _getPathWithSize(contentUrl, sizes, (sizes.length / 2).round());
+      default:
+        return _getPathWithSize(
+          contentUrl,
+          sizes[((sizes.length - 1) / 2).round()],
+        );
     }
   }
 
-  _getPathWithSize(String contentUrl, List<String> sizes, int size) {
-    final clampedSize = size.clamp(0, sizes.length - 1);
-
-    final sizeUrl = sizes[clampedSize];
-    return "${_configuration.secureBaseUrl}$sizeUrl$contentUrl";
-  }
+  String _getPathWithSize(
+    String contentUrl,
+    String sizeUrl,
+  ) =>
+      "${_configuration.secureBaseUrl}$sizeUrl$contentUrl";
 }
 
 enum AssetQuality {
-  Lowest,
+  Low,
   Mid,
-  Highest,
+  High,
+  Original,
 }

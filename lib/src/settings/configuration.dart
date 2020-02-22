@@ -32,13 +32,26 @@ class Configuration {
     this.posterSizes,
     this.profileSizes,
     this.stillSizes,
-  })  : assert(baseUrl != null),
-        assert(secureBaseUrl != null),
-        assert(backdropSizes != null && backdropSizes.isNotEmpty),
-        assert(logoSizes != null && logoSizes.isNotEmpty),
-        assert(posterSizes != null && posterSizes.isNotEmpty),
-        assert(profileSizes != null && profileSizes.isNotEmpty),
-        assert(stillSizes != null && stillSizes.isNotEmpty);
+  }) {
+    assert(baseUrl != null);
+    assert(secureBaseUrl != null);
+    assert(backdropSizes != null && backdropSizes.isNotEmpty);
+    assert(logoSizes != null && logoSizes.isNotEmpty);
+    assert(posterSizes != null && posterSizes.isNotEmpty);
+    assert(profileSizes != null && profileSizes.isNotEmpty);
+    assert(stillSizes != null && stillSizes.isNotEmpty);
+
+    backdropSizes.sort((v1, v2) =>
+        v1.length == v2.length ? v1.compareTo(v2) : v1.length - v2.length);
+    logoSizes.sort((v1, v2) =>
+        v1.length == v2.length ? v1.compareTo(v2) : v1.length - v2.length);
+    posterSizes.sort((v1, v2) =>
+        v1.length == v2.length ? v1.compareTo(v2) : v1.length - v2.length);
+    profileSizes.sort((v1, v2) =>
+        v1.length == v2.length ? v1.compareTo(v2) : v1.length - v2.length);
+    stillSizes.sort((v1, v2) =>
+        v1.length == v2.length ? v1.compareTo(v2) : v1.length - v2.length);
+  }
 
   factory Configuration.fromJson(Map<String, dynamic> json) {
     json = json["images"];

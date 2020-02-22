@@ -10,17 +10,16 @@ class MovieSearchSettings {
   int primaryReleaseYear;
   QualitySettings quality;
 
-  MovieSearchSettings(
-      {this.query,
-      this.language = "en-US",
-      this.page = 1,
-      this.includeAdult = false,
-      this.region,
-      this.year,
-      this.primaryReleaseYear,
-      QualitySettings quality}) {
-    this.quality = quality ?? QualitySettings();
-  }
+  MovieSearchSettings({
+    this.query,
+    this.language = "en-US",
+    this.page = 1,
+    this.includeAdult = false,
+    this.region,
+    this.year,
+    this.primaryReleaseYear,
+    this.quality = const QualitySettings(),
+  });
 
   Map<String, dynamic> toJson() {
     var map = Map<String, dynamic>();

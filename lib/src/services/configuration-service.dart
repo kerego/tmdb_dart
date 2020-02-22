@@ -7,7 +7,7 @@ abstract class ConfigurationService {
 
   Configuration get configuration => _configuration;
 
-  void set configuration(Configuration configuration) {
+  set configuration(Configuration configuration) {
     assert(configuration != null);
     _configuration = configuration;
   }
