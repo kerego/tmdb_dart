@@ -35,14 +35,13 @@ abstract class MovieService {
           MovieSearchSettings settings) =>
       _fetchPagedResult(settings, "3/movie/latest");
 
-  Future<Movie> getMovie(int id,
-      {String language = "en-US",
-      List<String> imageLanguages = const ["en", null],
-      MovieAppendSettings appendSettings,
-      QualitySettings qualitySettings}) async {
-    appendSettings = appendSettings ?? MovieAppendSettings();
-    qualitySettings = qualitySettings ?? QualitySettings();
-
+  Future<Movie> getMovie(
+    int id, {
+    String language = "en-US",
+    List<String> imageLanguages = const ["en", null],
+    MovieAppendSettings appendSettings = const MovieAppendSettings(),
+    QualitySettings qualitySettings = const QualitySettings(),
+  }) async {
     var queryParams = {
       "api_key": _apiKey,
       "language": language,
