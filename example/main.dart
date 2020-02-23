@@ -6,6 +6,7 @@ Future main(List<String> arguments) async {
   TmdbService service = TmdbService(arguments[0]);
 
   // auto configure api based on default configuration
+  // OR custom configure api using setter 'configuration'
   await service.initConfiguration();
 
   var pagedResult = await service.searchMovies("harry");
@@ -14,16 +15,6 @@ Future main(List<String> arguments) async {
     print("${movie.title} - ${movie.voteAverage}");
   }
 
-  // OR custom configure api based on your requirments
-  service.configuration = Configuration(
-    baseUrl: "http://image.tmdb.org/t/p/",
-    secureBaseUrl: "https://image.tmdb.org/t/p/",
-    backdropSizes: ["w300", "w780", "w1280", "original"],
-    logoSizes: ["w300", "w780", "w1280", "original"],
-    posterSizes: ["w300", "w780", "w1280", "original"],
-    profileSizes: ["w300", "w780", "w1280", "original"],
-    stillSizes: ["w300", "w780", "w1280", "original"],
-  );
 
   var popular = await service.getPopularMovies(MovieSearchSettings());
 
@@ -56,7 +47,8 @@ Future main(List<String> arguments) async {
 
   print("${movie.recommendations[0].title}");
   print("${movie.similar[0].title}");
-  print("${(await service.getAllCountries()).length}");
+  print("Countries: ${(await service.getAllCountries()).length}");
+  print("MovieGenres: ${(await service.getAllMovieGenres()).length}");
 }
 
 // generate many requests

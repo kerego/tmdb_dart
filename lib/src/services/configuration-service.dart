@@ -1,7 +1,7 @@
 part of 'tmdb-service.dart';
 
 abstract class ConfigurationService {
-  final String _configUrl = "https://api.themoviedb.org/3/configuration";
+  final String _configPath = "3/configuration";
 
   Configuration _configuration;
   String _apiKey;
@@ -14,7 +14,12 @@ abstract class ConfigurationService {
   }
 
   Future<Configuration> initConfiguration() async {
-    Response response = await get("$_configUrl?api_key=$_apiKey");
+    Uri uri = _buildUri(
+      "$_configPath",
+      {"api_key": _apiKey},
+    );
+    Response response = await get(uri);
+
     Map<String, dynamic> map = json.decode(response.body);
     _configuration = Configuration.fromJson(map);
 
@@ -22,9 +27,36 @@ abstract class ConfigurationService {
   }
 
   Future<List<Country>> getAllCountries() async {
-    Response response = await get("$_configUrl/countries?api_key=$_apiKey");
+    Uri uri = _buildUri(
+      "$_configPath/countries",
+      {"api_key": _apiKey},
+    );
+    Response response = await getWithResilience(uri);
+
+    if (response.statusCode != 200)
+      throw ClientException("request status not successful", uri);
+
     List<dynamic> map = json.decode(response.body);
 
     return Country.listFromJson(map);
   }
+
+  Future<List<Genre>> getAllMovieGenres({String language = "en-US"}) async {
+    Uri uri = _buildUri(
+      "3/genre/movie/list",
+      {"api_key": _apiKey, "language": language},
+    );
+    Response response = await getWithResilience(uri);
+
+    if (response.statusCode != 200)
+      throw ClientException("request status not successful", uri);
+
+    Map<String, dynamic> map = json.decode(response.body);
+
+    return Genre.listFromJson(map["genres"]);
+  }
+
+  Uri _buildUri(String path, Map<String, dynamic> queryParams);
+
+  Future<Response> getWithResilience(Uri uri);
 }

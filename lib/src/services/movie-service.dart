@@ -39,25 +39,6 @@ abstract class MovieService {
           MovieSearchSettings settings) =>
       _fetchPagedResult(settings, "3/movie/latest");
 
-  Future<List<Genre>> getAllMovieGenres({String language = "en-US"}) async {
-    var queryParams = {
-      "api_key": _apiKey,
-      "language": language,
-    };
-
-    Uri uri = _buildUri("3/genre/movie/list", queryParams);
-
-    Response response = await getWithResilience(uri);
-
-    if (response.statusCode != 200) {
-      throw Exception("request status not successful");
-    }
-
-    Map<String, dynamic> map = json.decode(response.body);
-
-    return Genre.listFromJson(map["genres"]);
-  }
-
   Future<Movie> getMovie(
     int id, {
     String language = "en-US",
@@ -76,9 +57,8 @@ abstract class MovieService {
 
     Response response = await getWithResilience(uri);
 
-    if (response.statusCode != 200) {
-      throw Exception("request status not successful");
-    }
+    if (response.statusCode != 200)
+      throw ClientException("request status not successful", uri);
 
     var map = json.decode(response.body);
 
@@ -96,13 +76,12 @@ abstract class MovieService {
   ) async {
     var queryParams = settings.toJson()..["api_key"] = _apiKey;
     Uri uri = _buildUri(url, queryParams);
-    print(uri.toString());
 
     Response response = await getWithResilience(uri);
 
-    if (response.statusCode != 200) {
-      throw Exception("request status not successful");
-    }
+    if (response.statusCode != 200)
+      throw ClientException("request status not successful", uri);
+
 
     PagedResult<MovieBase> pagedResult =
         await _decodeToPagedResult(response, settings);
