@@ -1,16 +1,21 @@
+import '../models/date.dart';
+import '../models/sort-by.dart';
+
 import 'quality-settings.dart';
 
-class MovieSearchSettings {
-  String language;
-  String query;
-  int page;
-  bool includeAdult;
-  String region;
-  int year;
-  int primaryReleaseYear;
-  QualitySettings quality;
+part 'movie-discover-settings.dart';
 
-  MovieSearchSettings({
+class MovieSearchSettings {
+  final String language;
+  final String query;
+  final int page;
+  final bool includeAdult;
+  final String region;
+  final int year;
+  final int primaryReleaseYear;
+  final QualitySettings quality;
+
+  const MovieSearchSettings({
     this.query,
     this.language = "en-US",
     this.page = 1,
@@ -19,7 +24,7 @@ class MovieSearchSettings {
     this.year,
     this.primaryReleaseYear,
     this.quality = const QualitySettings(),
-  });
+  }) : assert(quality != null);
 
   Map<String, dynamic> toJson() {
     var map = Map<String, dynamic>();

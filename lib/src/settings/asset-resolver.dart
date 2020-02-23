@@ -38,36 +38,25 @@ class AssetResolver {
   ) {
     if (contentUrl == null || contentUrl.isEmpty) return null;
 
+    String sizeUrl;
     switch (resolution) {
       case AssetQuality.Original:
-        return _getPathWithSize(
-          contentUrl,
-          sizes[sizes.length - 1],
-        );
+        sizeUrl = sizes[sizes.length - 1];
+        break;
       case AssetQuality.High:
-        return _getPathWithSize(
-          contentUrl,
-          sizes[(sizes.length - 2).clamp(0, sizes.length)],
-        );
+        sizeUrl = sizes[(sizes.length - 2).clamp(0, sizes.length)];
+        break;
       case AssetQuality.Low:
-        return _getPathWithSize(
-          contentUrl,
-          sizes[0],
-        );
+        sizeUrl = sizes[0];
+        break;
       case AssetQuality.Mid:
       default:
-        return _getPathWithSize(
-          contentUrl,
-          sizes[((sizes.length - 1) / 2).round()],
-        );
+        sizeUrl =
+            sizes[((sizes.length - 2) / 2).round().clamp(0, sizes.length)];
     }
-  }
 
-  String _getPathWithSize(
-    String contentUrl,
-    String sizeUrl,
-  ) =>
-      "${_configuration.secureBaseUrl}$sizeUrl$contentUrl";
+    return "${_configuration.secureBaseUrl}$sizeUrl$contentUrl";
+  }
 }
 
 enum AssetQuality {

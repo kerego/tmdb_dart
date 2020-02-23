@@ -17,9 +17,11 @@ export 'src/models/alternative-title.dart';
 export 'src/models/cast.dart';
 export 'src/models/crew.dart';
 export 'src/models/credits.dart';
+export 'src/models/date.dart';
 export 'src/models/external-info.dart';
 export 'src/models/gender.dart';
 export 'src/models/keyword.dart';
+export 'src/models/sort-by.dart';
 export 'src/models/video.dart';
 export 'src/helpers/gender-resolver.dart';
 

@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart';
+import '../models/country.dart';
+import '../models/genre.dart';
 import '../models/movie-base.dart';
 import '../models/movie.dart';
 import '../models/paged-result.dart';
@@ -19,6 +21,4 @@ class TmdbService extends Object
   final String _apiKey;
 
   TmdbService(this._apiKey) : assert(_apiKey != null, "TMDB API Key can't be null.");
-
-  Future<Configuration> initConfiguration() => _initConfiguration(_apiKey);
 }

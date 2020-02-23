@@ -15,6 +15,10 @@ abstract class MovieService {
     return _fetchPagedResult(settings, "3/search/movie");
   }
 
+  Future<PagedResult<MovieBase>> discoverMovies(
+          MovieDiscoverSettings settings) =>
+      _fetchPagedResult(settings, "3/discover/movie");
+
   Future<PagedResult<MovieBase>> getTopRatedMovies(
           MovieSearchSettings settings) =>
       _fetchPagedResult(settings, "3/movie/top_rated");
@@ -35,10 +39,29 @@ abstract class MovieService {
           MovieSearchSettings settings) =>
       _fetchPagedResult(settings, "3/movie/latest");
 
+  Future<List<Genre>> getAllMovieGenres({String language = "en-US"}) async {
+    var queryParams = {
+      "api_key": _apiKey,
+      "language": language,
+    };
+
+    Uri uri = _buildUri("3/genre/movie/list", queryParams);
+
+    Response response = await getWithResilience(uri);
+
+    if (response.statusCode != 200) {
+      throw Exception("request status not successful");
+    }
+
+    Map<String, dynamic> map = json.decode(response.body);
+
+    return Genre.listFromJson(map["genres"]);
+  }
+
   Future<Movie> getMovie(
     int id, {
     String language = "en-US",
-    List<String> imageLanguages = const ["en", null],
+    List<String> imageLanguages = const ["en"],
     MovieAppendSettings appendSettings = const MovieAppendSettings(),
     QualitySettings qualitySettings = const QualitySettings(),
   }) async {
@@ -68,9 +91,12 @@ abstract class MovieService {
   Future<Response> getWithResilience(Uri uri);
 
   Future<PagedResult<MovieBase>> _fetchPagedResult(
-      MovieSearchSettings settings, String url) async {
+    MovieSearchSettings settings,
+    String url,
+  ) async {
     var queryParams = settings.toJson()..["api_key"] = _apiKey;
     Uri uri = _buildUri(url, queryParams);
+    print(uri.toString());
 
     Response response = await getWithResilience(uri);
 
@@ -85,7 +111,9 @@ abstract class MovieService {
   }
 
   Future<PagedResult<MovieBase>> _decodeToPagedResult(
-      Response response, MovieSearchSettings settings) async {
+    Response response,
+    MovieSearchSettings settings,
+  ) async {
     var map = json.decode(response.body);
 
     var assetResolver = AssetResolver(_configuration, settings.quality);
@@ -96,12 +124,14 @@ abstract class MovieService {
     return pagedResult;
   }
 
-  Uri _buildUri(String path, Map<String, dynamic> queryParams) {
-    Uri uri = Uri(
+  Uri _buildUri(
+    String path,
+    Map<String, dynamic> queryParams,
+  ) =>
+      Uri(
         scheme: "https",
         host: "api.themoviedb.org",
         path: path,
-        queryParameters: queryParams);
-    return uri;
-  }
+        queryParameters: queryParams,
+      );
 }
