@@ -20,8 +20,7 @@ class _Order extends SortBy {
     this._by, {
     bool createDesc = true,
   })  : this._order = "asc",
-        _other =
-            createDesc ? _Order._defaultDesc(_by, createAsc: false) : null;
+        _other = createDesc ? _Order._defaultDesc(_by, createAsc: false) : null;
 
   _Order._defaultDesc(
     this._by, {

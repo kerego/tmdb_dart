@@ -82,7 +82,6 @@ abstract class MovieService {
     if (response.statusCode != 200)
       throw ClientException("request status not successful", uri);
 
-
     PagedResult<MovieBase> pagedResult =
         await _decodeToPagedResult(response, settings);
 
