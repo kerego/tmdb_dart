@@ -58,3 +58,13 @@
 * [Akash Mondal](https://github.com/Akash98Sky) - Remove unnecessary new keywords and Re-format some code
 * [Akash Mondal](https://github.com/Akash98Sky) - Fix warnings due to unused variables and Improve some codes
 * [Akash Mondal](https://github.com/Akash98Sky) - Add assertion to parameters of TmdbService, Configuration constructors
+
+## 0.0.11
+
+* [Akash Mondal](https://github.com/Akash98Sky) - Add a seperate quality Original to AssetQuality
+* [Akash Mondal](https://github.com/Akash98Sky) - Change all Movie Settings constructors to const
+* [Akash Mondal](https://github.com/Akash98Sky) - Add new classes SortBy and Date for movie discover
+* [Akash Mondal](https://github.com/Akash98Sky) - Add new movie service functions.
+    1. discoverMovies()
+    2. getAllMovieGenres()
+    3. getAllCountries()

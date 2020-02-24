@@ -6,6 +6,7 @@ Future main(List<String> arguments) async {
   TmdbService service = TmdbService(arguments[0]);
 
   // auto configure api based on default configuration
+  // OR custom configure api using setter 'configuration'
   await service.initConfiguration();
 
   var pagedResult = await service.searchMovies("harry");
@@ -14,21 +15,30 @@ Future main(List<String> arguments) async {
     print("${movie.title} - ${movie.voteAverage}");
   }
 
-  // OR custom configure api based on your requirments
-  service.configuration = Configuration(
-    baseUrl: "http://image.tmdb.org/t/p/",
-    secureBaseUrl: "https://image.tmdb.org/t/p/",
-    backdropSizes: ["original"],
-    logoSizes: ["original"],
-    posterSizes: ["original"],
-    profileSizes: ["original"],
-    stillSizes: ["original"],
-  );
 
   var popular = await service.getPopularMovies(MovieSearchSettings());
 
   for (var movie in popular.results) {
     print("${movie.title} - ${movie.voteAverage}");
+  }
+
+  var discover = await service.discoverMovies(MovieDiscoverSettings(
+    primaryReleaseDateGTE: Date(day: 15, month: 9, year: 2010),
+    primaryReleaseDateLTE: Date(day: 22, month: 10, year: 2015),
+    voteAverageGTE: 5.5,
+    withPeople: [108916, 7467],
+    sortBy: SortBy.popularity.desc,
+    quality: QualitySettings(
+      backdropQuality: AssetQuality.High,
+      logoQuality: AssetQuality.High,
+      posterQuality: AssetQuality.High,
+      profileQuality: AssetQuality.High,
+      stillQuality: AssetQuality.High,
+    ),
+  ));
+
+  for (var movie in discover.results) {
+    print("${movie.title} - ${movie.voteAverage} - ${movie.releaseDate}");
   }
 
   var movie = await service.getMovie(671,
@@ -37,6 +47,8 @@ Future main(List<String> arguments) async {
 
   print("${movie.recommendations[0].title}");
   print("${movie.similar[0].title}");
+  print("Countries: ${(await service.getAllCountries()).length}");
+  print("MovieGenres: ${(await service.getAllMovieGenres()).length}");
 }
 
 // generate many requests

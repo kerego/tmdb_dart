@@ -11,7 +11,7 @@ class MovieAppendSettings {
   final bool includeSimilarMovies;
   final bool includeReviews;
 
-  MovieAppendSettings({
+  const MovieAppendSettings({
     this.includeAlternativeTitles = false,
     this.includeImages = true,
     this.includeCredits = true,

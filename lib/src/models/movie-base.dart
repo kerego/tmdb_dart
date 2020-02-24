@@ -1,3 +1,4 @@
+import '../models/date.dart';
 import '../settings/asset-resolver.dart';
 
 class MovieBase {
@@ -5,7 +6,7 @@ class MovieBase {
   String posterPath;
   bool adult;
   String overview;
-  DateTime releaseDate;
+  Date releaseDate;
   List<int> genreIds;
   String originalTitle;
   String originalLanguage;
@@ -21,9 +22,7 @@ class MovieBase {
     posterPath = resolver.getPosterPath(map["poster_path"]);
     adult = map["adult"];
     overview = map["overview"];
-    releaseDate = map["release_date"] == null
-        ? null
-        : DateTime.tryParse(map["release_date"]);
+    releaseDate = Date.tryParse(map["release_date"]);
     genreIds = List.castFrom(map["genre_ids"]);
     originalTitle = map["original_title"];
     originalLanguage = map["original_language"];

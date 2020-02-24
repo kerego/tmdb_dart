@@ -15,6 +15,10 @@ abstract class MovieService {
     return _fetchPagedResult(settings, "3/search/movie");
   }
 
+  Future<PagedResult<MovieBase>> discoverMovies(
+          MovieDiscoverSettings settings) =>
+      _fetchPagedResult(settings, "3/discover/movie");
+
   Future<PagedResult<MovieBase>> getTopRatedMovies(
           MovieSearchSettings settings) =>
       _fetchPagedResult(settings, "3/movie/top_rated");
@@ -35,14 +39,13 @@ abstract class MovieService {
           MovieSearchSettings settings) =>
       _fetchPagedResult(settings, "3/movie/latest");
 
-  Future<Movie> getMovie(int id,
-      {String language = "en-US",
-      List<String> imageLanguages = const ["en", null],
-      MovieAppendSettings appendSettings,
-      QualitySettings qualitySettings}) async {
-    appendSettings = appendSettings ?? MovieAppendSettings();
-    qualitySettings = qualitySettings ?? QualitySettings();
-
+  Future<Movie> getMovie(
+    int id, {
+    String language = "en-US",
+    List<String> imageLanguages = const ["en"],
+    MovieAppendSettings appendSettings = const MovieAppendSettings(),
+    QualitySettings qualitySettings = const QualitySettings(),
+  }) async {
     var queryParams = {
       "api_key": _apiKey,
       "language": language,
@@ -54,9 +57,8 @@ abstract class MovieService {
 
     Response response = await getWithResilience(uri);
 
-    if (response.statusCode != 200) {
-      throw Exception("request status not successful");
-    }
+    if (response.statusCode != 200)
+      throw ClientException("request status not successful", uri);
 
     var map = json.decode(response.body);
 
@@ -69,15 +71,17 @@ abstract class MovieService {
   Future<Response> getWithResilience(Uri uri);
 
   Future<PagedResult<MovieBase>> _fetchPagedResult(
-      MovieSearchSettings settings, String url) async {
+    MovieSearchSettings settings,
+    String url,
+  ) async {
     var queryParams = settings.toJson()..["api_key"] = _apiKey;
     Uri uri = _buildUri(url, queryParams);
 
     Response response = await getWithResilience(uri);
 
-    if (response.statusCode != 200) {
-      throw Exception("request status not successful");
-    }
+    if (response.statusCode != 200)
+      throw ClientException("request status not successful", uri);
+
 
     PagedResult<MovieBase> pagedResult =
         await _decodeToPagedResult(response, settings);
@@ -86,7 +90,9 @@ abstract class MovieService {
   }
 
   Future<PagedResult<MovieBase>> _decodeToPagedResult(
-      Response response, MovieSearchSettings settings) async {
+    Response response,
+    MovieSearchSettings settings,
+  ) async {
     var map = json.decode(response.body);
 
     var assetResolver = AssetResolver(_configuration, settings.quality);
@@ -97,12 +103,14 @@ abstract class MovieService {
     return pagedResult;
   }
 
-  Uri _buildUri(String path, Map<String, dynamic> queryParams) {
-    Uri uri = Uri(
+  Uri _buildUri(
+    String path,
+    Map<String, dynamic> queryParams,
+  ) =>
+      Uri(
         scheme: "https",
         host: "api.themoviedb.org",
         path: path,
-        queryParameters: queryParams);
-    return uri;
-  }
+        queryParameters: queryParams,
+      );
 }
