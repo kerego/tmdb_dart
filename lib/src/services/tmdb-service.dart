@@ -20,5 +20,6 @@ class TmdbService extends Object
     with MovieService, ConfigurationService, ResilientService {
   final String _apiKey;
 
-  TmdbService(this._apiKey) : assert(_apiKey != null, "TMDB API Key can't be null.");
+  TmdbService(this._apiKey)
+      : assert(_apiKey != null, "TMDB API Key can't be null.");
 }
