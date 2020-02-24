@@ -1,6 +1,9 @@
-name: Dart CI
+name: Pub Publish
 
-on: [push]
+on: 
+  push:
+    branches:    
+      - master         # Push events on master branch
 
 jobs:
   build:
