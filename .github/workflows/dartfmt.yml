@@ -1,0 +1,18 @@
+name: Dart CI
+
+on: [pull_request]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    container:
+      image:  google/dart:latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install dependencies
+      run: dartfmt 
+    - name: Check code formatting using dartfmt
+      run: dartfmt -n --set-exit-if-changed . 
