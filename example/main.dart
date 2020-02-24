@@ -15,7 +15,6 @@ Future main(List<String> arguments) async {
     print("${movie.title} - ${movie.voteAverage}");
   }
 
-
   var popular = await service.getPopularMovies(MovieSearchSettings());
 
   for (var movie in popular.results) {
