@@ -1,4 +1,4 @@
-part of 'movie-search-settings.dart';
+part of 'search-settings.dart';
 
 class MovieDiscoverSettings extends MovieSearchSettings {
   final String certificationCountry;

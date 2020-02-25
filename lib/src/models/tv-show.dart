@@ -2,30 +2,36 @@ import '../settings/asset-resolver.dart';
 
 import 'alternative-title.dart';
 import 'video.dart';
-import 'collection.dart';
+import 'cast.dart';
 import 'company.dart';
 import 'content-base.dart';
-import 'country.dart';
+import 'creator.dart';
 import 'credits.dart';
+import 'crew.dart';
 import 'date.dart';
 import 'external-info.dart';
 import 'genre.dart';
 import 'image-collection.dart';
 import 'keyword.dart';
 
-class Movie extends MovieBase {
-  final Collection belongsToCollection;
-  final int budget;
+part 'tv-episode.dart';
+part 'tv-season.dart';
+
+class TvShow extends TvBase {
+  final List<Creator> createdBy;
+  final List<int> episodeRunTime;
   final List<Genre> genres;
   final String homepage;
-  final String imdbId;
+  final bool inProduction;
+  final List<String> languages;
+  final Date lastAirDate;
+  final dynamic lastEpisodeToAir;
+  final List<Company> networks;
+  final int numOfEpisodes;
+  final int numOfSeasons;
   final List<Company> productionCompanies;
-  final List<Country> productionCountries;
-  final int revenue;
-  final int runtime;
-  final List<Country> spokenLanguages;
-  final String status;
-  final String tagline;
+  final List<SeasonBase> seasons;
+  final String status, type;
 
   // append_to_response
   final ImageCollection images;
@@ -34,10 +40,10 @@ class Movie extends MovieBase {
   final ExternalInfo externalIds;
   final List<Keyword> keywords;
   final List<Video> videos;
-  final List<MovieBase> recommendations;
-  final List<MovieBase> similar;
+  final List<TvBase> recommendations;
+  final List<TvBase> similar;
 
-  Movie({
+  TvShow({
     int id,
     String originalLanguage,
     String backdropPath,
@@ -46,23 +52,25 @@ class Movie extends MovieBase {
     num popularity,
     int voteCount,
     num voteAverage,
-    bool adult,
-    Date releaseDate,
-    String originalTitle,
-    String title,
-    bool video,
-    this.belongsToCollection,
-    this.budget,
+    Date firstAirDate,
+    String name,
+    String originalName,
+    List<String> originCountry,
+    this.createdBy,
+    this.episodeRunTime,
     this.genres,
     this.homepage,
-    this.imdbId,
+    this.inProduction,
+    this.languages,
+    this.lastAirDate,
+    this.lastEpisodeToAir,
+    this.networks,
+    this.numOfEpisodes,
+    this.numOfSeasons,
     this.productionCompanies,
-    this.productionCountries,
-    this.revenue,
-    this.runtime,
-    this.spokenLanguages,
+    this.seasons,
     this.status,
-    this.tagline,
+    this.type,
     this.images,
     this.alternativeTitles,
     this.credits,
@@ -80,23 +88,17 @@ class Movie extends MovieBase {
           popularity: popularity,
           voteCount: voteCount,
           voteAverage: voteAverage,
-          adult: adult,
-          releaseDate: releaseDate,
-          originalTitle: originalTitle,
-          title: title,
-          video: video,
+          firstAirDate: firstAirDate,
+          name: name,
+          originalName: originalName,
+          originCountry: originCountry,
         );
 
-  // TODO
-  // ReleaseDates
-  // Translations
-  // Reviews
-
-  factory Movie.fromJson(
+  factory TvShow.fromJson(
     Map<String, dynamic> map,
     AssetResolver assetResolver,
   ) =>
-      Movie(
+      TvShow(
         id: map["id"],
         originalLanguage: map["original_language"],
         backdropPath: assetResolver.getBackdropPath(map["backdrop_path"]),
@@ -105,26 +107,28 @@ class Movie extends MovieBase {
         popularity: map["popularity"],
         voteCount: map["vote_count"],
         voteAverage: map["vote_average"],
-        adult: map["adult"],
-        releaseDate: Date.tryParse(map["release_date"]),
-        originalTitle: map["original_title"],
-        title: map["title"],
-        video: map["video"],
-        belongsToCollection: map["belongs_to_collection"] != null
-            ? Collection.fromJson(map["belongs_to_collection"], assetResolver)
-            : null,
-        budget: map["budget"],
+        firstAirDate: Date.tryParse(map["first_air_date"]),
+        name: map["name"],
+        originalName: map["original_name"],
+        originCountry: List.castFrom(map["origin_country"]),
+        createdBy: Creator.listFromJson(map["created_by"], assetResolver),
+        episodeRunTime: List.castFrom(map["episode_run_time"]),
         genres: Genre.listFromJson(map["genres"]),
         homepage: map["homepage"],
-        imdbId: map["imdb_id"],
+        inProduction: map["in_production"],
+        languages: List.castFrom(map["languages"]),
+        lastAirDate: Date.tryParse(map["last_air_date"]),
+        lastEpisodeToAir: map["last_episode_to_air"] != null
+            ? EpisodeBase.fromJson(map["last_episode_to_air"], assetResolver)
+            : null,
+        networks: Company.listFromJson(map["networks"], assetResolver),
+        numOfEpisodes: map["number_of_episodes"],
+        numOfSeasons: map["number_of_seasons"],
         productionCompanies:
             Company.listFromJson(map["production_companies"], assetResolver),
-        productionCountries: Country.listFromJson(map["production_countries"]),
-        revenue: map["revenue"],
-        runtime: map["runtime"],
-        spokenLanguages: Country.listFromJson(map["spoken_languages"]),
+        seasons: SeasonBase.listFromJson(map["seasons"], assetResolver),
         status: map["status"],
-        tagline: map["tagline"],
+        type: map["type"],
         images: map.containsKey("images")
             ? ImageCollection.fromJson(map["images"], assetResolver)
             : null,
@@ -144,11 +148,11 @@ class Movie extends MovieBase {
             ? Video.listFromJson(map["videos"]["results"])
             : null,
         recommendations: map.containsKey("recommendations")
-            ? MovieBase.listFromJson(
+            ? TvBase.listFromJson(
                 map["recommendations"]["results"], assetResolver)
             : null,
         similar: map.containsKey("similar")
-            ? MovieBase.listFromJson(map["similar"]["results"], assetResolver)
+            ? TvBase.listFromJson(map["similar"]["results"], assetResolver)
             : null,
       );
 }

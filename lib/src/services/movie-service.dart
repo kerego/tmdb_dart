@@ -1,115 +1,73 @@
 part of 'tmdb-service.dart';
 
-abstract class MovieService {
-  Configuration _configuration;
-  String _apiKey;
+class MovieService with _CommonService<MovieBase> {
+  final Configuration _configuration;
+  final String _apiKey;
 
-  Future<PagedResult<MovieBase>> searchMovies(String query, {int page}) {
+  MovieService(this._apiKey, this._configuration);
+
+  Future<PagedResult<MovieBase>> search(String query, {int page}) {
     var settings = MovieSearchSettings(query: query, page: page);
-    return advancedSearchMovies(settings);
+    return advancedSearch(settings);
   }
 
-  Future<PagedResult<MovieBase>> advancedSearchMovies(
-      MovieSearchSettings settings) {
-    assert(settings.query != null);
-    return _fetchPagedResult(settings, "3/search/movie");
+  Future<PagedResult<MovieBase>> advancedSearch(MovieSearchSettings settings) {
+    assert(settings.query != null && settings.query.isNotEmpty);
+    return _fetchPagedResult(
+      "3/search/movie",
+      settings ?? const MovieSearchSettings(),
+    );
   }
 
-  Future<PagedResult<MovieBase>> discoverMovies(
-          MovieDiscoverSettings settings) =>
-      _fetchPagedResult(settings, "3/discover/movie");
+  Future<PagedResult<MovieBase>> discover({MovieDiscoverSettings settings}) =>
+      _fetchPagedResult(
+        "3/discover/movie",
+        settings ?? const MovieDiscoverSettings(),
+      );
 
-  Future<PagedResult<MovieBase>> getTopRatedMovies(
-          MovieSearchSettings settings) =>
-      _fetchPagedResult(settings, "3/movie/top_rated");
+  Future<PagedResult<MovieBase>> getTopRated({MovieSearchSettings settings}) =>
+      _fetchPagedResult(
+        "3/movie/top_rated",
+        settings ?? const MovieSearchSettings(),
+      );
 
-  Future<PagedResult<MovieBase>> getPopularMovies(
-          MovieSearchSettings settings) =>
-      _fetchPagedResult(settings, "3/movie/popular");
+  Future<PagedResult<MovieBase>> getPopular({MovieSearchSettings settings}) =>
+      _fetchPagedResult(
+        "3/movie/popular",
+        settings ?? const MovieSearchSettings(),
+      );
 
-  Future<PagedResult<MovieBase>> getUpcomingMovies(
-          MovieSearchSettings settings) =>
-      _fetchPagedResult(settings, "3/movie/upcoming");
+  Future<PagedResult<MovieBase>> getUpComing({MovieSearchSettings settings}) =>
+      _fetchPagedResult(
+        "3/movie/upcoming",
+        settings ?? const MovieSearchSettings(),
+      );
 
-  Future<PagedResult<MovieBase>> getNowPlayingMovies(
-          MovieSearchSettings settings) =>
-      _fetchPagedResult(settings, "3/movie/now_playing");
+  Future<PagedResult<MovieBase>> getNowPlaying(
+          {MovieSearchSettings settings}) =>
+      _fetchPagedResult(
+        "3/movie/now_playing",
+        settings ?? const MovieSearchSettings(),
+      );
 
-  Future<PagedResult<MovieBase>> getLatestMovies(
-          MovieSearchSettings settings) =>
-      _fetchPagedResult(settings, "3/movie/latest");
+  Future<Movie> getLatest({String language, QualitySettings qualitySettings}) =>
+      _getLatest<Movie>(
+        language ?? "en-US",
+        qualitySettings ?? const QualitySettings(),
+      );
 
-  Future<Movie> getMovie(
+  Future<Movie> getDetails(
     int id, {
-    String language = "en-US",
-    List<String> imageLanguages = const ["en"],
-    MovieAppendSettings appendSettings = const MovieAppendSettings(),
-    QualitySettings qualitySettings = const QualitySettings(),
-  }) async {
-    var queryParams = {
-      "api_key": _apiKey,
-      "language": language,
-      "include_image_language": imageLanguages.join(","),
-      "append_to_response": appendSettings.toString()
-    };
-
-    Uri uri = _buildUri("3/movie/$id", queryParams);
-
-    Response response = await getWithResilience(uri);
-
-    if (response.statusCode != 200)
-      throw ClientException("request status not successful", uri);
-
-    var map = json.decode(response.body);
-
-    var assetResolver = AssetResolver(_configuration, qualitySettings);
-
-    var movie = Movie.fromJson(map, assetResolver);
-    return movie;
-  }
-
-  Future<Response> getWithResilience(Uri uri);
-
-  Future<PagedResult<MovieBase>> _fetchPagedResult(
-    MovieSearchSettings settings,
-    String url,
-  ) async {
-    var queryParams = settings.toJson()..["api_key"] = _apiKey;
-    Uri uri = _buildUri(url, queryParams);
-
-    Response response = await getWithResilience(uri);
-
-    if (response.statusCode != 200)
-      throw ClientException("request status not successful", uri);
-
-    PagedResult<MovieBase> pagedResult =
-        await _decodeToPagedResult(response, settings);
-
-    return pagedResult;
-  }
-
-  Future<PagedResult<MovieBase>> _decodeToPagedResult(
-    Response response,
-    MovieSearchSettings settings,
-  ) async {
-    var map = json.decode(response.body);
-
-    var assetResolver = AssetResolver(_configuration, settings.quality);
-    var movieBaseFactory = (json) => MovieBase.fromJson(json, assetResolver);
-
-    PagedResult<MovieBase> pagedResult =
-        PagedResult<MovieBase>.fromJson(map, movieBaseFactory);
-    return pagedResult;
-  }
-
-  Uri _buildUri(
-    String path,
-    Map<String, dynamic> queryParams,
-  ) =>
-      Uri(
-        scheme: "https",
-        host: "api.themoviedb.org",
-        path: path,
-        queryParameters: queryParams,
+    String language,
+    List<String> imageLanguages,
+    AppendSettings appendSettings,
+    QualitySettings qualitySettings,
+  }) =>
+      _getDetails<Movie>(
+        id,
+        language ?? "en-US",
+        imageLanguages ?? const ["en"],
+        appendSettings ?? const AppendSettings(),
+        qualitySettings ?? const QualitySettings(),
       );
 }

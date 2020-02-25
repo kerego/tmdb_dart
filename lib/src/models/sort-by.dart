@@ -1,11 +1,18 @@
 abstract class SortBy {
+  /// SortBy order to be used for both Movie and TV show discover
   static final _Order popularity = _Order._defaultDesc("popularity"),
-      release_date = _Order._defaultDesc("release_date"),
-      revenue = _Order._defaultDesc("revenue"),
-      primary_release_date = _Order._defaultDesc("primary_release_date"),
-      original_title = _Order._defaultAsc("original_title"),
       vote_average = _Order._defaultDesc("vote_average"),
       vote_count = _Order._defaultDesc("vote_count");
+
+  /// SortBy order to be used for Movie discover
+  static final _Order primary_release_date =
+          _Order._defaultDesc("primary_release_date"),
+      release_date = _Order._defaultDesc("release_date"),
+      revenue = _Order._defaultDesc("revenue"),
+      original_title = _Order._defaultAsc("original_title");
+
+  /// SortBy order to be used for TV show discover
+  static final _Order first_air_date = _Order._defaultDesc("vote_count");
 }
 
 class _Order extends SortBy {

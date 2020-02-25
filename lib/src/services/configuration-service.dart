@@ -1,10 +1,12 @@
 part of 'tmdb-service.dart';
 
 abstract class ConfigurationService {
-  final String _configPath = "3/configuration";
+  static const String _configPath = "3/configuration";
 
   Configuration _configuration;
   String _apiKey;
+
+  List<Country> _countries;
 
   Configuration get configuration => _configuration;
 
@@ -27,36 +29,52 @@ abstract class ConfigurationService {
   }
 
   Future<List<Country>> getAllCountries() async {
-    Uri uri = _buildUri(
-      "$_configPath/countries",
-      {"api_key": _apiKey},
-    );
-    Response response = await getWithResilience(uri);
+    if (_countries == null) {
+      Uri uri = _buildUri(
+        "$_configPath/countries",
+        {"api_key": _apiKey},
+      );
+      Response response = await ResilientService.getWithResilience(uri);
 
-    if (response.statusCode != 200)
-      throw ClientException("request status not successful", uri);
+      if (response.statusCode != 200) {
+        throw ClientException("request status not successful", uri);
+      }
+      List<dynamic> map = json.decode(response.body);
 
-    List<dynamic> map = json.decode(response.body);
-
-    return Country.listFromJson(map);
+      _countries = Country.listFromJson(map);
+    }
+    return _countries;
   }
 
-  Future<List<Genre>> getAllMovieGenres({String language = "en-US"}) async {
+  Future<List<Genre>> getAllMovieGenres({String language}) =>
+      _getAllGenres("movie", language ?? "en-US");
+
+  Future<List<Genre>> getAllTvGenres({String language}) =>
+      _getAllGenres("tv", language ?? "en-US");
+
+  Future<List<Genre>> _getAllGenres(String type, String language) async {
     Uri uri = _buildUri(
-      "3/genre/movie/list",
+      "3/genre/$type/list",
       {"api_key": _apiKey, "language": language},
     );
-    Response response = await getWithResilience(uri);
+    Response response = await ResilientService.getWithResilience(uri);
 
-    if (response.statusCode != 200)
+    if (response.statusCode != 200) {
       throw ClientException("request status not successful", uri);
-
+    }
     Map<String, dynamic> map = json.decode(response.body);
 
     return Genre.listFromJson(map["genres"]);
   }
 
-  Uri _buildUri(String path, Map<String, dynamic> queryParams);
-
-  Future<Response> getWithResilience(Uri uri);
+  static Uri _buildUri(
+    String path,
+    Map<String, dynamic> queryParams,
+  ) =>
+      Uri(
+        scheme: "https",
+        host: "api.themoviedb.org",
+        path: path,
+        queryParameters: queryParams,
+      );
 }
