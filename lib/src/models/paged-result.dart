@@ -13,14 +13,14 @@ class PagedResult<T> {
 
   factory PagedResult.fromJson(
     Map<String, dynamic> json,
-    T factory(dynamic json),
+    T factory(Map<String, dynamic> json),
   ) =>
       PagedResult._createPage(
         page: json["page"],
         totalPages: json["total_pages"],
         totalResults: json["total_results"],
         results: (json["results"] as List<dynamic>)
-            .map(factory)
+            .map<T>(factory)
             .toList(growable: false),
       );
 }

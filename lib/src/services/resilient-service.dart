@@ -1,7 +1,7 @@
 part of 'tmdb-service.dart';
 
 abstract class ResilientService {
-  static Future<Response> getWithResilience(Uri uri) async {
+  Future<Response> getWithResilience(Uri uri) async {
     var response = await get(uri);
     while (response.statusCode == 429) {
       var retryAfter = int.parse(response.headers["retry-after"]);

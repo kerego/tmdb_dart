@@ -19,21 +19,8 @@ part 'movie-service.dart';
 part 'resilient-service.dart';
 part 'tv-service.dart';
 
-class TmdbService extends Object with ConfigurationService {
+class TmdbService extends ConfigurationService {
   final String _apiKey;
-
-  MovieService _movie;
-  TvService _tv;
-
-  MovieService get movie {
-    if (_movie == null) _movie = MovieService(_apiKey, _configuration);
-    return _movie;
-  }
-
-  TvService get tv {
-    if (_tv == null) _tv = TvService(_apiKey, _configuration);
-    return _tv;
-  }
 
   TmdbService(this._apiKey)
       : assert(_apiKey != null, "TMDB API Key can't be null.");

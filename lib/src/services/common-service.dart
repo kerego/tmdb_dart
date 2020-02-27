@@ -1,58 +1,18 @@
 part of 'tmdb-service.dart';
 
-abstract class _CommonService<T> {
+abstract class _CommonService with ResilientService {
   Configuration _configuration;
   String _apiKey;
 
-  String get type {
-    switch (T) {
-      case TvBase:
-        return "tv";
-      case MovieBase:
-        return "movie";
-      default:
-        throw AssertionError("Invalid type used!");
-    }
-  }
-
-  Future<R> _getLatest<R>(
-    String language,
-    QualitySettings qualitySettings,
-  ) async {
-    var queryParams = {
-      "api_key": _apiKey,
-      "language": language,
-    };
-
-    return _get("3/$type/latest", queryParams, qualitySettings);
-  }
-
-  Future<R> _getDetails<R>(
-    int id,
-    String language,
-    List<String> imageLanguages,
-    AppendSettings appendSettings,
-    QualitySettings qualitySettings,
-  ) {
-    assert(id != null, "ID can't be null");
-    var queryParams = {
-      "api_key": _apiKey,
-      "language": language,
-      "include_image_language": imageLanguages.join(","),
-      "append_to_response": appendSettings.toString()
-    };
-
-    return _get<R>("3/$type/$id", queryParams, qualitySettings);
-  }
-
-  Future<R> _get<R>(
+  Future<T> _get<T>(
     String path,
     Map<String, String> queryParams,
     QualitySettings qualitySettings,
+    T fromJson(Map<String, dynamic> map, AssetResolver assetResolver),
   ) async {
     Uri uri = _buildUri(path, queryParams);
 
-    Response response = await ResilientService.getWithResilience(uri);
+    Response response = await getWithResilience(uri);
 
     if (response.statusCode != 200) {
       throw ClientException("request status not successful", uri);
@@ -61,60 +21,36 @@ abstract class _CommonService<T> {
     var map = json.decode(response.body);
     var assetResolver = AssetResolver(_configuration, qualitySettings);
 
-    var details;
-    switch (R) {
-      case Movie:
-        details = Movie.fromJson(map, assetResolver);
-        break;
-      case TvShow:
-        details = TvShow.fromJson(map, assetResolver);
-        break;
-      case TvSeason:
-        details = TvSeason.fromJson(map, assetResolver);
-        break;
-      case TvEpisode:
-        details = TvEpisode.fromJson(map, assetResolver);
-        break;
-      default:
-        throw AssertionError("Invalid type used!");
-    }
-    return details;
+    return fromJson(map, assetResolver);
   }
 
-  Future<PagedResult<T>> _fetchPagedResult(
+  Future<PagedResult<T>> _fetchPagedResult<T>(
     String url,
     SearchSettings settings,
+    T fromJson(Map<String, dynamic> map, AssetResolver assetResolver),
   ) async {
     var queryParams = settings.toJson()..["api_key"] = _apiKey;
     Uri uri = _buildUri(url, queryParams);
 
-    Response response = await ResilientService.getWithResilience(uri);
+    Response response = await getWithResilience(uri);
 
     if (response.statusCode != 200) {
       throw ClientException("request status not successful", uri);
     }
 
-    return _decodeToPagedResult<T>(response, settings);
+    return _decodeToPagedResult<T>(response, settings, fromJson);
   }
 
-  Future<PagedResult<T>> _decodeToPagedResult<T>(
+  PagedResult<T> _decodeToPagedResult<T>(
     Response response,
     SearchSettings settings,
-  ) async {
+    T fromJson(Map<String, dynamic> map, AssetResolver assetResolver),
+  ) {
     var map = json.decode(response.body);
     var assetResolver = AssetResolver(_configuration, settings.quality);
 
-    var baseFactory;
-    switch (T) {
-      case MovieBase:
-        baseFactory = (json) => MovieBase.fromJson(json, assetResolver);
-        break;
-      case TvBase:
-        baseFactory = (json) => TvBase.fromJson(json, assetResolver);
-        break;
-      default:
-        throw AssertionError("Invalid type used!");
-    }
+    var baseFactory = (json) => fromJson(json, assetResolver);
+
     return PagedResult<T>.fromJson(map, baseFactory);
   }
 

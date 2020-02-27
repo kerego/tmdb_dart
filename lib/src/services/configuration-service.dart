@@ -1,18 +1,31 @@
 part of 'tmdb-service.dart';
 
-abstract class ConfigurationService {
+abstract class ConfigurationService with ResilientService {
   static const String _configPath = "3/configuration";
 
   Configuration _configuration;
   String _apiKey;
 
-  List<Country> _countries;
+  MovieService _movie;
+  TvService _tv;
+
+  MovieService get movie {
+    assert(configuration != null, "TmdbService not configured properly");
+    return _movie;
+  }
+
+  TvService get tv {
+    assert(configuration != null, "TmdbService not configured properly");
+    return _tv;
+  }
 
   Configuration get configuration => _configuration;
 
-  set configuration(Configuration configuration) {
-    assert(configuration != null);
-    _configuration = configuration;
+  set configuration(Configuration config) {
+    assert(config != null);
+    _configuration = config;
+    _movie = MovieService(_apiKey, _configuration);
+    _tv = TvService(_apiKey, _configuration);
   }
 
   Future<Configuration> initConfiguration() async {
@@ -23,27 +36,22 @@ abstract class ConfigurationService {
     Response response = await get(uri);
 
     Map<String, dynamic> map = json.decode(response.body);
-    _configuration = Configuration.fromJson(map);
-
-    return _configuration;
+    return configuration = Configuration.fromJson(map);
   }
 
   Future<List<Country>> getAllCountries() async {
-    if (_countries == null) {
-      Uri uri = _buildUri(
-        "$_configPath/countries",
-        {"api_key": _apiKey},
-      );
-      Response response = await ResilientService.getWithResilience(uri);
+    Uri uri = _buildUri(
+      "$_configPath/countries",
+      {"api_key": _apiKey},
+    );
+    Response response = await getWithResilience(uri);
 
-      if (response.statusCode != 200) {
-        throw ClientException("request status not successful", uri);
-      }
-      List<dynamic> map = json.decode(response.body);
-
-      _countries = Country.listFromJson(map);
+    if (response.statusCode != 200) {
+      throw ClientException("request status not successful", uri);
     }
-    return _countries;
+    List<dynamic> map = json.decode(response.body);
+
+    return Country.listFromJson(map);
   }
 
   Future<List<Genre>> getAllMovieGenres({String language}) =>
@@ -57,7 +65,7 @@ abstract class ConfigurationService {
       "3/genre/$type/list",
       {"api_key": _apiKey, "language": language},
     );
-    Response response = await ResilientService.getWithResilience(uri);
+    Response response = await getWithResilience(uri);
 
     if (response.statusCode != 200) {
       throw ClientException("request status not successful", uri);
