@@ -20,8 +20,29 @@ part 'resilient-service.dart';
 part 'tv-service.dart';
 
 class TmdbService extends ConfigurationService {
-  final String _apiKey;
+  final MovieService _movie;
+  final TvService _tv;
 
-  TmdbService(this._apiKey)
-      : assert(_apiKey != null, "TMDB API Key can't be null.");
+  MovieService get movie {
+    assert(configuration != null, "TmdbService not configured properly");
+    return _movie;
+  }
+
+  TvService get tv {
+    assert(configuration != null, "TmdbService not configured properly");
+    return _tv;
+  }
+
+  @override
+  set configuration(Configuration config) {
+    assert(config != null);
+    this._configuration = _movie._configuration = _tv._configuration = config;
+  }
+
+  /// Instanciate TmdbService using TMDB API Key (v3 auth)
+  TmdbService(String apiKey)
+      : assert(apiKey != null, "TMDB API Key can't be null."),
+        _movie = MovieService(apiKey),
+        _tv = TvService(apiKey),
+        super(apiKey);
 }

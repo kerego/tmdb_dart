@@ -3,30 +3,14 @@ part of 'tmdb-service.dart';
 abstract class ConfigurationService with ResilientService {
   static const String _configPath = "3/configuration";
 
+  final String _apiKey;
   Configuration _configuration;
-  String _apiKey;
 
-  MovieService _movie;
-  TvService _tv;
-
-  MovieService get movie {
-    assert(configuration != null, "TmdbService not configured properly");
-    return _movie;
-  }
-
-  TvService get tv {
-    assert(configuration != null, "TmdbService not configured properly");
-    return _tv;
-  }
+  ConfigurationService(this._apiKey);
 
   Configuration get configuration => _configuration;
 
-  set configuration(Configuration config) {
-    assert(config != null);
-    _configuration = config;
-    _movie = MovieService(_apiKey, _configuration);
-    _tv = TvService(_apiKey, _configuration);
-  }
+  set configuration(Configuration config);
 
   Future<Configuration> initConfiguration() async {
     Uri uri = _buildUri(

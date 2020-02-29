@@ -1,10 +1,7 @@
 part of 'tmdb-service.dart';
 
 class MovieService extends _CommonService {
-  final Configuration _configuration;
-  final String _apiKey;
-
-  MovieService(this._apiKey, this._configuration);
+  MovieService(String apiKey) : super(apiKey);
 
   Future<PagedResult<MovieBase>> search(String query, {int page = 1}) {
     var settings = MovieSearchSettings(query: query, page: page);

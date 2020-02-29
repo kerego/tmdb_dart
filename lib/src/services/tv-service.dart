@@ -1,10 +1,7 @@
 part of 'tmdb-service.dart';
 
 class TvService extends _CommonService {
-  final Configuration _configuration;
-  final String _apiKey;
-
-  TvService(this._apiKey, this._configuration);
+  TvService(String apiKey) : super(apiKey);
 
   Future<PagedResult<TvBase>> search(String query, {int page}) {
     var settings = TvSearchSettings(query: query, page: page);

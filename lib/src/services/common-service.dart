@@ -1,8 +1,10 @@
 part of 'tmdb-service.dart';
 
 abstract class _CommonService with ResilientService {
+  final String _apiKey;
   Configuration _configuration;
-  String _apiKey;
+
+  _CommonService(this._apiKey);
 
   Future<T> _get<T>(
     String path,
