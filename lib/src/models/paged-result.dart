@@ -1,14 +1,26 @@
 class PagedResult<T> {
-  List<T> results;
-  int totalResults;
-  int totalPages;
-  int page;
+  final List<T> results;
+  final int totalResults;
+  final int totalPages;
+  final int page;
 
-  PagedResult.fromJson(Map<String, dynamic> json, T factory(dynamic json)) {
-    page = json["page"];
-    totalPages = json["total_pages"];
-    totalResults = json["total_results"];
-    results =
-        (json["results"] as List<dynamic>).map(factory).toList(growable: false);
-  }
+  PagedResult._createPage({
+    this.results,
+    this.totalResults,
+    this.totalPages,
+    this.page,
+  });
+
+  factory PagedResult.fromJson(
+    Map<String, dynamic> json,
+    T factory(Map<String, dynamic> json),
+  ) =>
+      PagedResult._createPage(
+        page: json["page"],
+        totalPages: json["total_pages"],
+        totalResults: json["total_results"],
+        results: (json["results"] as List<dynamic>)
+            .map<T>(factory)
+            .toList(growable: false),
+      );
 }

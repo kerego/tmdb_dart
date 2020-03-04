@@ -1,4 +1,4 @@
-class MovieAppendSettings {
+class AppendSettings {
   final bool includeAlternativeTitles;
   final bool includeImages;
   final bool includeCredits;
@@ -8,20 +8,20 @@ class MovieAppendSettings {
   final bool includeVideos;
   final bool includeTranslations;
   final bool includeRecommendations;
-  final bool includeSimilarMovies;
+  final bool includeSimilarContent;
   final bool includeReviews;
 
-  const MovieAppendSettings({
+  const AppendSettings({
     this.includeAlternativeTitles = false,
-    this.includeImages = true,
-    this.includeCredits = true,
+    this.includeImages = false,
+    this.includeCredits = false,
     this.includeExternalIds = false,
     this.includeKeywords = false,
     this.includeReleaseDates = false,
-    this.includeVideos = true,
+    this.includeVideos = false,
     this.includeTranslations = false,
-    this.includeRecommendations = true,
-    this.includeSimilarMovies = true,
+    this.includeRecommendations = false,
+    this.includeSimilarContent = false,
     this.includeReviews = false,
   });
 
@@ -55,8 +55,8 @@ class MovieAppendSettings {
     if (includeRecommendations) {
       buffer.write("recommendations,");
     }
-    if (includeSimilarMovies) {
-      buffer.write("similar_movies,");
+    if (includeSimilarContent) {
+      buffer.write("similar,");
     }
     if (includeReviews) {
       buffer.write("reviews,");

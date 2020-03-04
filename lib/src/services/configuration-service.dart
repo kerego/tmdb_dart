@@ -1,17 +1,16 @@
 part of 'tmdb-service.dart';
 
-abstract class ConfigurationService {
-  final String _configPath = "3/configuration";
+abstract class ConfigurationService with ResilientService {
+  static const String _configPath = "3/configuration";
 
+  final String _apiKey;
   Configuration _configuration;
-  String _apiKey;
+
+  ConfigurationService(this._apiKey);
 
   Configuration get configuration => _configuration;
 
-  set configuration(Configuration configuration) {
-    assert(configuration != null);
-    _configuration = configuration;
-  }
+  set configuration(Configuration config);
 
   Future<Configuration> initConfiguration() async {
     Uri uri = _buildUri(
@@ -21,9 +20,7 @@ abstract class ConfigurationService {
     Response response = await get(uri);
 
     Map<String, dynamic> map = json.decode(response.body);
-    _configuration = Configuration.fromJson(map);
-
-    return _configuration;
+    return configuration = Configuration.fromJson(map);
   }
 
   Future<List<Country>> getAllCountries() async {
@@ -33,30 +30,43 @@ abstract class ConfigurationService {
     );
     Response response = await getWithResilience(uri);
 
-    if (response.statusCode != 200)
+    if (response.statusCode != 200) {
       throw ClientException("request status not successful", uri);
-
+    }
     List<dynamic> map = json.decode(response.body);
 
     return Country.listFromJson(map);
   }
 
-  Future<List<Genre>> getAllMovieGenres({String language = "en-US"}) async {
+  Future<List<Genre>> getAllMovieGenres({String language}) =>
+      _getAllGenres("movie", language ?? "en-US");
+
+  Future<List<Genre>> getAllTvGenres({String language}) =>
+      _getAllGenres("tv", language ?? "en-US");
+
+  Future<List<Genre>> _getAllGenres(String type, String language) async {
     Uri uri = _buildUri(
-      "3/genre/movie/list",
+      "3/genre/$type/list",
       {"api_key": _apiKey, "language": language},
     );
     Response response = await getWithResilience(uri);
 
-    if (response.statusCode != 200)
+    if (response.statusCode != 200) {
       throw ClientException("request status not successful", uri);
-
+    }
     Map<String, dynamic> map = json.decode(response.body);
 
     return Genre.listFromJson(map["genres"]);
   }
 
-  Uri _buildUri(String path, Map<String, dynamic> queryParams);
-
-  Future<Response> getWithResilience(Uri uri);
+  static Uri _buildUri(
+    String path,
+    Map<String, dynamic> queryParams,
+  ) =>
+      Uri(
+        scheme: "https",
+        host: "api.themoviedb.org",
+        path: path,
+        queryParameters: queryParams,
+      );
 }

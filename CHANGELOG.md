@@ -68,3 +68,19 @@
     1. discoverMovies()
     2. getAllMovieGenres()
     3. getAllCountries()
+
+## 0.1.0
+
+* [Akash Mondal](https://github.com/Akash98Sky) - Implement most of TV Shows API functions.
+    1. Search
+    2. Discover
+    3. Top Rated
+    4. Popular
+    5. Airing Today
+    6. On The Air
+    7. Latest
+    8. Show Details
+    9. Season Details
+    10. Episode Details
+* [Akash Mondal](https://github.com/Akash98Sky) - Now movie and tv show related queries can be done using the tmdbService.movie and tmdbService.tv instance respectively.
+* [Akash Mondal](https://github.com/Akash98Sky) - Change all apiKey instance variables to final, it should be the same everywhere throughout an instance of TbdbService.
