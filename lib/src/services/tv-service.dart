@@ -66,6 +66,24 @@ class TvService extends _CommonService {
     );
   }
 
+  Future<List<Video>> getVideos(
+    int tvId, {
+    String language,
+  }) {
+    assert(tvId != null, "ID can't be null");
+    var queryParams = {
+      "api_key": _apiKey,
+      "language": language ?? "en-US",
+    };
+
+    return _get<List<Video>>(
+      "3/tv/$tvId/videos",
+      queryParams,
+      null,
+      (map, assetResolver) => Video.listFromJson(map["results"]),
+    );
+  }
+
   Future<TvShow> getDetails(
     int tvId, {
     String language,
@@ -87,6 +105,25 @@ class TvService extends _CommonService {
       queryParams,
       qualitySettings ?? const QualitySettings(),
       (map, assetResolver) => TvShow.fromJson(map, assetResolver),
+    );
+  }
+
+  Future<List<Video>> getSeasonVideos(
+    int tvId, {
+    int seasonNumber,
+    String language,
+  }) {
+    assert(tvId != null, "ID can't be null");
+    var queryParams = {
+      "api_key": _apiKey,
+      "language": language ?? "en-US",
+    };
+
+    return _get<List<Video>>(
+      "3/tv/$tvId/season/${seasonNumber ?? 0}/videos",
+      queryParams,
+      null,
+      (map, assetResolver) => Video.listFromJson(map["results"]),
     );
   }
 
@@ -112,6 +149,26 @@ class TvService extends _CommonService {
       queryParams,
       qualitySettings ?? const QualitySettings(),
       (map, assetResolver) => TvSeason.fromJson(map, assetResolver),
+    );
+  }
+
+  Future<List<Video>> getEpisodeVideos(
+    int tvId, {
+    int seasonNumber,
+    int episodeNumber,
+    String language,
+  }) {
+    assert(tvId != null, "ID can't be null");
+    var queryParams = {
+      "api_key": _apiKey,
+      "language": language ?? "en-US",
+    };
+
+    return _get<List<Video>>(
+      "3/tv/$tvId/season/${seasonNumber ?? 0}/episode/${episodeNumber ?? 1}/videos",
+      queryParams,
+      null,
+      (map, assetResolver) => Video.listFromJson(map["results"]),
     );
   }
 

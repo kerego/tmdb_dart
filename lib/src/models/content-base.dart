@@ -1,5 +1,3 @@
-import 'package:tmdb_dart/tmdb_dart.dart';
-
 import '../models/date.dart';
 import '../settings/asset-resolver.dart';
 

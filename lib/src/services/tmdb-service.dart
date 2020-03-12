@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart';
 import '../models/content-base.dart';
@@ -7,6 +6,7 @@ import '../models/genre.dart';
 import '../models/movie.dart';
 import '../models/paged-result.dart';
 import '../models/tv-show.dart';
+import '../models/video.dart';
 import '../settings/append-settings.dart';
 import '../settings/asset-resolver.dart';
 import '../settings/configuration.dart';

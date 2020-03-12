@@ -83,4 +83,4 @@
     9. Season Details
     10. Episode Details
 * [Akash Mondal](https://github.com/Akash98Sky) - Now movie and tv show related queries can be done using the tmdbService.movie and tmdbService.tv instance respectively.
-* [Akash Mondal](https://github.com/Akash98Sky) - Change all apiKey instance variables to final, it should be the same everywhere throughout an instance of TbdbService.
+* [Akash Mondal](https://github.com/Akash98Sky) - Change all apiKey instance variables to final, it should be the same everywhere throughout an instance of TmdbService.

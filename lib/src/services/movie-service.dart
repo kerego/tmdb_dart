@@ -67,6 +67,24 @@ class MovieService extends _CommonService {
     );
   }
 
+  Future<List<Video>> getVideos(
+    int id, {
+    String language,
+  }) {
+    assert(id != null, "ID can't be null");
+    var queryParams = {
+      "api_key": _apiKey,
+      "language": language ?? "en-US",
+    };
+
+    return _get<List<Video>>(
+      "3/movie/$id/videos",
+      queryParams,
+      null,
+      (map, assetResolver) => Video.listFromJson(map["results"]),
+    );
+  }
+
   Future<Movie> getDetails(
     int id, {
     String language,

@@ -21,7 +21,9 @@ abstract class _CommonService with ResilientService {
     }
 
     var map = json.decode(response.body);
-    var assetResolver = AssetResolver(_configuration, qualitySettings);
+    var assetResolver = qualitySettings == null
+        ? null
+        : AssetResolver(_configuration, qualitySettings);
 
     return fromJson(map, assetResolver);
   }

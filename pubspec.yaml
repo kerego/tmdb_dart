@@ -3,7 +3,7 @@ version: 0.1.0
 description: >-
   Type Safe API client for The Movie Database API (v3)[https://developers.themoviedb.org/3/]
 environment:
-  sdk: '>=2.0.0 <3.0.0'
+  sdk: '>=2.1.0 <3.0.0'
 authors:
   - Marian Bejenari <kerego@outlook.com>
   - Akash Mondal <a98mondal@gmail.com>
