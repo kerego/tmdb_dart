@@ -32,10 +32,10 @@ abstract class _CommonService with ResilientService {
     String url,
     SearchSettings settings,
     T fromJson(Map<String, dynamic> map, AssetResolver assetResolver), [
-    int page = 1,
+    int page,
   ]) async {
     var queryParams = settings.toJson()
-      ..addAll({"page": page.toString(), "api_key": _apiKey});
+      ..addAll({"page": page?.toString(), "api_key": _apiKey});
 
     Uri uri = _buildUri(url, queryParams);
 
@@ -45,16 +45,16 @@ abstract class _CommonService with ResilientService {
       throw ClientException("request status not successful", uri);
     }
 
-    return _decodeToPagedResult<T>(response, settings, fromJson);
+    return _decodeToPagedResult<T>(response, settings.quality, fromJson);
   }
 
   PagedResult<T> _decodeToPagedResult<T>(
     Response response,
-    SearchSettings settings,
+    QualitySettings quality,
     T fromJson(Map<String, dynamic> map, AssetResolver assetResolver),
   ) {
     var map = json.decode(response.body);
-    var assetResolver = AssetResolver(_configuration, settings.quality);
+    var assetResolver = AssetResolver(_configuration, quality);
 
     var baseFactory = (json) => fromJson(json, assetResolver);
 
@@ -69,6 +69,6 @@ abstract class _CommonService with ResilientService {
         scheme: "https",
         host: "api.themoviedb.org",
         path: path,
-        queryParameters: queryParams,
+        queryParameters: queryParams..removeWhere((_, value) => value == null),
       );
 }

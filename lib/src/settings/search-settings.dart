@@ -17,8 +17,8 @@ class MovieSearchSettings extends SearchSettings<MovieSearchSettings> {
     QualitySettings quality,
   }) : super._create(
           query: query,
-          language: language ?? "en-US",
-          includeAdult: includeAdult ?? false,
+          language: language,
+          includeAdult: includeAdult,
           region: region,
           year: year,
           primaryReleaseYear: primaryReleaseYear,
@@ -35,8 +35,8 @@ class TvSearchSettings extends SearchSettings<TvSearchSettings> {
     QualitySettings quality,
   }) : super._create(
           query: query,
-          language: language ?? "en-US",
-          includeAdult: includeAdult ?? false,
+          language: language,
+          includeAdult: includeAdult,
           firstAirDateYear: firstAirDateYear,
           quality: quality ?? const QualitySettings(),
         );
@@ -72,8 +72,8 @@ abstract class SearchSettings<T> {
   }) =>
       MovieSearchSettings(
         query: query,
-        language: language ?? "en-US",
-        includeAdult: includeAdult ?? false,
+        language: language,
+        includeAdult: includeAdult,
         region: region,
         quality: quality ?? const QualitySettings(),
       );

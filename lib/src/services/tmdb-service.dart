@@ -3,6 +3,8 @@ import 'package:http/http.dart';
 import '../models/content-base.dart';
 import '../models/country.dart';
 import '../models/genre.dart';
+import '../models/image-collection.dart';
+import '../models/image-info.dart';
 import '../models/movie.dart';
 import '../models/paged-result.dart';
 import '../models/tv-show.dart';

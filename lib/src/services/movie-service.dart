@@ -15,7 +15,7 @@ class MovieService extends _CommonService {
       "3/search/movie",
       settings ?? const MovieSearchSettings(),
       (map, assetResolver) => MovieBase.fromJson(map, assetResolver),
-      page ?? 1,
+      page,
     );
   }
 
@@ -25,7 +25,7 @@ class MovieService extends _CommonService {
         "3/discover/movie",
         settings ?? const MovieDiscoverSettings(),
         (map, assetResolver) => MovieBase.fromJson(map, assetResolver),
-        page ?? 1,
+        page,
       );
 
   Future<PagedResult<MovieBase>> getTopRated(
@@ -34,7 +34,7 @@ class MovieService extends _CommonService {
         "3/movie/top_rated",
         settings ?? const MovieSearchSettings(),
         (map, assetResolver) => MovieBase.fromJson(map, assetResolver),
-        page ?? 1,
+        page,
       );
 
   Future<PagedResult<MovieBase>> getPopular(
@@ -43,7 +43,7 @@ class MovieService extends _CommonService {
         "3/movie/popular",
         settings ?? const MovieSearchSettings(),
         (map, assetResolver) => MovieBase.fromJson(map, assetResolver),
-        page ?? 1,
+        page,
       );
 
   Future<PagedResult<MovieBase>> getUpComing(
@@ -52,7 +52,7 @@ class MovieService extends _CommonService {
         "3/movie/upcoming",
         settings ?? const MovieSearchSettings(),
         (map, assetResolver) => MovieBase.fromJson(map, assetResolver),
-        page ?? 1,
+        page,
       );
 
   Future<PagedResult<MovieBase>> getNowPlaying(
@@ -61,13 +61,13 @@ class MovieService extends _CommonService {
         "3/movie/now_playing",
         settings ?? const MovieSearchSettings(),
         (map, assetResolver) => MovieBase.fromJson(map, assetResolver),
-        page ?? 1,
+        page,
       );
 
   Future<Movie> getLatest({String language, QualitySettings qualitySettings}) {
     var queryParams = {
       "api_key": _apiKey,
-      "language": language ?? "en-US",
+      "language": language,
     };
 
     return _get<Movie>(
@@ -85,7 +85,7 @@ class MovieService extends _CommonService {
     assert(id != null, "ID can't be null");
     var queryParams = {
       "api_key": _apiKey,
-      "language": language ?? "en-US",
+      "language": language,
     };
 
     return _get<List<Video>>(
@@ -93,6 +93,27 @@ class MovieService extends _CommonService {
       queryParams,
       null,
       (map, assetResolver) => Video.listFromJson(map["results"]),
+    );
+  }
+
+  Future<ImageCollection> getImages(
+    int id, {
+    String language,
+    List<String> includeImageLanguage,
+    QualitySettings qualitySettings,
+  }) {
+    assert(id != null, "ID can't be null");
+    var queryParams = {
+      "api_key": _apiKey,
+      "language": language,
+      "include_image_language": includeImageLanguage?.join(',')
+    };
+
+    return _get<ImageCollection>(
+      "3/movie/$id/images",
+      queryParams,
+      qualitySettings ?? const QualitySettings(),
+      (map, assetResolver) => ImageCollection.fromJson(map, assetResolver),
     );
   }
 
@@ -106,10 +127,9 @@ class MovieService extends _CommonService {
     assert(id != null, "ID can't be null");
     var queryParams = {
       "api_key": _apiKey,
-      "language": language ?? "en-US",
-      "include_image_language": (imageLanguages ?? const ["en"]).join(","),
-      "append_to_response":
-          (appendSettings ?? const AppendSettings()).toString()
+      "language": language,
+      "include_image_language": imageLanguages?.join(","),
+      "append_to_response": appendSettings?.toString()
     };
 
     return _get<Movie>(
