@@ -84,3 +84,10 @@
     10. Episode Details
 * [Akash Mondal](https://github.com/Akash98Sky) - Now movie and tv show related queries can be done using the tmdbService.movie and tmdbService.tv instance respectively.
 * [Akash Mondal](https://github.com/Akash98Sky) - Change all apiKey instance variables to final, it should be the same everywhere throughout an instance of TmdbService.
+
+## 0.1.1
+
+* [Akash Mondal](https://github.com/Akash98Sky) - Implement getVideos() for movie & tv show, season, episode
+* [Akash Mondal](https://github.com/Akash98Sky) - Expose variable page to function parameters
+* [Akash Mondal](https://github.com/Akash98Sky) - Implement getImages() for movie & tv show, season, episode
+* [Akash Mondal](https://github.com/Akash98Sky) - Remove all explicit initialization of default values to optional query parameters

@@ -1,5 +1,5 @@
 name: tmdb_dart
-version: 0.1.0
+version: 0.1.1
 description: >-
   Type Safe API client for The Movie Database API (v3)[https://developers.themoviedb.org/3/]
 environment:
