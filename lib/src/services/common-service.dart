@@ -31,9 +31,12 @@ abstract class _CommonService with ResilientService {
   Future<PagedResult<T>> _fetchPagedResult<T>(
     String url,
     SearchSettings settings,
-    T fromJson(Map<String, dynamic> map, AssetResolver assetResolver),
-  ) async {
-    var queryParams = settings.toJson()..["api_key"] = _apiKey;
+    T fromJson(Map<String, dynamic> map, AssetResolver assetResolver), [
+    int page = 1,
+  ]) async {
+    var queryParams = settings.toJson()
+      ..addAll({"page": page.toString(), "api_key": _apiKey});
+
     Uri uri = _buildUri(url, queryParams);
 
     Response response = await getWithResilience(uri);

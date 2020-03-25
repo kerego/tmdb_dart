@@ -28,7 +28,6 @@ class MovieDiscoverSettings extends MovieSearchSettings {
     bool includeAdult = false,
     this.includeVideo = false,
     String language = "en-US",
-    int page = 1,
     int year,
     int primaryReleaseYear,
     this.primaryReleaseDateGTE,
@@ -55,7 +54,6 @@ class MovieDiscoverSettings extends MovieSearchSettings {
             voteAverageLTE >= 0 && voteAverageGTE <= 10),
         super(
           language: language,
-          page: page,
           includeAdult: includeAdult,
           year: year,
           primaryReleaseYear: primaryReleaseYear,

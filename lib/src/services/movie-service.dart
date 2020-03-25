@@ -3,54 +3,65 @@ part of 'tmdb-service.dart';
 class MovieService extends _CommonService {
   MovieService(String apiKey) : super(apiKey);
 
-  Future<PagedResult<MovieBase>> search(String query, {int page = 1}) {
-    var settings = MovieSearchSettings(query: query, page: page);
-    return advancedSearch(settings);
+  Future<PagedResult<MovieBase>> search(String query, {int page}) {
+    var settings = MovieSearchSettings(query: query);
+    return advancedSearch(settings, page: page);
   }
 
-  Future<PagedResult<MovieBase>> advancedSearch(MovieSearchSettings settings) {
+  Future<PagedResult<MovieBase>> advancedSearch(MovieSearchSettings settings,
+      {int page}) {
     assert(settings.query != null && settings.query.isNotEmpty);
     return _fetchPagedResult<MovieBase>(
       "3/search/movie",
       settings ?? const MovieSearchSettings(),
       (map, assetResolver) => MovieBase.fromJson(map, assetResolver),
+      page ?? 1,
     );
   }
 
-  Future<PagedResult<MovieBase>> discover({MovieDiscoverSettings settings}) =>
+  Future<PagedResult<MovieBase>> discover(
+          {MovieDiscoverSettings settings, int page}) =>
       _fetchPagedResult<MovieBase>(
         "3/discover/movie",
         settings ?? const MovieDiscoverSettings(),
         (map, assetResolver) => MovieBase.fromJson(map, assetResolver),
+        page ?? 1,
       );
 
-  Future<PagedResult<MovieBase>> getTopRated({MovieSearchSettings settings}) =>
+  Future<PagedResult<MovieBase>> getTopRated(
+          {MovieSearchSettings settings, int page}) =>
       _fetchPagedResult<MovieBase>(
         "3/movie/top_rated",
         settings ?? const MovieSearchSettings(),
         (map, assetResolver) => MovieBase.fromJson(map, assetResolver),
+        page ?? 1,
       );
 
-  Future<PagedResult<MovieBase>> getPopular({MovieSearchSettings settings}) =>
+  Future<PagedResult<MovieBase>> getPopular(
+          {MovieSearchSettings settings, int page}) =>
       _fetchPagedResult<MovieBase>(
         "3/movie/popular",
         settings ?? const MovieSearchSettings(),
         (map, assetResolver) => MovieBase.fromJson(map, assetResolver),
+        page ?? 1,
       );
 
-  Future<PagedResult<MovieBase>> getUpComing({MovieSearchSettings settings}) =>
+  Future<PagedResult<MovieBase>> getUpComing(
+          {MovieSearchSettings settings, int page}) =>
       _fetchPagedResult<MovieBase>(
         "3/movie/upcoming",
         settings ?? const MovieSearchSettings(),
         (map, assetResolver) => MovieBase.fromJson(map, assetResolver),
+        page ?? 1,
       );
 
   Future<PagedResult<MovieBase>> getNowPlaying(
-          {MovieSearchSettings settings}) =>
+          {MovieSearchSettings settings, int page}) =>
       _fetchPagedResult<MovieBase>(
         "3/movie/now_playing",
         settings ?? const MovieSearchSettings(),
         (map, assetResolver) => MovieBase.fromJson(map, assetResolver),
+        page ?? 1,
       );
 
   Future<Movie> getLatest({String language, QualitySettings qualitySettings}) {

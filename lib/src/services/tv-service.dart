@@ -4,52 +4,64 @@ class TvService extends _CommonService {
   TvService(String apiKey) : super(apiKey);
 
   Future<PagedResult<TvBase>> search(String query, {int page}) {
-    var settings = TvSearchSettings(query: query, page: page);
-    return advancedSearch(settings);
+    var settings = TvSearchSettings(query: query);
+    return advancedSearch(settings, page: page);
   }
 
-  Future<PagedResult<TvBase>> advancedSearch(TvSearchSettings settings) {
+  Future<PagedResult<TvBase>> advancedSearch(TvSearchSettings settings,
+      {int page}) {
     assert(settings.query != null && settings.query.isNotEmpty);
     return _fetchPagedResult<TvBase>(
       "3/search/tv",
       settings ?? const TvSearchSettings(),
       (map, assetResolver) => TvBase.fromJson(map, assetResolver),
+      page ?? 1,
     );
   }
 
-  Future<PagedResult<TvBase>> discover({TvDiscoverSettings settings}) =>
+  Future<PagedResult<TvBase>> discover(
+          {TvDiscoverSettings settings, int page}) =>
       _fetchPagedResult<TvBase>(
         "3/discover/tv",
         settings ?? const TvDiscoverSettings(),
         (map, assetResolver) => TvBase.fromJson(map, assetResolver),
+        page ?? 1,
       );
 
-  Future<PagedResult<TvBase>> getTopRated({TvSearchSettings settings}) =>
+  Future<PagedResult<TvBase>> getTopRated(
+          {TvSearchSettings settings, int page}) =>
       _fetchPagedResult<TvBase>(
         "3/tv/top_rated",
         settings ?? const TvSearchSettings(),
         (map, assetResolver) => TvBase.fromJson(map, assetResolver),
+        page ?? 1,
       );
 
-  Future<PagedResult<TvBase>> getPopular({TvSearchSettings settings}) =>
+  Future<PagedResult<TvBase>> getPopular(
+          {TvSearchSettings settings, int page}) =>
       _fetchPagedResult<TvBase>(
         "3/tv/popular",
         settings ?? const TvSearchSettings(),
         (map, assetResolver) => TvBase.fromJson(map, assetResolver),
+        page ?? 1,
       );
 
-  Future<PagedResult<TvBase>> getAiringToday({TvSearchSettings settings}) =>
+  Future<PagedResult<TvBase>> getAiringToday(
+          {TvSearchSettings settings, int page}) =>
       _fetchPagedResult<TvBase>(
         "3/tv/airing_today",
         settings ?? const TvSearchSettings(),
         (map, assetResolver) => TvBase.fromJson(map, assetResolver),
+        page ?? 1,
       );
 
-  Future<PagedResult<TvBase>> getOnTheAir({TvSearchSettings settings}) =>
+  Future<PagedResult<TvBase>> getOnTheAir(
+          {TvSearchSettings settings, int page}) =>
       _fetchPagedResult<TvBase>(
         "3/tv/on_the_air",
         settings ?? const TvSearchSettings(),
         (map, assetResolver) => TvBase.fromJson(map, assetResolver),
+        page ?? 1,
       );
 
   Future<TvShow> getLatest({String language, QualitySettings qualitySettings}) {

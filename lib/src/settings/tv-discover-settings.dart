@@ -22,7 +22,6 @@ class TvDiscoverSettings extends TvSearchSettings {
     int firstAirDateYear,
     bool includeAdult = false,
     String language = "en-US",
-    int page = 1,
     this.sortBy,
     this.timezone,
     this.voteCountGTE,
@@ -37,7 +36,6 @@ class TvDiscoverSettings extends TvSearchSettings {
             voteAverageGTE >= 0 && voteAverageGTE <= 10),
         super(
           language: language,
-          page: page,
           includeAdult: includeAdult,
           firstAirDateYear: firstAirDateYear,
           quality: quality,
