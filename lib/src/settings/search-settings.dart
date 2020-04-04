@@ -10,7 +10,6 @@ class MovieSearchSettings extends SearchSettings<MovieSearchSettings> {
   const MovieSearchSettings({
     String query,
     String language,
-    int page,
     bool includeAdult,
     String region,
     int year,
@@ -18,9 +17,8 @@ class MovieSearchSettings extends SearchSettings<MovieSearchSettings> {
     QualitySettings quality,
   }) : super._create(
           query: query,
-          language: language ?? "en-US",
-          page: page ?? 1,
-          includeAdult: includeAdult ?? false,
+          language: language,
+          includeAdult: includeAdult,
           region: region,
           year: year,
           primaryReleaseYear: primaryReleaseYear,
@@ -32,15 +30,13 @@ class TvSearchSettings extends SearchSettings<TvSearchSettings> {
   const TvSearchSettings({
     String query,
     String language,
-    int page,
     bool includeAdult,
     int firstAirDateYear,
     QualitySettings quality,
   }) : super._create(
           query: query,
-          language: language ?? "en-US",
-          page: page ?? 1,
-          includeAdult: includeAdult ?? false,
+          language: language,
+          includeAdult: includeAdult,
           firstAirDateYear: firstAirDateYear,
           quality: quality ?? const QualitySettings(),
         );
@@ -49,7 +45,6 @@ class TvSearchSettings extends SearchSettings<TvSearchSettings> {
 abstract class SearchSettings<T> {
   final String language;
   final String query;
-  final int page;
   final bool includeAdult;
   final String region;
   final int year;
@@ -60,7 +55,6 @@ abstract class SearchSettings<T> {
   const SearchSettings._create({
     this.query,
     this.language,
-    this.page,
     this.includeAdult,
     this.region,
     this.year,
@@ -72,16 +66,14 @@ abstract class SearchSettings<T> {
   static SearchSettings multi({
     String query,
     String language,
-    int page,
     bool includeAdult,
     String region,
     QualitySettings quality,
   }) =>
       MovieSearchSettings(
         query: query,
-        language: language ?? "en-US",
-        page: page ?? 1,
-        includeAdult: includeAdult ?? false,
+        language: language,
+        includeAdult: includeAdult,
         region: region,
         quality: quality ?? const QualitySettings(),
       );
@@ -90,7 +82,6 @@ abstract class SearchSettings<T> {
     var map = Map<String, dynamic>();
     map["language"] = language;
     map["query"] = query;
-    map["page"] = page?.toString();
     map["include_adult"] = includeAdult?.toString();
     map["region"] = region;
     map["year"] = year?.toString();

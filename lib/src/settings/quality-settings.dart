@@ -1,4 +1,4 @@
-import 'asset-resolver.dart';
+import '../models/asset-quality.dart';
 
 class QualitySettings {
   final AssetQuality posterQuality;
