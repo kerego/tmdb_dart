@@ -32,6 +32,7 @@ class AppendSettings {
 
   /// Include the reviews for a movie
   final bool includeReviews;
+  final bool includeProviders;
 
   const AppendSettings({
     this.includeAlternativeTitles = false,
@@ -45,6 +46,7 @@ class AppendSettings {
     this.includeRecommendations = false,
     this.includeSimilarContent = false,
     this.includeReviews = false,
+    this.includeProviders = false,
   });
 
   @override
@@ -82,6 +84,9 @@ class AppendSettings {
     }
     if (includeReviews) {
       buffer.write("reviews,");
+    }
+    if (includeProviders) {
+      buffer.write("watch/providers,");
     }
 
     return buffer.toString();
