@@ -18,44 +18,44 @@ part 'tv-episode.dart';
 part 'tv-season.dart';
 
 class TvShow extends TvBase {
-  final List<Creator> createdBy;
-  final List<int> episodeRunTime;
-  final List<Genre> genres;
-  final String homepage;
-  final bool inProduction;
-  final List<String> languages;
-  final Date lastAirDate;
+  final List<Creator>? createdBy;
+  final List<int>? episodeRunTime;
+  final List<Genre>? genres;
+  final String? homepage;
+  final bool? inProduction;
+  final List<String>? languages;
+  final Date? lastAirDate;
   final dynamic lastEpisodeToAir;
-  final List<Company> networks;
-  final int numOfEpisodes;
-  final int numOfSeasons;
-  final List<Company> productionCompanies;
-  final List<SeasonBase> seasons;
-  final String status, type;
+  final List<Company>? networks;
+  final int? numOfEpisodes;
+  final int? numOfSeasons;
+  final List<Company>? productionCompanies;
+  final List<SeasonBase>? seasons;
+  final String? status, type;
 
   // append_to_response
-  final ImageCollection images;
-  final List<AlternativeTitle> alternativeTitles;
-  final Credits credits;
-  final ExternalInfo externalIds;
-  final List<Keyword> keywords;
-  final List<Video> videos;
-  final List<TvBase> recommendations;
-  final List<TvBase> similar;
+  final ImageCollection? images;
+  final List<AlternativeTitle>? alternativeTitles;
+  final Credits? credits;
+  final ExternalInfo? externalIds;
+  final List<Keyword>? keywords;
+  final List<Video>? videos;
+  final List<TvBase>? recommendations;
+  final List<TvBase>? similar;
 
   TvShow({
-    int id,
-    String originalLanguage,
-    String backdropPath,
-    String posterPath,
-    String overview,
-    num popularity,
-    int voteCount,
-    num voteAverage,
-    Date firstAirDate,
-    String name,
-    String originalName,
-    List<String> originCountry,
+    required int id,
+    String? originalLanguage,
+    String? backdropPath,
+    String? posterPath,
+    String? overview,
+    num? popularity,
+    int? voteCount,
+    num? voteAverage,
+    Date? firstAirDate,
+    String? name,
+    String? originalName,
+    List<String>? originCountry,
     this.createdBy,
     this.episodeRunTime,
     this.genres,
@@ -118,41 +118,26 @@ class TvShow extends TvBase {
         inProduction: map["in_production"],
         languages: List.castFrom(map["languages"]),
         lastAirDate: Date.tryParse(map["last_air_date"]),
-        lastEpisodeToAir: map["last_episode_to_air"] != null
-            ? EpisodeBase.fromJson(map["last_episode_to_air"], assetResolver)
-            : null,
+        lastEpisodeToAir:
+            map["last_episode_to_air"] != null ? EpisodeBase.fromJson(map["last_episode_to_air"], assetResolver) : null,
         networks: Company.listFromJson(map["networks"], assetResolver),
         numOfEpisodes: map["number_of_episodes"],
         numOfSeasons: map["number_of_seasons"],
-        productionCompanies:
-            Company.listFromJson(map["production_companies"], assetResolver),
+        productionCompanies: Company.listFromJson(map["production_companies"], assetResolver),
         seasons: SeasonBase.listFromJson(map["seasons"], assetResolver),
         status: map["status"],
         type: map["type"],
-        images: map.containsKey("images")
-            ? ImageCollection.fromJson(map["images"], assetResolver)
-            : null,
+        images: map.containsKey("images") ? ImageCollection.fromJson(map["images"], assetResolver) : null,
         alternativeTitles: map.containsKey("alternative_titles")
             ? AlternativeTitle.listFromJson(map["alternative_titles"]["titles"])
             : null,
-        credits: map.containsKey("credits")
-            ? Credits.fromJson(map["credits"], assetResolver)
-            : null,
-        externalIds: map.containsKey("external_ids")
-            ? ExternalInfo.fromJson(map["external_ids"])
-            : null,
-        keywords: map.containsKey("keywords")
-            ? Keyword.listFromJson(map["keywords"]["keywords"])
-            : null,
-        videos: map.containsKey("videos")
-            ? Video.listFromJson(map["videos"]["results"])
-            : null,
+        credits: map.containsKey("credits") ? Credits.fromJson(map["credits"], assetResolver) : null,
+        externalIds: map.containsKey("external_ids") ? ExternalInfo.fromJson(map["external_ids"]) : null,
+        keywords: map.containsKey("keywords") ? Keyword.listFromJson(map["keywords"]["keywords"]) : null,
+        videos: map.containsKey("videos") ? Video.listFromJson(map["videos"]["results"]) : null,
         recommendations: map.containsKey("recommendations")
-            ? TvBase.listFromJson(
-                map["recommendations"]["results"], assetResolver)
+            ? TvBase.listFromJson(map["recommendations"]["results"], assetResolver)
             : null,
-        similar: map.containsKey("similar")
-            ? TvBase.listFromJson(map["similar"]["results"], assetResolver)
-            : null,
+        similar: map.containsKey("similar") ? TvBase.listFromJson(map["similar"]["results"], assetResolver) : null,
       );
 }

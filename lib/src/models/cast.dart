@@ -5,16 +5,16 @@ import 'creator.dart';
 import 'gender.dart';
 
 class Cast extends Creator {
-  final int castId;
-  final String character;
-  final int order;
+  final int? castId;
+  final String? character;
+  final int? order;
 
   Cast({
-    String creditId,
-    int id,
-    Gender gender,
-    String name,
-    String profilePath,
+    String? creditId,
+    required int id,
+    Gender? gender,
+    String? name,
+    String? profilePath,
     this.castId,
     this.character,
     this.order,

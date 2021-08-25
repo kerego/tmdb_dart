@@ -5,8 +5,7 @@ abstract class SortBy {
       vote_count = _Order._defaultDesc("vote_count");
 
   /// SortBy order to be used for Movie discover
-  static final _Order primary_release_date =
-          _Order._defaultDesc("primary_release_date"),
+  static final _Order primary_release_date = _Order._defaultDesc("primary_release_date"),
       release_date = _Order._defaultDesc("release_date"),
       revenue = _Order._defaultDesc("revenue"),
       original_title = _Order._defaultAsc("original_title");
@@ -16,12 +15,12 @@ abstract class SortBy {
 }
 
 class _Order extends SortBy {
-  final String _by, _order;
-  final _Order _other;
+  final String? _by, _order;
+  final _Order? _other;
 
-  SortBy get asc => _order == "asc" ? this : _other;
+  SortBy get asc => _order == "asc" ? this : _other!;
 
-  SortBy get desc => _order == "desc" ? this : _other;
+  SortBy get desc => _order == "desc" ? this : _other!;
 
   _Order._defaultAsc(
     this._by, {
@@ -36,5 +35,5 @@ class _Order extends SortBy {
         _other = createAsc ? _Order._defaultAsc(_by, createDesc: false) : null;
 
   @override
-  String toString() => _by + "." + _order;
+  String toString() => _by! + "." + _order!;
 }

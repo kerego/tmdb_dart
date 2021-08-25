@@ -8,13 +8,13 @@ part 'tv-discover-settings.dart';
 
 class MovieSearchSettings extends SearchSettings<MovieSearchSettings> {
   const MovieSearchSettings({
-    String query,
-    String language,
-    bool includeAdult,
-    String region,
-    int year,
-    int primaryReleaseYear,
-    QualitySettings quality,
+    String? query,
+    String? language,
+    bool? includeAdult,
+    String? region,
+    int? year,
+    int? primaryReleaseYear,
+    QualitySettings? quality,
   }) : super._create(
           query: query,
           language: language,
@@ -28,11 +28,11 @@ class MovieSearchSettings extends SearchSettings<MovieSearchSettings> {
 
 class TvSearchSettings extends SearchSettings<TvSearchSettings> {
   const TvSearchSettings({
-    String query,
-    String language,
-    bool includeAdult,
-    int firstAirDateYear,
-    QualitySettings quality,
+    String? query,
+    String? language,
+    bool? includeAdult,
+    int? firstAirDateYear,
+    QualitySettings? quality,
   }) : super._create(
           query: query,
           language: language,
@@ -43,14 +43,14 @@ class TvSearchSettings extends SearchSettings<TvSearchSettings> {
 }
 
 abstract class SearchSettings<T> {
-  final String language;
-  final String query;
-  final bool includeAdult;
-  final String region;
-  final int year;
-  final int primaryReleaseYear;
-  final int firstAirDateYear;
-  final QualitySettings quality;
+  final String? language;
+  final String? query;
+  final bool? includeAdult;
+  final String? region;
+  final int? year;
+  final int? primaryReleaseYear;
+  final int? firstAirDateYear;
+  final QualitySettings? quality;
 
   const SearchSettings._create({
     this.query,
@@ -64,11 +64,11 @@ abstract class SearchSettings<T> {
   }) : assert(quality != null);
 
   static SearchSettings multi({
-    String query,
-    String language,
-    bool includeAdult,
-    String region,
-    QualitySettings quality,
+    String? query,
+    String? language,
+    bool? includeAdult,
+    String? region,
+    QualitySettings? quality,
   }) =>
       MovieSearchSettings(
         query: query,

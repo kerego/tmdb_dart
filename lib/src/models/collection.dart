@@ -1,10 +1,10 @@
 import '../settings/asset-resolver.dart';
 
 class Collection {
-  int id;
-  String name;
-  String posterPath;
-  String backdropPath;
+  late int id;
+  String? name;
+  String? posterPath;
+  String? backdropPath;
 
   Collection.fromJson(Map<String, dynamic> map, AssetResolver assetResolver) {
     id = map["id"];

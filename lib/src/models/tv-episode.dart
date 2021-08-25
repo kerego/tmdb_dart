@@ -1,21 +1,21 @@
 part of 'tv-show.dart';
 
 class TvEpisode extends EpisodeBase {
-  final List<Crew> crew;
-  final List<Cast> guestStars;
+  final List<Crew>? crew;
+  final List<Cast>? guestStars;
 
   TvEpisode({
-    Date airDate,
-    int episodeNumber,
-    int id,
-    String name,
-    String overview,
-    String productionCode,
-    int seasonNumber,
-    int showId,
-    String stillPath,
-    num voteAverage,
-    int voteCount,
+    Date? airDate,
+    int? episodeNumber,
+    required int id,
+    String? name,
+    String? overview,
+    String? productionCode,
+    int? seasonNumber,
+    int? showId,
+    String? stillPath,
+    num? voteAverage,
+    int? voteCount,
     this.crew,
     this.guestStars,
   }) : super(
@@ -56,28 +56,26 @@ class TvEpisode extends EpisodeBase {
     List<dynamic> list,
     AssetResolver assetResolver,
   ) =>
-      list
-          .map((x) => TvEpisode.fromJson(x, assetResolver))
-          .toList(growable: false);
+      list.map((x) => TvEpisode.fromJson(x, assetResolver)).toList(growable: false);
 }
 
 class EpisodeBase {
-  final Date airDate;
-  final int episodeNumber;
+  final Date? airDate;
+  final int? episodeNumber;
   final int id;
-  final String name;
-  final String overview;
-  final String productionCode;
-  final int seasonNumber;
-  final int showId;
-  final String stillPath;
-  final num voteAverage;
-  final int voteCount;
+  final String? name;
+  final String? overview;
+  final String? productionCode;
+  final int? seasonNumber;
+  final int? showId;
+  final String? stillPath;
+  final num? voteAverage;
+  final int? voteCount;
 
   EpisodeBase({
     this.airDate,
     this.episodeNumber,
-    this.id,
+    required this.id,
     this.name,
     this.overview,
     this.productionCode,
@@ -110,7 +108,5 @@ class EpisodeBase {
     List<dynamic> list,
     AssetResolver assetResolver,
   ) =>
-      list
-          .map((x) => EpisodeBase.fromJson(x, assetResolver))
-          .toList(growable: false);
+      list.map((x) => EpisodeBase.fromJson(x, assetResolver)).toList(growable: false);
 }

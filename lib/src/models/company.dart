@@ -2,9 +2,9 @@ import '../settings/asset-resolver.dart';
 
 class Company {
   final int id;
-  final String logoPath;
-  final String name;
-  final String originalCountry;
+  final String? logoPath;
+  final String? name;
+  final String? originalCountry;
 
   Company(this.id, this.logoPath, this.name, this.originalCountry);
 
@@ -23,7 +23,5 @@ class Company {
     List<dynamic> list,
     AssetResolver assetResolver,
   ) =>
-      list
-          .map((x) => Company.fromJson(x, assetResolver))
-          .toList(growable: false);
+      list.map((x) => Company.fromJson(x, assetResolver)).toList(growable: false);
 }

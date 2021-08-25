@@ -1,7 +1,7 @@
 class AlternativeTitle {
-  String iso3166_1;
-  String title;
-  String type;
+  late String iso3166_1;
+  late String title;
+  late String type;
 
   AlternativeTitle.fromJson(Map<String, dynamic> map) {
     iso3166_1 = map["iso_3166_1"];

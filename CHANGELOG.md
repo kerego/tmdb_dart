@@ -91,3 +91,8 @@
 * [Akash Mondal](https://github.com/Akash98Sky) - Expose variable page to function parameters
 * [Akash Mondal](https://github.com/Akash98Sky) - Implement getImages() for movie & tv show, season, episode
 * [Akash Mondal](https://github.com/Akash98Sky) - Remove all explicit initialization of default values to optional query parameters
+
+
+## 0.2.0
+
+* [Balan Dorin](https://github.com/gxsham) - Migrated to null safety

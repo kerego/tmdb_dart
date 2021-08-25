@@ -3,14 +3,14 @@ part of 'tmdb-service.dart';
 abstract class ConfigurationService with ResilientService {
   static const String _configPath = "3/configuration";
 
-  final String _apiKey;
-  Configuration _configuration;
+  final String? _apiKey;
+  Configuration? _configuration;
 
   ConfigurationService(this._apiKey);
 
-  Configuration get configuration => _configuration;
+  Configuration? get configuration => _configuration;
 
-  set configuration(Configuration config);
+  set configuration(Configuration? config);
 
   Future<Configuration> initConfiguration() async {
     Uri uri = _buildUri(
@@ -38,13 +38,11 @@ abstract class ConfigurationService with ResilientService {
     return Country.listFromJson(map);
   }
 
-  Future<List<Genre>> getAllMovieGenres({String language}) =>
-      _getAllGenres("movie", language);
+  Future<List<Genre>> getAllMovieGenres({String? language}) => _getAllGenres("movie", language);
 
-  Future<List<Genre>> getAllTvGenres({String language}) =>
-      _getAllGenres("tv", language);
+  Future<List<Genre>> getAllTvGenres({String? language}) => _getAllGenres("tv", language);
 
-  Future<List<Genre>> _getAllGenres(String type, String language) async {
+  Future<List<Genre>> _getAllGenres(String type, String? language) async {
     Uri uri = _buildUri(
       "3/genre/$type/list",
       {"api_key": _apiKey, "language": language},

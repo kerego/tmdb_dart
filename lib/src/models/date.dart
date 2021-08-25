@@ -6,10 +6,11 @@ class Date extends DateTime {
   })  : assert(day > 0 && month > 0 && year > 0),
         super(year, month, day);
 
-  static Date tryParse(String formattedString) {
+  static Date? tryParse(String? formattedString) {
     if (formattedString == null || formattedString.isEmpty) return null;
 
-    DateTime dateTime = DateTime.tryParse(formattedString);
+    DateTime? dateTime = DateTime.tryParse(formattedString);
+    if (dateTime == null) return null;
     return Date(day: dateTime.day, month: dateTime.month, year: dateTime.year);
   }
 
@@ -18,6 +19,5 @@ class Date extends DateTime {
   static String _twoDigits(int n) => n.toString().padLeft(2, '0');
 
   @override
-  String toString() =>
-      "${_fourDigits(year)}-${_twoDigits(month)}-${_twoDigits(day)}";
+  String toString() => "${_fourDigits(year)}-${_twoDigits(month)}-${_twoDigits(day)}";
 }

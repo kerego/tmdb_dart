@@ -1,11 +1,11 @@
 class Configuration {
-  final String baseUrl;
-  final String secureBaseUrl;
-  final List<String> backdropSizes;
-  final List<String> logoSizes;
-  final List<String> posterSizes;
-  final List<String> profileSizes;
-  final List<String> stillSizes;
+  final String? baseUrl;
+  final String? secureBaseUrl;
+  final List<String>? backdropSizes;
+  final List<String>? logoSizes;
+  final List<String>? posterSizes;
+  final List<String>? profileSizes;
+  final List<String>? stillSizes;
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = Map<String, dynamic>();

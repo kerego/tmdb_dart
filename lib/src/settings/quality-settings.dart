@@ -1,11 +1,11 @@
 import '../models/asset-quality.dart';
 
 class QualitySettings {
-  final AssetQuality posterQuality;
-  final AssetQuality backdropQuality;
-  final AssetQuality logoQuality;
-  final AssetQuality profileQuality;
-  final AssetQuality stillQuality;
+  final AssetQuality? posterQuality;
+  final AssetQuality? backdropQuality;
+  final AssetQuality? logoQuality;
+  final AssetQuality? profileQuality;
+  final AssetQuality? stillQuality;
 
   const QualitySettings({
     this.posterQuality = AssetQuality.Mid,

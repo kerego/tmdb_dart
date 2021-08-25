@@ -1,15 +1,15 @@
 class Video {
   final String id;
-  final String iso_639_1;
-  final String iso_3166_1;
-  final String key;
-  final String name;
-  final String site;
-  final int size;
-  final String type;
+  final String? iso_639_1;
+  final String? iso_3166_1;
+  final String? key;
+  final String? name;
+  final String? site;
+  final int? size;
+  final String? type;
 
   Video({
-    this.id,
+    required this.id,
     this.iso_639_1,
     this.iso_3166_1,
     this.key,
@@ -30,6 +30,5 @@ class Video {
         type: map["type"],
       );
 
-  static List<Video> listFromJson(List<dynamic> list) =>
-      list.map((x) => Video.fromJson(x)).toList(growable: false);
+  static List<Video> listFromJson(List<dynamic> list) => list.map((x) => Video.fromJson(x)).toList(growable: false);
 }

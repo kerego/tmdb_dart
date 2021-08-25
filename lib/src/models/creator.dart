@@ -4,15 +4,15 @@ import '../settings/asset-resolver.dart';
 import 'gender.dart';
 
 class Creator {
-  final String creditId;
+  final String? creditId;
   final int id;
-  final Gender gender;
-  final String name;
-  final String profilePath;
+  final Gender? gender;
+  final String? name;
+  final String? profilePath;
 
   Creator({
     this.creditId,
-    this.id,
+    required this.id,
     this.gender,
     this.name,
     this.profilePath,
@@ -34,7 +34,5 @@ class Creator {
     List<dynamic> list,
     AssetResolver assetResolver,
   ) =>
-      list
-          .map((x) => Creator.fromJson(x, assetResolver))
-          .toList(growable: false);
+      list.map((x) => Creator.fromJson(x, assetResolver)).toList(growable: false);
 }

@@ -1,16 +1,16 @@
 part of 'tmdb-service.dart';
 
 abstract class _CommonService with ResilientService {
-  final String _apiKey;
-  Configuration _configuration;
+  final String? _apiKey;
+  Configuration? _configuration;
 
   _CommonService(this._apiKey);
 
   Future<T> _get<T>(
-    String path,
-    Map<String, String> queryParams,
-    QualitySettings qualitySettings,
-    T fromJson(Map<String, dynamic> map, AssetResolver assetResolver),
+    String? path,
+    Map<String, String?>? queryParams,
+    QualitySettings? qualitySettings,
+    T fromJson(Map<String, dynamic>? map, AssetResolver? assetResolver),
   ) async {
     Uri uri = _buildUri(path, queryParams);
 
@@ -21,21 +21,18 @@ abstract class _CommonService with ResilientService {
     }
 
     var map = json.decode(response.body);
-    var assetResolver = qualitySettings == null
-        ? null
-        : AssetResolver(_configuration, qualitySettings);
+    var assetResolver = qualitySettings == null ? null : AssetResolver(_configuration, qualitySettings);
 
     return fromJson(map, assetResolver);
   }
 
   Future<PagedResult<T>> _fetchPagedResult<T>(
-    String url,
-    SearchSettings settings,
+    String? url,
+    SearchSettings? settings,
     T fromJson(Map<String, dynamic> map, AssetResolver assetResolver), [
-    int page,
+    int? page,
   ]) async {
-    var queryParams = settings.toJson()
-      ..addAll({"page": page?.toString(), "api_key": _apiKey});
+    var queryParams = settings?.toJson()?..addAll({"page": page?.toString(), "api_key": _apiKey});
 
     Uri uri = _buildUri(url, queryParams);
 
@@ -45,12 +42,12 @@ abstract class _CommonService with ResilientService {
       throw ClientException("request status not successful", uri);
     }
 
-    return _decodeToPagedResult<T>(response, settings.quality, fromJson);
+    return _decodeToPagedResult<T>(response, settings?.quality, fromJson);
   }
 
   PagedResult<T> _decodeToPagedResult<T>(
     Response response,
-    QualitySettings quality,
+    QualitySettings? quality,
     T fromJson(Map<String, dynamic> map, AssetResolver assetResolver),
   ) {
     var map = json.decode(response.body);
@@ -62,13 +59,13 @@ abstract class _CommonService with ResilientService {
   }
 
   static Uri _buildUri(
-    String path,
-    Map<String, dynamic> queryParams,
+    String? path,
+    Map<String, dynamic>? queryParams,
   ) =>
       Uri(
         scheme: "https",
         host: "api.themoviedb.org",
         path: path,
-        queryParameters: queryParams..removeWhere((_, value) => value == null),
+        queryParameters: queryParams?..removeWhere((_, value) => value == null),
       );
 }

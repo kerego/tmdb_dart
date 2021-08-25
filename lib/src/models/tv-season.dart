@@ -1,16 +1,16 @@
 part of 'tv-show.dart';
 
 class TvSeason extends SeasonBase {
-  final List<TvEpisode> episodes;
+  final List<TvEpisode>? episodes;
 
   TvSeason({
-    Date airDate,
-    int episodeCount,
-    int id,
-    String name,
-    String overview,
-    String posterPath,
-    int seasonNumber,
+    Date? airDate,
+    int? episodeCount,
+    required int id,
+    String? name,
+    String? overview,
+    String? posterPath,
+    int? seasonNumber,
     this.episodes,
   }) : super(
           airDate: airDate,
@@ -39,18 +39,18 @@ class TvSeason extends SeasonBase {
 }
 
 class SeasonBase {
-  final Date airDate;
-  final int episodeCount;
+  final Date? airDate;
+  final int? episodeCount;
   final int id;
-  final String name;
-  final String overview;
-  final String posterPath;
-  final int seasonNumber;
+  final String? name;
+  final String? overview;
+  final String? posterPath;
+  final int? seasonNumber;
 
   SeasonBase({
     this.airDate,
     this.episodeCount,
-    this.id,
+    required this.id,
     this.name,
     this.overview,
     this.posterPath,
@@ -75,7 +75,5 @@ class SeasonBase {
     List<dynamic> list,
     AssetResolver assetResolver,
   ) =>
-      list
-          .map((x) => SeasonBase.fromJson(x, assetResolver))
-          .toList(growable: false);
+      list.map((x) => SeasonBase.fromJson(x, assetResolver)).toList(growable: false);
 }

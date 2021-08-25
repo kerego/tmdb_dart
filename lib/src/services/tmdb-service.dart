@@ -36,13 +36,13 @@ class TmdbService extends ConfigurationService {
   }
 
   @override
-  set configuration(Configuration config) {
+  set configuration(Configuration? config) {
     assert(config != null);
     this._configuration = _movie._configuration = _tv._configuration = config;
   }
 
   /// Instanciate TmdbService using TMDB API Key (v3 auth)
-  TmdbService(String apiKey)
+  TmdbService(String? apiKey)
       : assert(apiKey != null, "TMDB API Key can't be null."),
         _movie = MovieService(apiKey),
         _tv = TvService(apiKey),

@@ -1,35 +1,35 @@
 part of 'search-settings.dart';
 
 class MovieDiscoverSettings extends MovieSearchSettings {
-  final String certificationCountry;
-  final String certification;
-  final String certificationLTE;
-  final bool includeVideo;
-  final Date primaryReleaseDateGTE;
-  final Date primaryReleaseDateLTE;
-  final Date releaseDateGTE;
-  final Date releaseDateLTE;
-  final SortBy sortBy;
-  final int voteCountGTE;
-  final int voteCountLTE;
-  final num voteAverageGTE;
-  final num voteAverageLTE;
-  final int withCast;
-  final int withCrew;
-  final List<int> withCompanies;
-  final List<int> withGenres;
-  final List<int> withKeywords;
-  final List<int> withPeople;
+  final String? certificationCountry;
+  final String? certification;
+  final String? certificationLTE;
+  final bool? includeVideo;
+  final Date? primaryReleaseDateGTE;
+  final Date? primaryReleaseDateLTE;
+  final Date? releaseDateGTE;
+  final Date? releaseDateLTE;
+  final SortBy? sortBy;
+  final int? voteCountGTE;
+  final int? voteCountLTE;
+  final num? voteAverageGTE;
+  final num? voteAverageLTE;
+  final int? withCast;
+  final int? withCrew;
+  final List<int>? withCompanies;
+  final List<int>? withGenres;
+  final List<int>? withKeywords;
+  final List<int>? withPeople;
 
   const MovieDiscoverSettings({
     this.certificationCountry,
     this.certification,
     this.certificationLTE,
-    bool includeAdult,
+    bool? includeAdult,
     this.includeVideo,
-    String language,
-    int year,
-    int primaryReleaseYear,
+    String? language,
+    int? year,
+    int? primaryReleaseYear,
     this.primaryReleaseDateGTE,
     this.primaryReleaseDateLTE,
     this.releaseDateGTE,
@@ -48,10 +48,8 @@ class MovieDiscoverSettings extends MovieSearchSettings {
     QualitySettings quality = const QualitySettings(),
   })  : assert(voteCountGTE == null || voteCountGTE >= 0),
         assert(voteCountLTE == null || voteCountLTE >= 1),
-        assert(voteAverageGTE == null ||
-            voteAverageGTE >= 0 && voteAverageGTE <= 10),
-        assert(voteAverageLTE == null ||
-            voteAverageLTE >= 0 && voteAverageGTE <= 10),
+        assert(voteAverageGTE == null || voteAverageGTE >= 0 && voteAverageGTE <= 10),
+        assert(voteAverageLTE == null || voteAverageLTE >= 0 && (voteAverageGTE != null && voteAverageGTE <= 10)),
         super(
           language: language,
           includeAdult: includeAdult,
@@ -74,8 +72,8 @@ class MovieDiscoverSettings extends MovieSearchSettings {
     map['sort_by'] = sortBy?.toString();
     map['vote_count.gte'] = voteCountGTE?.toString();
     map['vote_count.lte'] = voteCountLTE?.toString();
-    map['vote_average.gte'] = voteAverageGTE?.clamp(0, 10)?.toString();
-    map['vote_average.lte'] = voteAverageLTE?.clamp(0, 10)?.toString();
+    map['vote_average.gte'] = voteAverageGTE?.clamp(0, 10).toString();
+    map['vote_average.lte'] = voteAverageLTE?.clamp(0, 10).toString();
     map['with_cast'] = withCast?.toString();
     map['with_crew'] = withCrew?.toString();
     map['with_companies'] = withCompanies?.join(',');

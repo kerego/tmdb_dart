@@ -1,8 +1,8 @@
 class PagedResult<T> {
-  final List<T> results;
-  final int totalResults;
-  final int totalPages;
-  final int page;
+  final List<T>? results;
+  final int? totalResults;
+  final int? totalPages;
+  final int? page;
 
   PagedResult._createPage({
     this.results,
@@ -19,8 +19,6 @@ class PagedResult<T> {
         page: json["page"],
         totalPages: json["total_pages"],
         totalResults: json["total_results"],
-        results: (json["results"] as List<dynamic>)
-            .map<T>(factory)
-            .toList(growable: false),
+        results: (json["results"]).map<T>(factory).toList(growable: false),
       );
 }

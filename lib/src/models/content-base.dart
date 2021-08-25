@@ -2,21 +2,21 @@ import '../models/date.dart';
 import '../settings/asset-resolver.dart';
 
 class TvBase extends _CommonBase {
-  final Date firstAirDate;
-  final String name;
-  final String originalName;
-  final List<String> originCountry;
+  final Date? firstAirDate;
+  final String? name;
+  final String? originalName;
+  final List<String>? originCountry;
 
   TvBase({
-    int id,
-    String originalLanguage,
-    String backdropPath,
-    String posterPath,
-    String overview,
-    List<int> genreIds,
-    num popularity,
-    int voteCount,
-    num voteAverage,
+    required int id,
+    String? originalLanguage,
+    String? backdropPath,
+    String? posterPath,
+    String? overview,
+    List<int>? genreIds,
+    num? popularity,
+    int? voteCount,
+    num? voteAverage,
     this.firstAirDate,
     this.name,
     this.originalName,
@@ -57,28 +57,26 @@ class TvBase extends _CommonBase {
     List<dynamic> list,
     AssetResolver assetResolver,
   ) =>
-      list
-          .map((x) => TvBase.fromJson(x, assetResolver))
-          .toList(growable: false);
+      list.map((x) => TvBase.fromJson(x, assetResolver)).toList(growable: false);
 }
 
 class MovieBase extends _CommonBase {
-  final bool adult;
-  final Date releaseDate;
-  final String originalTitle;
-  final String title;
-  final bool video;
+  final bool? adult;
+  final Date? releaseDate;
+  final String? originalTitle;
+  final String? title;
+  final bool? video;
 
   MovieBase({
-    int id,
-    String originalLanguage,
-    String backdropPath,
-    String posterPath,
-    String overview,
-    List<int> genreIds,
-    num popularity,
-    int voteCount,
-    num voteAverage,
+    required int id,
+    String? originalLanguage,
+    String? backdropPath,
+    String? posterPath,
+    String? overview,
+    List<int>? genreIds,
+    num? popularity,
+    int? voteCount,
+    num? voteAverage,
     this.adult,
     this.releaseDate,
     this.originalTitle,
@@ -121,21 +119,19 @@ class MovieBase extends _CommonBase {
     List<dynamic> list,
     AssetResolver assetResolver,
   ) =>
-      list
-          .map((x) => MovieBase.fromJson(x, assetResolver))
-          .toList(growable: false);
+      list.map((x) => MovieBase.fromJson(x, assetResolver)).toList(growable: false);
 }
 
 abstract class _CommonBase {
   final int id;
-  final String originalLanguage;
-  final String backdropPath;
-  final String posterPath;
-  final String overview;
-  final List<int> genreIds;
-  final num popularity;
-  final int voteCount;
-  final num voteAverage;
+  final String? originalLanguage;
+  final String? backdropPath;
+  final String? posterPath;
+  final String? overview;
+  final List<int>? genreIds;
+  final num? popularity;
+  final int? voteCount;
+  final num? voteAverage;
 
   const _CommonBase(
     this.id,
