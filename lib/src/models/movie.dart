@@ -37,7 +37,7 @@ class Movie extends MovieBase {
   final List<Video> videos;
   final List<MovieBase> recommendations;
   final List<MovieBase> similar;
-  final Map<String,WatchProviders> watchProviders;
+  final Map<String, WatchProviders> watchProviders;
 
   Movie(
       {required int id,

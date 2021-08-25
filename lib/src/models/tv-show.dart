@@ -44,7 +44,7 @@ class TvShow extends TvBase {
   final List<Video> videos;
   final List<TvBase> recommendations;
   final List<TvBase> similar;
-  final Map<String,WatchProviders> watchProviders;
+  final Map<String, WatchProviders> watchProviders;
 
   TvShow({
     required int id,
