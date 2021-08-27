@@ -5,19 +5,19 @@ class TvEpisode extends EpisodeBase {
   final List<Cast> guestStars;
 
   TvEpisode({
-    Date airDate,
-    int episodeNumber,
-    int id,
-    String name,
-    String overview,
-    String productionCode,
-    int seasonNumber,
-    int showId,
-    String stillPath,
-    num voteAverage,
-    int voteCount,
-    this.crew,
-    this.guestStars,
+    Date? airDate,
+    int episodeNumber = 0,
+    required int id,
+    String? name,
+    String? overview,
+    String? productionCode,
+    int seasonNumber = 0,
+    int showId = 0,
+    String? stillPath,
+    num voteAverage = 0,
+    int voteCount = 0,
+    this.crew = const [],
+    this.guestStars = const [],
   }) : super(
           airDate: airDate,
           episodeNumber: episodeNumber,
@@ -38,18 +38,18 @@ class TvEpisode extends EpisodeBase {
   ) =>
       TvEpisode(
         airDate: Date.tryParse(map["air_date"]),
-        episodeNumber: map["episode_number"],
+        episodeNumber: map["episode_number"] ?? 0,
         id: map["id"],
-        name: map["name"],
+        name: map["name"] ?? '',
         overview: map["overview"],
         productionCode: map["production_code"],
-        seasonNumber: map["season_number"],
-        showId: map["show_id"],
+        seasonNumber: map["season_number"] ?? 0,
+        showId: map["show_id"] ?? 0,
         stillPath: assetResolver.getStillPath(map["still_path"]),
-        voteAverage: map["vote_average"],
-        voteCount: map["vote_count"],
-        crew: Crew.listFromJson(map["crew"], assetResolver),
-        guestStars: Cast.listFromJson(map["guest_stars"], assetResolver),
+        voteAverage: map["vote_average"] ?? 0,
+        voteCount: map["vote_count"] ?? 0,
+        crew: Crew.listFromJson(map["crew"] ?? [], assetResolver),
+        guestStars: Cast.listFromJson(map["guest_stars"] ?? [], assetResolver),
       );
 
   static List<TvEpisode> listFromJson(
@@ -62,31 +62,36 @@ class TvEpisode extends EpisodeBase {
 }
 
 class EpisodeBase {
-  final Date airDate;
+  final Date? airDate;
   final int episodeNumber;
   final int id;
   final String name;
-  final String overview;
-  final String productionCode;
+  final String? overview;
+  final String? productionCode;
   final int seasonNumber;
   final int showId;
-  final String stillPath;
+  final String? stillPath;
   final num voteAverage;
   final int voteCount;
 
   EpisodeBase({
+    required this.id,
+    String? name,
+    int? episodeNumber,
+    int? seasonNumber,
+    int? showId,
+    num? voteAverage,
+    int? voteCount,
     this.airDate,
-    this.episodeNumber,
-    this.id,
-    this.name,
     this.overview,
     this.productionCode,
-    this.seasonNumber,
-    this.showId,
     this.stillPath,
-    this.voteAverage,
-    this.voteCount,
-  });
+  })  : name = name ?? '',
+        episodeNumber = episodeNumber ?? 0,
+        seasonNumber = seasonNumber ?? 0,
+        showId = showId ?? 0,
+        voteAverage = voteAverage ?? 0,
+        voteCount = voteCount ?? 0;
 
   factory EpisodeBase.fromJson(
     Map<String, dynamic> map,
@@ -100,7 +105,7 @@ class EpisodeBase {
         overview: map["overview"],
         productionCode: map["production_code"],
         seasonNumber: map["season_number"],
-        showId: map["show_id"],
+        showId: map["show_id"] ?? 0,
         stillPath: assetResolver.getStillPath(map["still_path"]),
         voteAverage: map["vote_average"],
         voteCount: map["vote_count"],

@@ -4,19 +4,20 @@ import '../settings/asset-resolver.dart';
 import 'gender.dart';
 
 class Creator {
-  final String creditId;
   final int id;
   final Gender gender;
   final String name;
-  final String profilePath;
+  final String? creditId;
+  final String? profilePath;
 
   Creator({
     this.creditId,
-    this.id,
-    this.gender,
-    this.name,
+    required this.id,
+    Gender? gender,
+    String? name,
     this.profilePath,
-  });
+  })  : name = name ?? '',
+        gender = gender ?? Gender.Other;
 
   factory Creator.fromJson(
     Map<String, dynamic> map,

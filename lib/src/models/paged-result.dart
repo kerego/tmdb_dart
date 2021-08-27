@@ -5,11 +5,13 @@ class PagedResult<T> {
   final int page;
 
   PagedResult._createPage({
-    this.results,
-    this.totalResults,
-    this.totalPages,
-    this.page,
-  });
+    this.results = const [],
+    int? totalResults,
+    int? totalPages,
+    int? page,
+  })  : page = page ?? 0,
+        totalResults = totalResults ?? 0,
+        totalPages = totalPages ?? 0;
 
   factory PagedResult.fromJson(
     Map<String, dynamic> json,
@@ -19,8 +21,7 @@ class PagedResult<T> {
         page: json["page"],
         totalPages: json["total_pages"],
         totalResults: json["total_results"],
-        results: (json["results"] as List<dynamic>)
-            .map<T>(factory)
-            .toList(growable: false),
+        results:
+            (json["results"] ?? []).map<T>(factory).toList(growable: false),
       );
 }

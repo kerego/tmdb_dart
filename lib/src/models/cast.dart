@@ -6,19 +6,21 @@ import 'gender.dart';
 
 class Cast extends Creator {
   final int castId;
-  final String character;
+  final String? character;
   final int order;
 
   Cast({
-    String creditId,
-    int id,
-    Gender gender,
-    String name,
-    String profilePath,
-    this.castId,
+    required int id,
+    String? creditId,
+    Gender? gender,
+    String? name,
+    String? profilePath,
+    int? castId,
     this.character,
-    this.order,
-  }) : super(
+    int? order,
+  })  : castId = castId ?? 0,
+        order = order ?? 0,
+        super(
           creditId: creditId,
           gender: gender,
           id: id,

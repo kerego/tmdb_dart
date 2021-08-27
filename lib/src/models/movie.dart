@@ -14,78 +14,82 @@ import 'image-collection.dart';
 import 'keyword.dart';
 
 class Movie extends MovieBase {
-  final Collection belongsToCollection;
+  final Collection? belongsToCollection;
   final int budget;
   final List<Genre> genres;
-  final String homepage;
-  final String imdbId;
+  final String? homepage;
+  final String? imdbId;
   final List<Company> productionCompanies;
   final List<Country> productionCountries;
   final int revenue;
   final int runtime;
   final List<Country> spokenLanguages;
-  final String status;
-  final String tagline;
+  final String? status;
+  final String? tagline;
 
   // append_to_response
-  final ImageCollection images;
+  final ImageCollection? images;
   final List<AlternativeTitle> alternativeTitles;
-  final Credits credits;
-  final ExternalInfo externalIds;
+  final Credits? credits;
+  final ExternalInfo? externalIds;
   final List<Keyword> keywords;
   final List<Video> videos;
   final List<MovieBase> recommendations;
   final List<MovieBase> similar;
 
-  Movie({
-    int id,
-    String originalLanguage,
-    String backdropPath,
-    String posterPath,
-    String overview,
-    num popularity,
-    int voteCount,
-    num voteAverage,
-    bool adult,
-    Date releaseDate,
-    String originalTitle,
-    String title,
-    bool video,
-    this.belongsToCollection,
-    this.budget,
-    this.genres,
-    this.homepage,
-    this.imdbId,
-    this.productionCompanies,
-    this.productionCountries,
-    this.revenue,
-    this.runtime,
-    this.spokenLanguages,
-    this.status,
-    this.tagline,
-    this.images,
-    this.alternativeTitles,
-    this.credits,
-    this.externalIds,
-    this.keywords,
-    this.videos,
-    this.recommendations,
-    this.similar,
-  }) : super(
-          id: id,
-          originalLanguage: originalLanguage,
-          backdropPath: backdropPath,
-          posterPath: posterPath,
-          overview: overview,
-          popularity: popularity,
-          voteCount: voteCount,
-          voteAverage: voteAverage,
-          adult: adult,
-          releaseDate: releaseDate,
-          originalTitle: originalTitle,
-          title: title,
-          video: video,
-        );
+  Movie(
+      {required int id,
+      required String originalLanguage,
+      String? backdropPath,
+      String? posterPath,
+      String? overview,
+      num? popularity,
+      int? voteCount,
+      num? voteAverage,
+      bool? adult,
+      Date? releaseDate,
+      String? originalTitle,
+      String? title,
+      List<int> genreIds = const [],
+      bool video = false,
+      this.belongsToCollection,
+      int? budget,
+      this.genres = const [],
+      this.homepage,
+      this.imdbId,
+      this.productionCompanies = const [],
+      this.productionCountries = const [],
+      int? revenue,
+      int? runtime,
+      this.spokenLanguages = const [],
+      this.status,
+      this.tagline,
+      this.images,
+      this.alternativeTitles = const [],
+      this.credits,
+      this.externalIds,
+      this.keywords = const [],
+      this.videos = const [],
+      this.recommendations = const [],
+      this.similar = const []})
+      : revenue = revenue ?? 0,
+        runtime = runtime ?? 0,
+        budget = budget ?? 0,
+        super(
+            id: id,
+            originalLanguage: originalLanguage,
+            backdropPath: backdropPath,
+            posterPath: posterPath,
+            overview: overview,
+            popularity: popularity,
+            voteCount: voteCount,
+            voteAverage: voteAverage,
+            adult: adult,
+            releaseDate: releaseDate,
+            originalTitle: originalTitle,
+            title: title,
+            video: video,
+            genreIds: genreIds);
 
   // TODO
   // ReleaseDates
@@ -105,16 +109,18 @@ class Movie extends MovieBase {
         popularity: map["popularity"],
         voteCount: map["vote_count"],
         voteAverage: map["vote_average"],
-        adult: map["adult"],
+        adult: map["adult"] ?? false,
         releaseDate: Date.tryParse(map["release_date"]),
         originalTitle: map["original_title"],
-        title: map["title"],
-        video: map["video"],
+        title: map["title"] ?? '',
+        video: map["video"] ?? false,
         belongsToCollection: map["belongs_to_collection"] != null
             ? Collection.fromJson(map["belongs_to_collection"], assetResolver)
             : null,
         budget: map["budget"],
-        genres: Genre.listFromJson(map["genres"]),
+        genres: Genre.listFromJson(map["genres"] ?? []),
+        genreIds:
+            Genre.listFromJson(map["genres"] ?? []).map((e) => e.id).toList(),
         homepage: map["homepage"],
         imdbId: map["imdb_id"],
         productionCompanies:
@@ -122,7 +128,7 @@ class Movie extends MovieBase {
         productionCountries: Country.listFromJson(map["production_countries"]),
         revenue: map["revenue"],
         runtime: map["runtime"],
-        spokenLanguages: Country.listFromJson(map["spoken_languages"]),
+        spokenLanguages: Country.listFromJson(map["spoken_languages"] ?? []),
         status: map["status"],
         tagline: map["tagline"],
         images: map.containsKey("images")
@@ -130,7 +136,7 @@ class Movie extends MovieBase {
             : null,
         alternativeTitles: map.containsKey("alternative_titles")
             ? AlternativeTitle.listFromJson(map["alternative_titles"]["titles"])
-            : null,
+            : [],
         credits: map.containsKey("credits")
             ? Credits.fromJson(map["credits"], assetResolver)
             : null,
@@ -139,16 +145,16 @@ class Movie extends MovieBase {
             : null,
         keywords: map.containsKey("keywords")
             ? Keyword.listFromJson(map["keywords"]["keywords"])
-            : null,
+            : [],
         videos: map.containsKey("videos")
             ? Video.listFromJson(map["videos"]["results"])
-            : null,
+            : [],
         recommendations: map.containsKey("recommendations")
             ? MovieBase.listFromJson(
                 map["recommendations"]["results"], assetResolver)
-            : null,
+            : [],
         similar: map.containsKey("similar")
             ? MovieBase.listFromJson(map["similar"]["results"], assetResolver)
-            : null,
+            : [],
       );
 }

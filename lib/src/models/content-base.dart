@@ -2,26 +2,27 @@ import '../models/date.dart';
 import '../settings/asset-resolver.dart';
 
 class TvBase extends _CommonBase {
-  final Date firstAirDate;
+  final Date? firstAirDate;
   final String name;
-  final String originalName;
+  final String? originalName;
   final List<String> originCountry;
 
   TvBase({
-    int id,
-    String originalLanguage,
-    String backdropPath,
-    String posterPath,
-    String overview,
-    List<int> genreIds,
-    num popularity,
-    int voteCount,
-    num voteAverage,
+    required int id,
+    required String originalLanguage,
+    String? backdropPath,
+    String? posterPath,
+    String? overview,
+    List<int> genreIds = const [],
+    num? popularity,
+    int? voteCount,
+    num? voteAverage,
     this.firstAirDate,
-    this.name,
+    String? name,
     this.originalName,
-    this.originCountry,
-  }) : super(
+    this.originCountry = const [],
+  })  : name = name ?? '',
+        super(
           id,
           originalLanguage,
           backdropPath,
@@ -43,14 +44,14 @@ class TvBase extends _CommonBase {
         backdropPath: assetResolver.getBackdropPath(map["backdrop_path"]),
         posterPath: assetResolver.getPosterPath(map["poster_path"]),
         overview: map["overview"],
-        genreIds: List.castFrom(map["genre_ids"]),
+        genreIds: List.castFrom(map["genre_ids"] ?? []),
         popularity: map["popularity"],
         voteCount: map["vote_count"],
         voteAverage: map["vote_average"],
         firstAirDate: Date.tryParse(map["first_air_date"]),
         name: map["name"],
         originalName: map["original_name"],
-        originCountry: List.castFrom(map["origin_country"]),
+        originCountry: List.castFrom(map["origin_country"] ?? []),
       );
 
   static List<TvBase> listFromJson(
@@ -64,27 +65,29 @@ class TvBase extends _CommonBase {
 
 class MovieBase extends _CommonBase {
   final bool adult;
-  final Date releaseDate;
-  final String originalTitle;
+  final Date? releaseDate;
+  final String? originalTitle;
   final String title;
   final bool video;
 
   MovieBase({
-    int id,
-    String originalLanguage,
-    String backdropPath,
-    String posterPath,
-    String overview,
-    List<int> genreIds,
-    num popularity,
-    int voteCount,
-    num voteAverage,
-    this.adult,
+    required int id,
+    required String originalLanguage,
+    String? backdropPath,
+    String? posterPath,
+    String? overview,
+    List<int> genreIds = const [],
+    num? popularity,
+    int? voteCount,
+    num? voteAverage,
+    bool? adult,
     this.releaseDate,
     this.originalTitle,
-    this.title,
-    this.video,
-  }) : super(
+    String? title,
+    this.video = false,
+  })  : title = title ?? '',
+        adult = adult ?? false,
+        super(
           id,
           originalLanguage,
           backdropPath,
@@ -106,7 +109,7 @@ class MovieBase extends _CommonBase {
         backdropPath: assetResolver.getBackdropPath(map["backdrop_path"]),
         posterPath: assetResolver.getPosterPath(map["poster_path"]),
         overview: map["overview"],
-        genreIds: List.castFrom(map["genre_ids"]),
+        genreIds: List.castFrom(map["genre_ids"] ?? []),
         popularity: map["popularity"],
         voteCount: map["vote_count"],
         voteAverage: map["vote_average"],
@@ -129,9 +132,9 @@ class MovieBase extends _CommonBase {
 abstract class _CommonBase {
   final int id;
   final String originalLanguage;
-  final String backdropPath;
-  final String posterPath;
-  final String overview;
+  final String? backdropPath;
+  final String? posterPath;
+  final String? overview;
   final List<int> genreIds;
   final num popularity;
   final int voteCount;
@@ -144,8 +147,10 @@ abstract class _CommonBase {
     this.posterPath,
     this.overview,
     this.genreIds,
-    this.popularity,
-    this.voteCount,
-    this.voteAverage,
-  );
+    num? popularity,
+    int? voteCount,
+    num? voteAverage,
+  )   : voteCount = voteCount ?? 0,
+        voteAverage = voteAverage ?? 0,
+        popularity = popularity ?? 0;
 }

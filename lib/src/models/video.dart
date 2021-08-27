@@ -1,23 +1,28 @@
 class Video {
   final String id;
-  final String iso_639_1;
-  final String iso_3166_1;
-  final String key;
+
+  /// [iso_639_1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) code
+  final String? iso_639_1;
+
+  /// [iso3166_1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code
+  final String? iso_3166_1;
+  final String? key;
   final String name;
-  final String site;
+  final String? site;
   final int size;
-  final String type;
+  final String? type;
 
   Video({
-    this.id,
+    required this.id,
     this.iso_639_1,
     this.iso_3166_1,
     this.key,
-    this.name,
+    String? name,
     this.site,
-    this.size,
+    int? size,
     this.type,
-  });
+  })  : size = size ?? 0,
+        name = name ?? '';
 
   factory Video.fromJson(Map<String, dynamic> map) => Video(
         id: map["id"],

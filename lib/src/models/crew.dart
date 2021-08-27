@@ -5,15 +5,15 @@ import 'creator.dart';
 import 'gender.dart';
 
 class Crew extends Creator {
-  final String department;
-  final String job;
+  final String? department;
+  final String? job;
 
   Crew({
-    String creditId,
-    int id,
-    Gender gender,
-    String name,
-    String profilePath,
+    String? creditId,
+    required int id,
+    Gender? gender,
+    String? name,
+    String? profilePath,
     this.department,
     this.job,
   }) : super(

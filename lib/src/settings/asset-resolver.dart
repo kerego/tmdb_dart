@@ -9,39 +9,39 @@ class AssetResolver {
 
   AssetResolver(this._configuration, this._qualitySettings);
 
-  String getBackdropPath(String assetUrl) {
+  String? getBackdropPath(String? assetUrl) {
     return _getPathWithResolution(assetUrl, _configuration.backdropSizes,
         _qualitySettings.backdropQuality);
   }
 
-  String getLogoPath(String assetUrl) {
+  String? getLogoPath(String? assetUrl) {
     return _getPathWithResolution(
         assetUrl, _configuration.logoSizes, _qualitySettings.logoQuality);
   }
 
-  String getPosterPath(String assetUrl) {
+  String? getPosterPath(String? assetUrl) {
     return _getPathWithResolution(
         assetUrl, _configuration.posterSizes, _qualitySettings.posterQuality);
   }
 
-  String getProfilePath(String assetUrl) {
+  String? getProfilePath(String? assetUrl) {
     return _getPathWithResolution(
         assetUrl, _configuration.profileSizes, _qualitySettings.profileQuality);
   }
 
-  String getStillPath(String assetUrl) {
+  String? getStillPath(String? assetUrl) {
     return _getPathWithResolution(
         assetUrl, _configuration.stillSizes, _qualitySettings.stillQuality);
   }
 
-  String _getPathWithResolution(
-    String contentUrl,
+  String? _getPathWithResolution(
+    String? contentUrl,
     List<String> sizes,
     AssetQuality resolution,
   ) {
     if (contentUrl == null || contentUrl.isEmpty) return null;
 
-    String sizeUrl;
+    String? sizeUrl;
     switch (resolution) {
       case AssetQuality.Original:
         sizeUrl = sizes[sizes.length - 1];

@@ -1,6 +1,6 @@
 import '../models/gender.dart';
 
-Gender getGender(int gender) {
+Gender getGender(int? gender) {
   switch (gender) {
     case 1:
       return Gender.Female;

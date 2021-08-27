@@ -16,12 +16,12 @@ abstract class SortBy {
 }
 
 class _Order extends SortBy {
-  final String _by, _order;
-  final _Order _other;
+  final String? _by, _order;
+  final _Order? _other;
 
-  SortBy get asc => _order == "asc" ? this : _other;
+  SortBy get asc => _order == "asc" ? this : _other!;
 
-  SortBy get desc => _order == "desc" ? this : _other;
+  SortBy get desc => _order == "desc" ? this : _other!;
 
   _Order._defaultAsc(
     this._by, {
@@ -36,5 +36,5 @@ class _Order extends SortBy {
         _other = createAsc ? _Order._defaultAsc(_by, createDesc: false) : null;
 
   @override
-  String toString() => _by + "." + _order;
+  String toString() => _by! + "." + _order!;
 }

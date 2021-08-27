@@ -26,25 +26,25 @@ class TmdbService extends ConfigurationService {
   final TvService _tv;
 
   MovieService get movie {
-    assert(configuration != null, "TmdbService not configured properly");
+    assert(_configuration != null,
+        "TmdbService not configured properly, please call initConfiguration or use the setter if you already have the object.");
     return _movie;
   }
 
   TvService get tv {
-    assert(configuration != null, "TmdbService not configured properly");
+    assert(_configuration != null,
+        "TmdbService not configured properly, please call initConfiguration or use the setter if you already have the object.");
     return _tv;
   }
 
   @override
   set configuration(Configuration config) {
-    assert(config != null);
     this._configuration = _movie._configuration = _tv._configuration = config;
   }
 
   /// Instanciate TmdbService using TMDB API Key (v3 auth)
   TmdbService(String apiKey)
-      : assert(apiKey != null, "TMDB API Key can't be null."),
-        _movie = MovieService(apiKey),
+      : _movie = MovieService(apiKey),
         _tv = TvService(apiKey),
         super(apiKey);
 }
