@@ -56,7 +56,9 @@ class TvEpisode extends EpisodeBase {
     List<dynamic> list,
     AssetResolver assetResolver,
   ) =>
-      list.map((x) => TvEpisode.fromJson(x, assetResolver)).toList(growable: false);
+      list
+          .map((x) => TvEpisode.fromJson(x, assetResolver))
+          .toList(growable: false);
 }
 
 class EpisodeBase {
@@ -108,5 +110,7 @@ class EpisodeBase {
     List<dynamic> list,
     AssetResolver assetResolver,
   ) =>
-      list.map((x) => EpisodeBase.fromJson(x, assetResolver)).toList(growable: false);
+      list
+          .map((x) => EpisodeBase.fromJson(x, assetResolver))
+          .toList(growable: false);
 }

@@ -34,5 +34,7 @@ class Creator {
     List<dynamic> list,
     AssetResolver assetResolver,
   ) =>
-      list.map((x) => Creator.fromJson(x, assetResolver)).toList(growable: false);
+      list
+          .map((x) => Creator.fromJson(x, assetResolver))
+          .toList(growable: false);
 }

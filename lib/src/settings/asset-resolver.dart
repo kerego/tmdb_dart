@@ -10,23 +10,28 @@ class AssetResolver {
   AssetResolver(this._configuration, this._qualitySettings);
 
   String? getBackdropPath(String? assetUrl) {
-    return _getPathWithResolution(assetUrl, _configuration?.backdropSizes, _qualitySettings?.backdropQuality);
+    return _getPathWithResolution(assetUrl, _configuration?.backdropSizes,
+        _qualitySettings?.backdropQuality);
   }
 
   String? getLogoPath(String? assetUrl) {
-    return _getPathWithResolution(assetUrl, _configuration?.logoSizes, _qualitySettings?.logoQuality);
+    return _getPathWithResolution(
+        assetUrl, _configuration?.logoSizes, _qualitySettings?.logoQuality);
   }
 
   String? getPosterPath(String? assetUrl) {
-    return _getPathWithResolution(assetUrl, _configuration?.posterSizes, _qualitySettings?.posterQuality);
+    return _getPathWithResolution(
+        assetUrl, _configuration?.posterSizes, _qualitySettings?.posterQuality);
   }
 
   String? getProfilePath(String? assetUrl) {
-    return _getPathWithResolution(assetUrl, _configuration?.profileSizes, _qualitySettings?.profileQuality);
+    return _getPathWithResolution(assetUrl, _configuration?.profileSizes,
+        _qualitySettings?.profileQuality);
   }
 
   String? getStillPath(String? assetUrl) {
-    return _getPathWithResolution(assetUrl, _configuration?.stillSizes, _qualitySettings?.stillQuality);
+    return _getPathWithResolution(
+        assetUrl, _configuration?.stillSizes, _qualitySettings?.stillQuality);
   }
 
   String? _getPathWithResolution(
@@ -49,7 +54,8 @@ class AssetResolver {
         break;
       case AssetQuality.Mid:
       default:
-        sizeUrl = sizes?[((sizes.length - 2) / 2).round().clamp(0, sizes.length)];
+        sizeUrl =
+            sizes?[((sizes.length - 2) / 2).round().clamp(0, sizes.length)];
     }
 
     return "${_configuration?.secureBaseUrl}$sizeUrl$contentUrl";

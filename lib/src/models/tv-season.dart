@@ -75,5 +75,7 @@ class SeasonBase {
     List<dynamic> list,
     AssetResolver assetResolver,
   ) =>
-      list.map((x) => SeasonBase.fromJson(x, assetResolver)).toList(growable: false);
+      list
+          .map((x) => SeasonBase.fromJson(x, assetResolver))
+          .toList(growable: false);
 }

@@ -23,5 +23,7 @@ class Company {
     List<dynamic> list,
     AssetResolver assetResolver,
   ) =>
-      list.map((x) => Company.fromJson(x, assetResolver)).toList(growable: false);
+      list
+          .map((x) => Company.fromJson(x, assetResolver))
+          .toList(growable: false);
 }

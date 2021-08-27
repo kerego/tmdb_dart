@@ -38,9 +38,11 @@ abstract class ConfigurationService with ResilientService {
     return Country.listFromJson(map);
   }
 
-  Future<List<Genre>> getAllMovieGenres({String? language}) => _getAllGenres("movie", language);
+  Future<List<Genre>> getAllMovieGenres({String? language}) =>
+      _getAllGenres("movie", language);
 
-  Future<List<Genre>> getAllTvGenres({String? language}) => _getAllGenres("tv", language);
+  Future<List<Genre>> getAllTvGenres({String? language}) =>
+      _getAllGenres("tv", language);
 
   Future<List<Genre>> _getAllGenres(String type, String? language) async {
     Uri uri = _buildUri(

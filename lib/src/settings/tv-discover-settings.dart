@@ -32,7 +32,8 @@ class TvDiscoverSettings extends TvSearchSettings {
     this.withNetworks,
     QualitySettings quality = const QualitySettings(),
   })  : assert(voteCountGTE == null || voteCountGTE >= 0),
-        assert(voteAverageGTE == null || voteAverageGTE >= 0 && voteAverageGTE <= 10),
+        assert(voteAverageGTE == null ||
+            voteAverageGTE >= 0 && voteAverageGTE <= 10),
         super(
           language: language,
           includeAdult: includeAdult,

@@ -5,7 +5,8 @@ abstract class SortBy {
       vote_count = _Order._defaultDesc("vote_count");
 
   /// SortBy order to be used for Movie discover
-  static final _Order primary_release_date = _Order._defaultDesc("primary_release_date"),
+  static final _Order primary_release_date =
+          _Order._defaultDesc("primary_release_date"),
       release_date = _Order._defaultDesc("release_date"),
       revenue = _Order._defaultDesc("revenue"),
       original_title = _Order._defaultAsc("original_title");

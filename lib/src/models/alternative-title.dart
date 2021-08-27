@@ -1,4 +1,5 @@
 class AlternativeTitle {
+  /// [iso3166_1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code
   late String iso3166_1;
   late String title;
   late String type;

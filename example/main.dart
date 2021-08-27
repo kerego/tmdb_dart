@@ -73,6 +73,8 @@ Future main(List<String> arguments) async {
 // number of requests is over the allowed threshold
 // but thanks to integrated resilience, all the requests are completed successfully
 Future resilienceExample(TmdbService service) async {
-  var futures = Iterable.generate(100).map((x) => service.movie.search(x.toString())).toList();
+  var futures = Iterable.generate(100)
+      .map((x) => service.movie.search(x.toString()))
+      .toList();
   await Future.wait(futures);
 }

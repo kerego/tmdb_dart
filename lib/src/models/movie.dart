@@ -116,27 +116,42 @@ class Movie extends MovieBase {
             : null,
         budget: map["budget"] ?? 0,
         genres: Genre.listFromJson(map["genres"] ?? []),
-        genreIds: Genre.listFromJson(map["genres"] ?? []).map((e) => e.id).toList(),
+        genreIds:
+            Genre.listFromJson(map["genres"] ?? []).map((e) => e.id).toList(),
         homepage: map["homepage"],
         imdbId: map["imdb_id"],
-        productionCompanies: Company.listFromJson(map["production_companies"], assetResolver),
+        productionCompanies:
+            Company.listFromJson(map["production_companies"], assetResolver),
         productionCountries: Country.listFromJson(map["production_countries"]),
         revenue: map["revenue"] ?? 0,
         runtime: map["runtime"] ?? 0,
         spokenLanguages: Country.listFromJson(map["spoken_languages"] ?? []),
         status: map["status"],
         tagline: map["tagline"],
-        images: map.containsKey("images") ? ImageCollection.fromJson(map["images"], assetResolver) : null,
+        images: map.containsKey("images")
+            ? ImageCollection.fromJson(map["images"], assetResolver)
+            : null,
         alternativeTitles: map.containsKey("alternative_titles")
             ? AlternativeTitle.listFromJson(map["alternative_titles"]["titles"])
             : [],
-        credits: map.containsKey("credits") ? Credits.fromJson(map["credits"], assetResolver) : null,
-        externalIds: map.containsKey("external_ids") ? ExternalInfo.fromJson(map["external_ids"]) : null,
-        keywords: map.containsKey("keywords") ? Keyword.listFromJson(map["keywords"]["keywords"]) : [],
-        videos: map.containsKey("videos") ? Video.listFromJson(map["videos"]["results"]) : [],
-        recommendations: map.containsKey("recommendations")
-            ? MovieBase.listFromJson(map["recommendations"]["results"], assetResolver)
+        credits: map.containsKey("credits")
+            ? Credits.fromJson(map["credits"], assetResolver)
+            : null,
+        externalIds: map.containsKey("external_ids")
+            ? ExternalInfo.fromJson(map["external_ids"])
+            : null,
+        keywords: map.containsKey("keywords")
+            ? Keyword.listFromJson(map["keywords"]["keywords"])
             : [],
-        similar: map.containsKey("similar") ? MovieBase.listFromJson(map["similar"]["results"], assetResolver) : [],
+        videos: map.containsKey("videos")
+            ? Video.listFromJson(map["videos"]["results"])
+            : [],
+        recommendations: map.containsKey("recommendations")
+            ? MovieBase.listFromJson(
+                map["recommendations"]["results"], assetResolver)
+            : [],
+        similar: map.containsKey("similar")
+            ? MovieBase.listFromJson(map["similar"]["results"], assetResolver)
+            : [],
       );
 }

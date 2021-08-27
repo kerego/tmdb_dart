@@ -48,8 +48,11 @@ class MovieDiscoverSettings extends MovieSearchSettings {
     QualitySettings quality = const QualitySettings(),
   })  : assert(voteCountGTE == null || voteCountGTE >= 0),
         assert(voteCountLTE == null || voteCountLTE >= 1),
-        assert(voteAverageGTE == null || voteAverageGTE >= 0 && voteAverageGTE <= 10),
-        assert(voteAverageLTE == null || voteAverageLTE >= 0 && (voteAverageGTE != null && voteAverageGTE <= 10)),
+        assert(voteAverageGTE == null ||
+            voteAverageGTE >= 0 && voteAverageGTE <= 10),
+        assert(voteAverageLTE == null ||
+            voteAverageLTE >= 0 &&
+                (voteAverageGTE != null && voteAverageGTE <= 10)),
         super(
           language: language,
           includeAdult: includeAdult,

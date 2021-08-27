@@ -19,6 +19,7 @@ class PagedResult<T> {
         page: json["page"] ?? 0,
         totalPages: json["total_pages"] ?? 0,
         totalResults: json["total_results"] ?? 0,
-        results: (json["results"] ?? []).map<T>(factory).toList(growable: false),
+        results:
+            (json["results"] ?? []).map<T>(factory).toList(growable: false),
       );
 }

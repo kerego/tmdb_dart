@@ -19,5 +19,6 @@ class Date extends DateTime {
   static String _twoDigits(int n) => n.toString().padLeft(2, '0');
 
   @override
-  String toString() => "${_fourDigits(year)}-${_twoDigits(month)}-${_twoDigits(day)}";
+  String toString() =>
+      "${_fourDigits(year)}-${_twoDigits(month)}-${_twoDigits(day)}";
 }

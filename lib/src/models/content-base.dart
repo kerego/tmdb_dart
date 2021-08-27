@@ -57,7 +57,9 @@ class TvBase extends _CommonBase {
     List<dynamic> list,
     AssetResolver assetResolver,
   ) =>
-      list.map((x) => TvBase.fromJson(x, assetResolver)).toList(growable: false);
+      list
+          .map((x) => TvBase.fromJson(x, assetResolver))
+          .toList(growable: false);
 }
 
 class MovieBase extends _CommonBase {
@@ -119,7 +121,9 @@ class MovieBase extends _CommonBase {
     List<dynamic> list,
     AssetResolver assetResolver,
   ) =>
-      list.map((x) => MovieBase.fromJson(x, assetResolver)).toList(growable: false);
+      list
+          .map((x) => MovieBase.fromJson(x, assetResolver))
+          .toList(growable: false);
 }
 
 abstract class _CommonBase {

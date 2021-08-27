@@ -7,5 +7,6 @@ class Keyword {
     name = map["name"] ?? 0;
   }
 
-  static List<Keyword> listFromJson(List<dynamic> list) => list.map((x) => Keyword.fromJson(x)).toList(growable: false);
+  static List<Keyword> listFromJson(List<dynamic> list) =>
+      list.map((x) => Keyword.fromJson(x)).toList(growable: false);
 }

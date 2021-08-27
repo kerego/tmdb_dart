@@ -21,7 +21,9 @@ abstract class _CommonService with ResilientService {
     }
 
     var map = json.decode(response.body);
-    var assetResolver = qualitySettings == null ? null : AssetResolver(_configuration, qualitySettings);
+    var assetResolver = qualitySettings == null
+        ? null
+        : AssetResolver(_configuration, qualitySettings);
 
     return fromJson(map, assetResolver);
   }
@@ -32,7 +34,8 @@ abstract class _CommonService with ResilientService {
     T fromJson(Map<String, dynamic> map, AssetResolver assetResolver), [
     int? page,
   ]) async {
-    var queryParams = settings?.toJson()?..addAll({"page": page?.toString(), "api_key": _apiKey});
+    var queryParams = settings?.toJson()
+      ?..addAll({"page": page?.toString(), "api_key": _apiKey});
 
     Uri uri = _buildUri(url, queryParams);
 

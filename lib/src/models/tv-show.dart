@@ -115,31 +115,47 @@ class TvShow extends TvBase {
         createdBy: Creator.listFromJson(map["created_by"] ?? [], assetResolver),
         episodeRunTime: List.castFrom(map["episode_run_time"] ?? []),
         genres: Genre.listFromJson(map["genres"] ?? []),
-        genreIds: Genre.listFromJson(map["genres"] ?? []).map((e) => e.id).toList(),
+        genreIds:
+            Genre.listFromJson(map["genres"] ?? []).map((e) => e.id).toList(),
         homepage: map["homepage"],
         inProduction: map["in_production"] ?? false,
         languages: List.castFrom(map["languages"] ?? []),
         lastAirDate: Date.tryParse(map["last_air_date"]),
-        lastEpisodeToAir:
-            map["last_episode_to_air"] != null ? EpisodeBase.fromJson(map["last_episode_to_air"], assetResolver) : null,
+        lastEpisodeToAir: map["last_episode_to_air"] != null
+            ? EpisodeBase.fromJson(map["last_episode_to_air"], assetResolver)
+            : null,
         networks: Company.listFromJson(map["networks"] ?? [], assetResolver),
         numOfEpisodes: map["number_of_episodes"] ?? 0,
         numOfSeasons: map["number_of_seasons"] ?? 0,
-        productionCompanies: Company.listFromJson(map["production_companies"] ?? [], assetResolver),
+        productionCompanies: Company.listFromJson(
+            map["production_companies"] ?? [], assetResolver),
         seasons: SeasonBase.listFromJson(map["seasons"] ?? [], assetResolver),
         status: map["status"],
         type: map["type"],
-        images: map.containsKey("images") ? ImageCollection.fromJson(map["images"], assetResolver) : null,
+        images: map.containsKey("images")
+            ? ImageCollection.fromJson(map["images"], assetResolver)
+            : null,
         alternativeTitles: map.containsKey("alternative_titles")
             ? AlternativeTitle.listFromJson(map["alternative_titles"]["titles"])
             : [],
-        credits: map.containsKey("credits") ? Credits.fromJson(map["credits"], assetResolver) : null,
-        externalIds: map.containsKey("external_ids") ? ExternalInfo.fromJson(map["external_ids"]) : null,
-        keywords: map.containsKey("keywords") ? Keyword.listFromJson(map["keywords"]["keywords"]) : [],
-        videos: map.containsKey("videos") ? Video.listFromJson(map["videos"]["results"]) : [],
-        recommendations: map.containsKey("recommendations")
-            ? TvBase.listFromJson(map["recommendations"]["results"], assetResolver)
+        credits: map.containsKey("credits")
+            ? Credits.fromJson(map["credits"], assetResolver)
+            : null,
+        externalIds: map.containsKey("external_ids")
+            ? ExternalInfo.fromJson(map["external_ids"])
+            : null,
+        keywords: map.containsKey("keywords")
+            ? Keyword.listFromJson(map["keywords"]["keywords"])
             : [],
-        similar: map.containsKey("similar") ? TvBase.listFromJson(map["similar"]["results"], assetResolver) : [],
+        videos: map.containsKey("videos")
+            ? Video.listFromJson(map["videos"]["results"])
+            : [],
+        recommendations: map.containsKey("recommendations")
+            ? TvBase.listFromJson(
+                map["recommendations"]["results"], assetResolver)
+            : [],
+        similar: map.containsKey("similar")
+            ? TvBase.listFromJson(map["similar"]["results"], assetResolver)
+            : [],
       );
 }

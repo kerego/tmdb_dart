@@ -1,6 +1,10 @@
 class Video {
   final String id;
+
+  /// [iso_639_1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) code
   final String? iso_639_1;
+
+  /// [iso3166_1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code
   final String? iso_3166_1;
   final String? key;
   final String name;
@@ -30,5 +34,6 @@ class Video {
         type: map["type"],
       );
 
-  static List<Video> listFromJson(List<dynamic> list) => list.map((x) => Video.fromJson(x)).toList(growable: false);
+  static List<Video> listFromJson(List<dynamic> list) =>
+      list.map((x) => Video.fromJson(x)).toList(growable: false);
 }

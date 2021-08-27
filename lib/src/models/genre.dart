@@ -7,5 +7,6 @@ class Genre {
     name = map["name"] ?? '';
   }
 
-  static List<Genre> listFromJson(List<dynamic> list) => list.map((x) => Genre.fromJson(x)).toList(growable: false);
+  static List<Genre> listFromJson(List<dynamic> list) =>
+      list.map((x) => Genre.fromJson(x)).toList(growable: false);
 }
