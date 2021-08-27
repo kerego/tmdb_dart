@@ -164,7 +164,7 @@ class TvShow extends TvBase {
         similar: map.containsKey("similar")
             ? TvBase.listFromJson(map["similar"]["results"], assetResolver)
             : [],
-        watchProviders : map.containsKey("watch/providers")
+        watchProviders: map.containsKey("watch/providers")
             ? WatchProviders.mapFromJson(map["watch/providers"]["results"])
             : {},
       );
