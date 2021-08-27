@@ -96,3 +96,6 @@
 ## 0.2.0
 
 * [Balan Dorin](https://github.com/gxsham) - Migrated to null safety
+
+## 0.2.1
+* [Tiphanie Dousset](https://github.com/tiphdousset), [Felix Dietze](https://github.com/fdietze) - Add watch providers to movie and tv show details via AppendSettings

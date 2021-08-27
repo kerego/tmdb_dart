@@ -37,6 +37,7 @@ class Movie extends MovieBase {
   final List<Video> videos;
   final List<MovieBase> recommendations;
   final List<MovieBase> similar;
+  // The key represents a country code (more details there: https://developers.themoviedb.org/3/movies/get-movie-watch-providers)
   final Map<String, WatchProviders> watchProviders;
 
   Movie({
