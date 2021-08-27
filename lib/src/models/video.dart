@@ -3,9 +3,9 @@ class Video {
   final String? iso_639_1;
   final String? iso_3166_1;
   final String? key;
-  final String? name;
+  final String name;
   final String? site;
-  final int? size;
+  final int size;
   final String? type;
 
   Video({
@@ -13,9 +13,9 @@ class Video {
     this.iso_639_1,
     this.iso_3166_1,
     this.key,
-    this.name,
+    this.name = '',
     this.site,
-    this.size,
+    this.size = 0,
     this.type,
   });
 
@@ -24,9 +24,9 @@ class Video {
         iso_639_1: map["iso_639_1"],
         iso_3166_1: map["iso_3166_1"],
         key: map["key"],
-        name: map["name"],
+        name: map["name"] ?? '',
         site: map["site"],
-        size: map["size"],
+        size: map["size"] ?? 0,
         type: map["type"],
       );
 

@@ -1,20 +1,20 @@
 class ImageInfo {
-  num? aspectRatio;
-  String? filePath;
-  int? height;
-  String? iso;
-  num? voteAverage;
-  int? voteCount;
-  int? width;
+  late final num aspectRatio;
+  late final String? filePath;
+  late final int height;
+  late final String? iso;
+  late final num voteAverage;
+  late final int voteCount;
+  late final int width;
 
   ImageInfo.fromJson(Map<String, dynamic> map, String? resolveAsset(String? path)) {
-    aspectRatio = map["aspect_ratio"];
+    aspectRatio = map["aspect_ratio"] ?? 0;
     filePath = resolveAsset(map["file_path"]);
-    height = map["height"];
+    height = map["height"] ?? 0;
     iso = map["iso_639_1"];
-    voteAverage = map["vote_average"];
-    voteCount = map["vote_count"];
-    width = map["width"];
+    voteAverage = map["vote_average"] ?? 0;
+    voteCount = map["vote_count"] ?? 0;
+    width = map["width"] ?? 0;
   }
 
   static List<ImageInfo> listFromJson(List<dynamic> list, String? resolveAsset(String? path)) =>

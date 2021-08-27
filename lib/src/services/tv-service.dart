@@ -63,7 +63,7 @@ class TvService extends _CommonService {
       "3/tv/latest",
       queryParams,
       qualitySettings ?? const QualitySettings(),
-      (map, assetResolver) => TvShow.fromJson(map!, assetResolver!),
+      (map, assetResolver) => TvShow.fromJson(map, assetResolver!),
     );
   }
 
@@ -80,20 +80,20 @@ class TvService extends _CommonService {
       "3/tv/$tvId/videos",
       queryParams,
       null,
-      (map, assetResolver) => Video.listFromJson(map!["results"] as List<dynamic>),
+      (map, assetResolver) => Video.listFromJson(map["results"] as List<dynamic>),
     );
   }
 
   Future<ImageCollection> getImages(
     int tvId, {
     String? language,
-    List<String>? includeImageLanguage,
+    List<String> includeImageLanguage = const [],
     QualitySettings? qualitySettings,
   }) {
     var queryParams = {
       "api_key": _apiKey,
       "language": language,
-      "include_image_language": includeImageLanguage?.join(',')
+      "include_image_language": includeImageLanguage.join(',')
     };
 
     return _get<ImageCollection>(
@@ -107,14 +107,14 @@ class TvService extends _CommonService {
   Future<TvShow> getDetails(
     int tvId, {
     String? language,
-    List<String>? imageLanguages,
+    List<String> imageLanguages = const [],
     AppendSettings? appendSettings,
     QualitySettings? qualitySettings,
   }) {
     var queryParams = {
       "api_key": _apiKey,
       "language": language,
-      "include_image_language": imageLanguages?.join(","),
+      "include_image_language": imageLanguages.join(","),
       "append_to_response": appendSettings?.toString()
     };
 
@@ -122,13 +122,13 @@ class TvService extends _CommonService {
       "3/tv/$tvId",
       queryParams,
       qualitySettings ?? const QualitySettings(),
-      (map, assetResolver) => TvShow.fromJson(map!, assetResolver!),
+      (map, assetResolver) => TvShow.fromJson(map, assetResolver!),
     );
   }
 
   Future<List<Video>> getSeasonVideos(
     int tvId, {
-    int? seasonNumber,
+    int seasonNumber = 1,
     String? language,
   }) {
     var queryParams = {
@@ -137,61 +137,61 @@ class TvService extends _CommonService {
     };
 
     return _get<List<Video>>(
-      "3/tv/$tvId/season/${seasonNumber ?? 0}/videos",
+      "3/tv/$tvId/season/$seasonNumber/videos",
       queryParams,
       null,
-      (map, assetResolver) => Video.listFromJson(map!["results"] as List<dynamic>),
+      (map, assetResolver) => Video.listFromJson(map["results"] as List<dynamic>),
     );
   }
 
   Future<List<ImageInfo>> getSeasonImages(
     int tvId, {
-    int? seasonNumber,
+    int seasonNumber = 1,
     String? language,
-    List<String>? includeImageLanguage,
+    List<String> includeImageLanguage = const [],
     QualitySettings? qualitySettings,
   }) {
     var queryParams = {
       "api_key": _apiKey,
       "language": language,
-      "include_image_language": includeImageLanguage?.join(',')
+      "include_image_language": includeImageLanguage.join(',')
     };
 
     return _get<List<ImageInfo>>(
-      "3/tv/$tvId/season/${seasonNumber ?? 0}/images",
+      "3/tv/$tvId/season/$seasonNumber/images",
       queryParams,
       qualitySettings ?? const QualitySettings(),
-      (map, assetResolver) => ImageInfo.listFromJson(map!["posters"] as List<dynamic>, assetResolver!.getPosterPath),
+      (map, assetResolver) => ImageInfo.listFromJson(map["posters"] as List<dynamic>, assetResolver!.getPosterPath),
     );
   }
 
   Future<TvSeason> getSeasonDetails(
     int tvId, {
-    int? seasonNumber,
+    int seasonNumber = 1,
     String? language,
-    List<String>? imageLanguages,
+    List<String> imageLanguages = const [],
     AppendSettings? appendSettings,
     QualitySettings? qualitySettings,
   }) {
     var queryParams = {
       "api_key": _apiKey,
       "language": language,
-      "include_image_language": imageLanguages?.join(","),
+      "include_image_language": imageLanguages.join(","),
       "append_to_response": appendSettings?.toString()
     };
 
     return _get<TvSeason>(
-      "3/tv/$tvId/season/${seasonNumber ?? 0}",
+      "3/tv/$tvId/season/$seasonNumber",
       queryParams,
       qualitySettings ?? const QualitySettings(),
-      (map, assetResolver) => TvSeason.fromJson(map!, assetResolver!),
+      (map, assetResolver) => TvSeason.fromJson(map, assetResolver!),
     );
   }
 
   Future<List<Video>> getEpisodeVideos(
     int tvId, {
-    int? seasonNumber,
-    int? episodeNumber,
+    int seasonNumber = 1,
+    int episodeNumber = 1,
     String? language,
   }) {
     var queryParams = {
@@ -200,56 +200,56 @@ class TvService extends _CommonService {
     };
 
     return _get<List<Video>>(
-      "3/tv/$tvId/season/${seasonNumber ?? 0}/episode/${episodeNumber ?? 1}/videos",
+      "3/tv/$tvId/season/$seasonNumber/episode/$episodeNumber/videos",
       queryParams,
       null,
-      (map, assetResolver) => Video.listFromJson(map!["results"] as List<dynamic>),
+      (map, assetResolver) => Video.listFromJson(map["results"] as List<dynamic>),
     );
   }
 
   Future<List<ImageInfo>> getEpisodeImages(
     int tvId, {
-    int? seasonNumber,
-    int? episodeNumber,
+    int seasonNumber = 1,
+    int episodeNumber = 1,
     String? language,
-    List<String>? includeImageLanguage,
+    List<String> includeImageLanguage = const [],
     QualitySettings? qualitySettings,
   }) {
     var queryParams = {
       "api_key": _apiKey,
       "language": language,
-      "include_image_language": includeImageLanguage?.join(',')
+      "include_image_language": includeImageLanguage.join(',')
     };
 
     return _get<List<ImageInfo>>(
-      "3/tv/$tvId/season/${seasonNumber ?? 0}/episode/${episodeNumber ?? 1}/images",
+      "3/tv/$tvId/season/$seasonNumber/episode/$episodeNumber/images",
       queryParams,
       qualitySettings ?? const QualitySettings(),
-      (map, assetResolver) => ImageInfo.listFromJson(map!["stills"] as List<dynamic>, assetResolver!.getStillPath),
+      (map, assetResolver) => ImageInfo.listFromJson(map["stills"] as List<dynamic>, assetResolver!.getStillPath),
     );
   }
 
   Future<TvEpisode> getEpisodeDetails(
     int tvId, {
-    int? seasonNumber,
-    int? episodeNumber,
+    int seasonNumber = 1,
+    int episodeNumber = 1,
     String? language,
-    List<String>? imageLanguages,
+    List<String> imageLanguages = const [],
     AppendSettings? appendSettings,
     QualitySettings? qualitySettings,
   }) {
     var queryParams = {
       "api_key": _apiKey,
       "language": language,
-      "include_image_language": imageLanguages?.join(","),
+      "include_image_language": imageLanguages.join(","),
       "append_to_response": appendSettings?.toString()
     };
 
     return _get<TvEpisode>(
-      "3/tv/$tvId/season/${seasonNumber ?? 0}/episode/${episodeNumber ?? 1}",
+      "3/tv/$tvId/season/$seasonNumber/episode/$episodeNumber",
       queryParams,
       qualitySettings ?? const QualitySettings(),
-      (map, assetResolver) => TvEpisode.fromJson(map!, assetResolver!),
+      (map, assetResolver) => TvEpisode.fromJson(map, assetResolver!),
     );
   }
 }

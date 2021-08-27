@@ -1,8 +1,8 @@
 class ExternalInfo {
-  String? imdbId;
-  String? facebookId;
-  String? instagramId;
-  String? twitterId;
+  late final String imdbId;
+  late final String? facebookId;
+  late final String? instagramId;
+  late final String? twitterId;
 
   ExternalInfo.fromJson(Map<String, dynamic> map) {
     imdbId = map["imdb_id"];

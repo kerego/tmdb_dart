@@ -8,9 +8,9 @@ abstract class _CommonService with ResilientService {
 
   Future<T> _get<T>(
     String? path,
-    Map<String, String?>? queryParams,
+    Map<String, String?> queryParams,
     QualitySettings? qualitySettings,
-    T fromJson(Map<String, dynamic>? map, AssetResolver? assetResolver),
+    T fromJson(Map<String, dynamic> map, AssetResolver? assetResolver),
   ) async {
     Uri uri = _buildUri(path, queryParams);
 

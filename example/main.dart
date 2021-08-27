@@ -11,19 +11,19 @@ Future main(List<String> arguments) async {
 
   var pagedResult = await service.movie.search("harry");
 
-  for (var movie in pagedResult.results!) {
+  for (var movie in pagedResult.results) {
     print("${movie.title} - ${movie.voteAverage}");
   }
 
   var pagedTvResult = await service.tv.getAiringToday();
 
-  for (var tv in pagedTvResult.results!) {
+  for (var tv in pagedTvResult.results) {
     print("${tv.name} - ${tv.voteAverage}");
   }
 
   var popular = await service.movie.getPopular();
 
-  for (var movie in popular.results!) {
+  for (var movie in popular.results) {
     print("${movie.title} - ${movie.voteAverage}");
   }
 
@@ -44,7 +44,7 @@ Future main(List<String> arguments) async {
     ),
   );
 
-  for (var movie in discover.results!) {
+  for (var movie in discover.results) {
     print("${movie.title} - ${movie.voteAverage} - ${movie.releaseDate}");
   }
 
@@ -54,16 +54,16 @@ Future main(List<String> arguments) async {
         includeSimilarContent: true,
       ));
 
-  print("${movie.recommendations?[0].title}");
-  print("${movie.similar?[0].title}");
+  print("${movie.recommendations[0].title}");
+  print("${movie.similar[0].title}");
 
   var tv = await service.tv.getDetails(1399,
       appendSettings: AppendSettings(
         includeRecommendations: true,
         includeSimilarContent: true,
       ));
-  print("${tv.originalName} - ${tv.seasons?.length}");
-  print("${tv.similar?[0].originalName} - ${tv.similar?[0].firstAirDate}");
+  print("${tv.originalName} - ${tv.seasons.length}");
+  print("${tv.similar[0].originalName} - ${tv.similar[0].firstAirDate}");
 
   print("Countries: ${(await service.getAllCountries()).length}");
   print("MovieGenres: ${(await service.getAllTvGenres()).length}");

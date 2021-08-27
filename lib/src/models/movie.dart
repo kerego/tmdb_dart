@@ -15,77 +15,78 @@ import 'keyword.dart';
 
 class Movie extends MovieBase {
   final Collection? belongsToCollection;
-  final int? budget;
-  final List<Genre>? genres;
+  final int budget;
+  final List<Genre> genres;
   final String? homepage;
   final String? imdbId;
-  final List<Company>? productionCompanies;
-  final List<Country>? productionCountries;
-  final int? revenue;
-  final int? runtime;
-  final List<Country>? spokenLanguages;
+  final List<Company> productionCompanies;
+  final List<Country> productionCountries;
+  final int revenue;
+  final int runtime;
+  final List<Country> spokenLanguages;
   final String? status;
   final String? tagline;
 
   // append_to_response
   final ImageCollection? images;
-  final List<AlternativeTitle>? alternativeTitles;
+  final List<AlternativeTitle> alternativeTitles;
   final Credits? credits;
   final ExternalInfo? externalIds;
-  final List<Keyword>? keywords;
-  final List<Video>? videos;
-  final List<MovieBase>? recommendations;
-  final List<MovieBase>? similar;
+  final List<Keyword> keywords;
+  final List<Video> videos;
+  final List<MovieBase> recommendations;
+  final List<MovieBase> similar;
 
-  Movie({
-    required int id,
-    String? originalLanguage,
-    String? backdropPath,
-    String? posterPath,
-    String? overview,
-    num? popularity,
-    int? voteCount,
-    num? voteAverage,
-    bool? adult,
-    Date? releaseDate,
-    String? originalTitle,
-    String? title,
-    bool? video,
-    this.belongsToCollection,
-    this.budget,
-    this.genres,
-    this.homepage,
-    this.imdbId,
-    this.productionCompanies,
-    this.productionCountries,
-    this.revenue,
-    this.runtime,
-    this.spokenLanguages,
-    this.status,
-    this.tagline,
-    this.images,
-    this.alternativeTitles,
-    this.credits,
-    this.externalIds,
-    this.keywords,
-    this.videos,
-    this.recommendations,
-    this.similar,
-  }) : super(
-          id: id,
-          originalLanguage: originalLanguage,
-          backdropPath: backdropPath,
-          posterPath: posterPath,
-          overview: overview,
-          popularity: popularity,
-          voteCount: voteCount,
-          voteAverage: voteAverage,
-          adult: adult,
-          releaseDate: releaseDate,
-          originalTitle: originalTitle,
-          title: title,
-          video: video,
-        );
+  Movie(
+      {required int id,
+      required String originalLanguage,
+      String? backdropPath,
+      String? posterPath,
+      String? overview,
+      num popularity = 0,
+      int voteCount = 0,
+      num voteAverage = 0,
+      bool adult = false,
+      Date? releaseDate,
+      String? originalTitle,
+      String title = '',
+      List<int> genreIds = const [],
+      bool video = false,
+      this.belongsToCollection,
+      this.budget = 0,
+      this.genres = const [],
+      this.homepage,
+      this.imdbId,
+      this.productionCompanies = const [],
+      this.productionCountries = const [],
+      this.revenue = 0,
+      this.runtime = 0,
+      this.spokenLanguages = const [],
+      this.status,
+      this.tagline,
+      this.images,
+      this.alternativeTitles = const [],
+      this.credits,
+      this.externalIds,
+      this.keywords = const [],
+      this.videos = const [],
+      this.recommendations = const [],
+      this.similar = const []})
+      : super(
+            id: id,
+            originalLanguage: originalLanguage,
+            backdropPath: backdropPath,
+            posterPath: posterPath,
+            overview: overview,
+            popularity: popularity,
+            voteCount: voteCount,
+            voteAverage: voteAverage,
+            adult: adult,
+            releaseDate: releaseDate,
+            originalTitle: originalTitle,
+            title: title,
+            video: video,
+            genreIds: genreIds);
 
   // TODO
   // ReleaseDates
@@ -102,39 +103,40 @@ class Movie extends MovieBase {
         backdropPath: assetResolver.getBackdropPath(map["backdrop_path"]),
         posterPath: assetResolver.getPosterPath(map["poster_path"]),
         overview: map["overview"],
-        popularity: map["popularity"],
-        voteCount: map["vote_count"],
-        voteAverage: map["vote_average"],
-        adult: map["adult"],
+        popularity: map["popularity"] ?? 0,
+        voteCount: map["vote_count"] ?? 0,
+        voteAverage: map["vote_average"] ?? 0,
+        adult: map["adult"] ?? false,
         releaseDate: Date.tryParse(map["release_date"]),
         originalTitle: map["original_title"],
-        title: map["title"],
-        video: map["video"],
+        title: map["title"] ?? '',
+        video: map["video"] ?? false,
         belongsToCollection: map["belongs_to_collection"] != null
             ? Collection.fromJson(map["belongs_to_collection"], assetResolver)
             : null,
-        budget: map["budget"],
-        genres: Genre.listFromJson(map["genres"]),
+        budget: map["budget"] ?? 0,
+        genres: Genre.listFromJson(map["genres"] ?? []),
+        genreIds: Genre.listFromJson(map["genres"] ?? []).map((e) => e.id).toList(),
         homepage: map["homepage"],
         imdbId: map["imdb_id"],
         productionCompanies: Company.listFromJson(map["production_companies"], assetResolver),
         productionCountries: Country.listFromJson(map["production_countries"]),
-        revenue: map["revenue"],
-        runtime: map["runtime"],
-        spokenLanguages: Country.listFromJson(map["spoken_languages"]),
+        revenue: map["revenue"] ?? 0,
+        runtime: map["runtime"] ?? 0,
+        spokenLanguages: Country.listFromJson(map["spoken_languages"] ?? []),
         status: map["status"],
         tagline: map["tagline"],
         images: map.containsKey("images") ? ImageCollection.fromJson(map["images"], assetResolver) : null,
         alternativeTitles: map.containsKey("alternative_titles")
             ? AlternativeTitle.listFromJson(map["alternative_titles"]["titles"])
-            : null,
+            : [],
         credits: map.containsKey("credits") ? Credits.fromJson(map["credits"], assetResolver) : null,
         externalIds: map.containsKey("external_ids") ? ExternalInfo.fromJson(map["external_ids"]) : null,
-        keywords: map.containsKey("keywords") ? Keyword.listFromJson(map["keywords"]["keywords"]) : null,
-        videos: map.containsKey("videos") ? Video.listFromJson(map["videos"]["results"]) : null,
+        keywords: map.containsKey("keywords") ? Keyword.listFromJson(map["keywords"]["keywords"]) : [],
+        videos: map.containsKey("videos") ? Video.listFromJson(map["videos"]["results"]) : [],
         recommendations: map.containsKey("recommendations")
             ? MovieBase.listFromJson(map["recommendations"]["results"], assetResolver)
-            : null,
-        similar: map.containsKey("similar") ? MovieBase.listFromJson(map["similar"]["results"], assetResolver) : null,
+            : [],
+        similar: map.containsKey("similar") ? MovieBase.listFromJson(map["similar"]["results"], assetResolver) : [],
       );
 }

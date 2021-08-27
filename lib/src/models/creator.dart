@@ -7,14 +7,14 @@ class Creator {
   final String? creditId;
   final int id;
   final Gender? gender;
-  final String? name;
+  final String name;
   final String? profilePath;
 
   Creator({
     this.creditId,
     required this.id,
     this.gender,
-    this.name,
+    this.name = '',
     this.profilePath,
   });
 
@@ -26,7 +26,7 @@ class Creator {
         creditId: map["credit_id"],
         id: map["id"],
         gender: getGender(map["gender"]),
-        name: map["name"],
+        name: map["name"] ?? '',
         profilePath: assetResolver.getProfilePath(map["profile_path"]),
       );
 

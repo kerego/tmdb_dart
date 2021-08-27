@@ -1,17 +1,17 @@
 part of 'tv-show.dart';
 
 class TvSeason extends SeasonBase {
-  final List<TvEpisode>? episodes;
+  final List<TvEpisode> episodes;
 
   TvSeason({
     Date? airDate,
-    int? episodeCount,
+    int episodeCount = 0,
     required int id,
-    String? name,
+    String name = '',
     String? overview,
     String? posterPath,
-    int? seasonNumber,
-    this.episodes,
+    int seasonNumber = 0,
+    this.episodes = const [],
   }) : super(
           airDate: airDate,
           episodeCount: episodeCount,
@@ -34,27 +34,27 @@ class TvSeason extends SeasonBase {
         overview: map["overview"],
         posterPath: assetResolver.getPosterPath(map["poster_path"]),
         seasonNumber: map["season_number"],
-        episodes: TvEpisode.listFromJson(map["episodes"], assetResolver),
+        episodes: TvEpisode.listFromJson(map["episodes"] ?? [], assetResolver),
       );
 }
 
 class SeasonBase {
   final Date? airDate;
-  final int? episodeCount;
+  final int episodeCount;
   final int id;
-  final String? name;
+  final String name;
   final String? overview;
   final String? posterPath;
-  final int? seasonNumber;
+  final int seasonNumber;
 
   SeasonBase({
     this.airDate,
-    this.episodeCount,
+    this.episodeCount = 0,
     required this.id,
-    this.name,
+    this.name = '',
     this.overview,
     this.posterPath,
-    this.seasonNumber,
+    this.seasonNumber = 0,
   });
 
   factory SeasonBase.fromJson(
@@ -63,12 +63,12 @@ class SeasonBase {
   ) =>
       SeasonBase(
         airDate: Date.tryParse(map["air_date"]),
-        episodeCount: map["episode_count"],
+        episodeCount: map["episode_count"] ?? 0,
         id: map["id"],
-        name: map["name"],
+        name: map["name"] ?? '',
         overview: map["overview"],
         posterPath: assetResolver.getPosterPath(map["poster_path"]),
-        seasonNumber: map["season_number"],
+        seasonNumber: map["season_number"] ?? 0,
       );
 
   static List<SeasonBase> listFromJson(

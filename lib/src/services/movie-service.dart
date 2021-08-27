@@ -66,7 +66,7 @@ class MovieService extends _CommonService {
       "3/movie/latest",
       queryParams,
       qualitySettings ?? const QualitySettings(),
-      (map, assetResolver) => Movie.fromJson(map!, assetResolver!),
+      (map, assetResolver) => Movie.fromJson(map, assetResolver!),
     );
   }
 
@@ -83,41 +83,41 @@ class MovieService extends _CommonService {
       "3/movie/$id/videos",
       queryParams,
       null,
-      (map, assetResolver) => Video.listFromJson(map!["results"] as List<dynamic>),
+      (map, assetResolver) => Video.listFromJson(map["results"] as List<dynamic>),
     );
   }
 
   Future<ImageCollection> getImages(
     int id, {
     String? language,
-    List<String>? includeImageLanguage,
+    List<String> includeImageLanguage = const [],
     QualitySettings? qualitySettings,
   }) {
     var queryParams = {
       "api_key": _apiKey,
       "language": language,
-      "include_image_language": includeImageLanguage?.join(',')
+      "include_image_language": includeImageLanguage.join(',')
     };
 
     return _get<ImageCollection>(
       "3/movie/$id/images",
       queryParams,
       qualitySettings ?? const QualitySettings(),
-      (map, assetResolver) => ImageCollection.fromJson(map!, assetResolver!),
+      (map, assetResolver) => ImageCollection.fromJson(map, assetResolver!),
     );
   }
 
   Future<Movie> getDetails(
     int id, {
     String? language,
-    List<String>? imageLanguages,
+    List<String> imageLanguages = const [],
     AppendSettings? appendSettings,
     QualitySettings? qualitySettings,
   }) {
     var queryParams = {
       "api_key": _apiKey,
       "language": language,
-      "include_image_language": imageLanguages?.join(","),
+      "include_image_language": imageLanguages.join(","),
       "append_to_response": appendSettings?.toString()
     };
 
@@ -125,7 +125,7 @@ class MovieService extends _CommonService {
       "3/movie/$id",
       queryParams,
       qualitySettings ?? const QualitySettings(),
-      (map, assetResolver) => Movie.fromJson(map!, assetResolver!),
+      (map, assetResolver) => Movie.fromJson(map, assetResolver!),
     );
   }
 }

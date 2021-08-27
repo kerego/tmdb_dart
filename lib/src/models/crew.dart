@@ -12,7 +12,7 @@ class Crew extends Creator {
     String? creditId,
     required int id,
     Gender? gender,
-    String? name,
+    String name = '',
     String? profilePath,
     this.department,
     this.job,
@@ -34,7 +34,7 @@ class Crew extends Creator {
         gender: getGender(map["gender"]),
         id: map["id"],
         job: map["job"],
-        name: map["name"],
+        name: map["name"] ?? '',
         profilePath: assetResolver.getProfilePath(map["profile_path"]),
       );
 

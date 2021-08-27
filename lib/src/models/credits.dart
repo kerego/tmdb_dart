@@ -4,11 +4,11 @@ import 'cast.dart';
 import 'crew.dart';
 
 class Credits {
-  List<Cast>? cast;
-  List<Crew>? crew;
+  late final List<Cast> cast;
+  late final List<Crew> crew;
 
   Credits.fromJson(Map<String, dynamic> map, AssetResolver assetResolver) {
-    cast = Cast.listFromJson(map["cast"], assetResolver);
-    crew = Crew.listFromJson(map["crew"], assetResolver);
+    cast = Cast.listFromJson(map["cast"] ?? [], assetResolver);
+    crew = Crew.listFromJson(map["crew"] ?? [], assetResolver);
   }
 }

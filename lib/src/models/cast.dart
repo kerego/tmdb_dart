@@ -13,7 +13,7 @@ class Cast extends Creator {
     String? creditId,
     required int id,
     Gender? gender,
-    String? name,
+    String name = '',
     String? profilePath,
     this.castId,
     this.character,
@@ -36,7 +36,7 @@ class Cast extends Creator {
         creditId: map["credit_id"],
         id: map["id"],
         gender: getGender(map["gender"]),
-        name: map["name"],
+        name: map["name"] ?? '',
         order: map["order"],
         profilePath: assetResolver.getProfilePath(map["profile_path"]),
       );
