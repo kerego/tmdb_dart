@@ -1,7 +1,7 @@
 part of 'tmdb-service.dart';
 
 class TvService extends _CommonService {
-  TvService(String? apiKey) : super(apiKey);
+  TvService(String apiKey) : super(apiKey);
 
   Future<PagedResult<TvBase>> search(String query, {int? page}) {
     var settings = TvSearchSettings(query: query);
@@ -75,7 +75,7 @@ class TvService extends _CommonService {
       "3/tv/latest",
       queryParams,
       qualitySettings ?? const QualitySettings(),
-      (map, assetResolver) => TvShow.fromJson(map, assetResolver!),
+      (map, assetResolver) => TvShow.fromJson(map, assetResolver),
     );
   }
 
@@ -91,7 +91,7 @@ class TvService extends _CommonService {
     return _get<List<Video>>(
       "3/tv/$tvId/videos",
       queryParams,
-      null,
+      const QualitySettings(),
       (map, assetResolver) =>
           Video.listFromJson(map["results"] as List<dynamic>),
     );
@@ -113,7 +113,7 @@ class TvService extends _CommonService {
       "3/tv/$tvId/images",
       queryParams,
       qualitySettings ?? const QualitySettings(),
-      (map, assetResolver) => ImageCollection.fromJson(map, assetResolver!),
+      (map, assetResolver) => ImageCollection.fromJson(map, assetResolver),
     );
   }
 
@@ -135,7 +135,7 @@ class TvService extends _CommonService {
       "3/tv/$tvId",
       queryParams,
       qualitySettings ?? const QualitySettings(),
-      (map, assetResolver) => TvShow.fromJson(map, assetResolver!),
+      (map, assetResolver) => TvShow.fromJson(map, assetResolver),
     );
   }
 
@@ -152,7 +152,7 @@ class TvService extends _CommonService {
     return _get<List<Video>>(
       "3/tv/$tvId/season/$seasonNumber/videos",
       queryParams,
-      null,
+      const QualitySettings(),
       (map, assetResolver) =>
           Video.listFromJson(map["results"] as List<dynamic>),
     );
@@ -176,7 +176,7 @@ class TvService extends _CommonService {
       queryParams,
       qualitySettings ?? const QualitySettings(),
       (map, assetResolver) => ImageInfo.listFromJson(
-          map["posters"] as List<dynamic>, assetResolver!.getPosterPath),
+          map["posters"] as List<dynamic>, assetResolver.getPosterPath),
     );
   }
 
@@ -199,7 +199,7 @@ class TvService extends _CommonService {
       "3/tv/$tvId/season/$seasonNumber",
       queryParams,
       qualitySettings ?? const QualitySettings(),
-      (map, assetResolver) => TvSeason.fromJson(map, assetResolver!),
+      (map, assetResolver) => TvSeason.fromJson(map, assetResolver),
     );
   }
 
@@ -217,7 +217,7 @@ class TvService extends _CommonService {
     return _get<List<Video>>(
       "3/tv/$tvId/season/$seasonNumber/episode/$episodeNumber/videos",
       queryParams,
-      null,
+      const QualitySettings(),
       (map, assetResolver) =>
           Video.listFromJson(map["results"] as List<dynamic>),
     );
@@ -242,7 +242,7 @@ class TvService extends _CommonService {
       queryParams,
       qualitySettings ?? const QualitySettings(),
       (map, assetResolver) => ImageInfo.listFromJson(
-          map["stills"] as List<dynamic>, assetResolver!.getStillPath),
+          map["stills"] as List<dynamic>, assetResolver.getStillPath),
     );
   }
 
@@ -266,7 +266,7 @@ class TvService extends _CommonService {
       "3/tv/$tvId/season/$seasonNumber/episode/$episodeNumber",
       queryParams,
       qualitySettings ?? const QualitySettings(),
-      (map, assetResolver) => TvEpisode.fromJson(map, assetResolver!),
+      (map, assetResolver) => TvEpisode.fromJson(map, assetResolver),
     );
   }
 }

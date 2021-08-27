@@ -17,20 +17,21 @@ class Video {
     this.iso_639_1,
     this.iso_3166_1,
     this.key,
-    this.name = '',
+    String? name,
     this.site,
-    this.size = 0,
+    int? size,
     this.type,
-  });
+  })  : size = size ?? 0,
+        name = name ?? '';
 
   factory Video.fromJson(Map<String, dynamic> map) => Video(
         id: map["id"],
         iso_639_1: map["iso_639_1"],
         iso_3166_1: map["iso_3166_1"],
         key: map["key"],
-        name: map["name"] ?? '',
+        name: map["name"],
         site: map["site"],
-        size: map["size"] ?? 0,
+        size: map["size"],
         type: map["type"],
       );
 

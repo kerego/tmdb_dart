@@ -31,7 +31,8 @@ class TvShow extends TvBase {
   final int numOfSeasons;
   final List<Company> productionCompanies;
   final List<SeasonBase> seasons;
-  final String? status, type;
+  final String? status;
+  final String? type;
 
   // append_to_response
   final ImageCollection? images;
@@ -49,11 +50,11 @@ class TvShow extends TvBase {
     String? backdropPath,
     String? posterPath,
     String? overview,
-    num popularity = 0,
-    int voteCount = 0,
-    num voteAverage = 0,
+    num? popularity,
+    int? voteCount,
+    num? voteAverage,
     Date? firstAirDate,
-    String name = '',
+    String? name,
     String? originalName,
     List<String> originCountry = const [],
     List<int> genreIds = const [],
@@ -61,13 +62,13 @@ class TvShow extends TvBase {
     this.episodeRunTime = const [],
     this.genres = const [],
     this.homepage,
-    this.inProduction = false,
+    bool? inProduction,
     this.languages = const [],
     this.lastAirDate,
     this.lastEpisodeToAir,
     this.networks = const [],
-    this.numOfEpisodes = 0,
-    this.numOfSeasons = 0,
+    int? numOfEpisodes,
+    int? numOfSeasons,
     this.productionCompanies = const [],
     this.seasons = const [],
     this.status,
@@ -80,7 +81,10 @@ class TvShow extends TvBase {
     this.videos = const [],
     this.recommendations = const [],
     this.similar = const [],
-  }) : super(
+  })  : numOfEpisodes = numOfEpisodes ?? 0,
+        numOfSeasons = numOfSeasons ?? 0,
+        inProduction = inProduction ?? false,
+        super(
             id: id,
             originalLanguage: originalLanguage,
             backdropPath: backdropPath,
@@ -105,9 +109,9 @@ class TvShow extends TvBase {
         backdropPath: assetResolver.getBackdropPath(map["backdrop_path"]),
         posterPath: assetResolver.getPosterPath(map["poster_path"]),
         overview: map["overview"],
-        popularity: map["popularity"] ?? 0,
-        voteCount: map["vote_count"] ?? 0,
-        voteAverage: map["vote_average"] ?? 0,
+        popularity: map["popularity"],
+        voteCount: map["vote_count"],
+        voteAverage: map["vote_average"],
         firstAirDate: Date.tryParse(map["first_air_date"]),
         name: map["name"],
         originalName: map["original_name"],
@@ -118,15 +122,15 @@ class TvShow extends TvBase {
         genreIds:
             Genre.listFromJson(map["genres"] ?? []).map((e) => e.id).toList(),
         homepage: map["homepage"],
-        inProduction: map["in_production"] ?? false,
+        inProduction: map["in_production"],
         languages: List.castFrom(map["languages"] ?? []),
         lastAirDate: Date.tryParse(map["last_air_date"]),
         lastEpisodeToAir: map["last_episode_to_air"] != null
             ? EpisodeBase.fromJson(map["last_episode_to_air"], assetResolver)
             : null,
         networks: Company.listFromJson(map["networks"] ?? [], assetResolver),
-        numOfEpisodes: map["number_of_episodes"] ?? 0,
-        numOfSeasons: map["number_of_seasons"] ?? 0,
+        numOfEpisodes: map["number_of_episodes"],
+        numOfSeasons: map["number_of_seasons"],
         productionCompanies: Company.listFromJson(
             map["production_companies"] ?? [], assetResolver),
         seasons: SeasonBase.listFromJson(map["seasons"] ?? [], assetResolver),

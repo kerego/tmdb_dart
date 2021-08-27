@@ -1,7 +1,7 @@
 part of 'tmdb-service.dart';
 
 class MovieService extends _CommonService {
-  MovieService(String? apiKey) : super(apiKey);
+  MovieService(String apiKey) : super(apiKey);
 
   Future<PagedResult<MovieBase>> search(String query, {int? page}) {
     var settings = MovieSearchSettings(query: query);
@@ -75,7 +75,7 @@ class MovieService extends _CommonService {
       "3/movie/latest",
       queryParams,
       qualitySettings ?? const QualitySettings(),
-      (map, assetResolver) => Movie.fromJson(map, assetResolver!),
+      (map, assetResolver) => Movie.fromJson(map, assetResolver),
     );
   }
 
@@ -91,7 +91,7 @@ class MovieService extends _CommonService {
     return _get<List<Video>>(
       "3/movie/$id/videos",
       queryParams,
-      null,
+      const QualitySettings(),
       (map, assetResolver) =>
           Video.listFromJson(map["results"] as List<dynamic>),
     );
@@ -113,7 +113,7 @@ class MovieService extends _CommonService {
       "3/movie/$id/images",
       queryParams,
       qualitySettings ?? const QualitySettings(),
-      (map, assetResolver) => ImageCollection.fromJson(map, assetResolver!),
+      (map, assetResolver) => ImageCollection.fromJson(map, assetResolver),
     );
   }
 
@@ -135,7 +135,7 @@ class MovieService extends _CommonService {
       "3/movie/$id",
       queryParams,
       qualitySettings ?? const QualitySettings(),
-      (map, assetResolver) => Movie.fromJson(map, assetResolver!),
+      (map, assetResolver) => Movie.fromJson(map, assetResolver),
     );
   }
 }

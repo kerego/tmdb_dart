@@ -1,24 +1,62 @@
 part of 'search-settings.dart';
 
+/// Movie discover settings
 class MovieDiscoverSettings extends MovieSearchSettings {
+  ///Used in conjunction with the certification filter, use this to specify a country with a valid certification.
   final String? certificationCountry;
+
+  /// Filter results with a valid certification from the 'certification_country' field.
   final String? certification;
+
+  /// Filter and only include movies that have a certification that is less than or equal to the specified value.
   final String? certificationLTE;
+
+  /// A filter to include or exclude videos.
   final bool? includeVideo;
+
+  /// Filter and only include movies that have a primary release date that is greater or equal to the specified value.
   final Date? primaryReleaseDateGTE;
+
+  /// Filter and only include movies that have a primary release date that is less than or equal to the specified value.
   final Date? primaryReleaseDateLTE;
+
+  /// Filter and only include movies that have a release date (looking at all release dates) that is greater or equal to the specified value.
   final Date? releaseDateGTE;
+
+  /// Filter and only include movies that have a release date (looking at all release dates) that is less than or equal to the specified value.
   final Date? releaseDateLTE;
+
+  /// Choose from one of the many available sort options.
   final SortBy? sortBy;
+
+  /// Filter and only include movies that have a vote count that is greater or equal to the specified value.
   final int? voteCountGTE;
+
+  /// Filter and only include movies that have a vote count that is less than or equal to the specified value.
   final int? voteCountLTE;
+
+  /// Filter and only include movies that have a rating that is greater or equal to the specified value.
   final num? voteAverageGTE;
+
+  /// Filter and only include movies that have a rating that is less than or equal to the specified value.
   final num? voteAverageLTE;
+
+  /// A comma separated list of person ID's. Only include movies that have one of the ID's added as an actor.
   final int? withCast;
+
+  /// A comma separated list of person ID's. Only include movies that have one of the ID's added as a crew member.
   final int? withCrew;
+
+  /// A comma separated list of production company ID's. Only include movies that have one of the ID's added as a production company.
   final List<int>? withCompanies;
+
+  /// Comma separated value of genre ids that you want to include in the results.
   final List<int>? withGenres;
+
+  /// Exclude items with certain keywords. You can comma and pipe seperate these values to create an 'AND' or 'OR' logic.
   final List<int>? withKeywords;
+
+  /// A comma separated list of person ID's. Only include movies that have one of the ID's added as a either a actor or a crew member.
   final List<int>? withPeople;
 
   const MovieDiscoverSettings({

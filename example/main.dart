@@ -34,7 +34,7 @@ Future main(List<String> arguments) async {
       voteAverageGTE: 5.5,
       withPeople: [108916, 7467],
       sortBy: SortBy.popularity.desc,
-      quality: QualitySettings(
+      quality: QualitySettings.Custom(
         backdropQuality: AssetQuality.High,
         logoQuality: AssetQuality.High,
         posterQuality: AssetQuality.High,

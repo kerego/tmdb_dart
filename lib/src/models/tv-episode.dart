@@ -8,7 +8,7 @@ class TvEpisode extends EpisodeBase {
     Date? airDate,
     int episodeNumber = 0,
     required int id,
-    String name = '',
+    String? name,
     String? overview,
     String? productionCode,
     int seasonNumber = 0,
@@ -75,18 +75,23 @@ class EpisodeBase {
   final int voteCount;
 
   EpisodeBase({
-    this.airDate,
-    this.episodeNumber = 0,
     required this.id,
-    this.name = '',
+    String? name,
+    int? episodeNumber,
+    int? seasonNumber,
+    int? showId,
+    num? voteAverage,
+    int? voteCount,
+    this.airDate,
     this.overview,
     this.productionCode,
-    this.seasonNumber = 0,
-    this.showId = 0,
     this.stillPath,
-    this.voteAverage = 0,
-    this.voteCount = 0,
-  });
+  })  : name = name ?? '',
+        episodeNumber = episodeNumber ?? 0,
+        seasonNumber = seasonNumber ?? 0,
+        showId = showId ?? 0,
+        voteAverage = voteAverage ?? 0,
+        voteCount = voteCount ?? 0;
 
   factory EpisodeBase.fromJson(
     Map<String, dynamic> map,
@@ -94,16 +99,16 @@ class EpisodeBase {
   ) =>
       EpisodeBase(
         airDate: Date.tryParse(map["air_date"]),
-        episodeNumber: map["episode_number"] ?? 0,
+        episodeNumber: map["episode_number"],
         id: map["id"],
         name: map["name"],
         overview: map["overview"],
         productionCode: map["production_code"],
-        seasonNumber: map["season_number"] ?? 0,
+        seasonNumber: map["season_number"],
         showId: map["show_id"] ?? 0,
         stillPath: assetResolver.getStillPath(map["still_path"]),
-        voteAverage: map["vote_average"] ?? 0,
-        voteCount: map["vote_count"] ?? 0,
+        voteAverage: map["vote_average"],
+        voteCount: map["vote_count"],
       );
 
   static List<EpisodeBase> listFromJson(

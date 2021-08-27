@@ -1,11 +1,11 @@
 class Configuration {
-  final String? baseUrl;
-  final String? secureBaseUrl;
-  final List<String>? backdropSizes;
-  final List<String>? logoSizes;
-  final List<String>? posterSizes;
-  final List<String>? profileSizes;
-  final List<String>? stillSizes;
+  final String baseUrl;
+  final String secureBaseUrl;
+  final List<String> backdropSizes;
+  final List<String> logoSizes;
+  final List<String> posterSizes;
+  final List<String> profileSizes;
+  final List<String> stillSizes;
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = Map<String, dynamic>();
@@ -25,20 +25,18 @@ class Configuration {
   }
 
   Configuration({
-    this.baseUrl,
-    this.secureBaseUrl,
-    this.backdropSizes,
-    this.logoSizes,
-    this.posterSizes,
-    this.profileSizes,
-    this.stillSizes,
-  })  : assert(baseUrl != null),
-        assert(secureBaseUrl != null),
-        assert(backdropSizes != null && backdropSizes.isNotEmpty),
-        assert(logoSizes != null && logoSizes.isNotEmpty),
-        assert(posterSizes != null && posterSizes.isNotEmpty),
-        assert(profileSizes != null && profileSizes.isNotEmpty),
-        assert(stillSizes != null && stillSizes.isNotEmpty);
+    required this.baseUrl,
+    required this.secureBaseUrl,
+    required this.backdropSizes,
+    required this.logoSizes,
+    required this.posterSizes,
+    required this.profileSizes,
+    required this.stillSizes,
+  })  : assert(backdropSizes.isNotEmpty),
+        assert(logoSizes.isNotEmpty),
+        assert(posterSizes.isNotEmpty),
+        assert(profileSizes.isNotEmpty),
+        assert(stillSizes.isNotEmpty);
 
   factory Configuration.fromJson(Map<String, dynamic> json) {
     json = json["images"];

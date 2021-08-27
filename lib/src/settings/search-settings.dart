@@ -6,6 +6,7 @@ import 'quality-settings.dart';
 part 'movie-discover-settings.dart';
 part 'tv-discover-settings.dart';
 
+/// Movie search settings
 class MovieSearchSettings extends SearchSettings<MovieSearchSettings> {
   const MovieSearchSettings({
     String? query,
@@ -26,6 +27,7 @@ class MovieSearchSettings extends SearchSettings<MovieSearchSettings> {
         );
 }
 
+/// Movie search settings
 class TvSearchSettings extends SearchSettings<TvSearchSettings> {
   const TvSearchSettings({
     String? query,
@@ -42,14 +44,30 @@ class TvSearchSettings extends SearchSettings<TvSearchSettings> {
         );
 }
 
+/// Search settings
 abstract class SearchSettings<T> {
+  /// Specify a language to query translatable fields with.
   final String? language;
+
+  /// Search query
   final String? query;
+
+  /// A filter and include or exclude adult movies.
   final bool? includeAdult;
+
+  /// Use the ISO-3166-1 code to filter the providers that are available in a particular country.
   final String? region;
+
+  /// A filter to limit the results to a specific year (looking at all release dates).
   final int? year;
+
+  /// A filter to limit the results to a specific primary release year.
   final int? primaryReleaseYear;
+
+  /// Filter and only include TV shows that have a original air date year that equal to the specified value. Can be used in conjunction with the "include_null_first_air_dates" filter if you want to include items with no air date.
   final int? firstAirDateYear;
+
+  /// Quality settings
   final QualitySettings? quality;
 
   const SearchSettings._create({

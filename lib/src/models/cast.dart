@@ -5,20 +5,22 @@ import 'creator.dart';
 import 'gender.dart';
 
 class Cast extends Creator {
-  final int? castId;
+  final int castId;
   final String? character;
-  final int? order;
+  final int order;
 
   Cast({
-    String? creditId,
     required int id,
+    String? creditId,
     Gender? gender,
-    String name = '',
+    String? name,
     String? profilePath,
-    this.castId,
+    int? castId,
     this.character,
-    this.order,
-  }) : super(
+    int? order,
+  })  : castId = castId ?? 0,
+        order = order ?? 0,
+        super(
           creditId: creditId,
           gender: gender,
           id: id,
@@ -36,7 +38,7 @@ class Cast extends Creator {
         creditId: map["credit_id"],
         id: map["id"],
         gender: getGender(map["gender"]),
-        name: map["name"] ?? '',
+        name: map["name"],
         order: map["order"],
         profilePath: assetResolver.getProfilePath(map["profile_path"]),
       );

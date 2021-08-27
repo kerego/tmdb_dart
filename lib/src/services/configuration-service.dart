@@ -3,14 +3,17 @@ part of 'tmdb-service.dart';
 abstract class ConfigurationService with ResilientService {
   static const String _configPath = "3/configuration";
 
-  final String? _apiKey;
+  final String _apiKey;
   Configuration? _configuration;
 
   ConfigurationService(this._apiKey);
 
-  Configuration? get configuration => _configuration;
+  Configuration get configuration {
+    assert(_configuration != null);
+    return _configuration!;
+  }
 
-  set configuration(Configuration? config);
+  set configuration(Configuration config);
 
   Future<Configuration> initConfiguration() async {
     Uri uri = _buildUri(
