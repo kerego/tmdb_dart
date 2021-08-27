@@ -12,6 +12,7 @@ import 'external-info.dart';
 import 'genre.dart';
 import 'image-collection.dart';
 import 'keyword.dart';
+import 'watch-provider.dart';
 
 class Movie extends MovieBase {
   final Collection? belongsToCollection;
@@ -36,6 +37,8 @@ class Movie extends MovieBase {
   final List<Video> videos;
   final List<MovieBase> recommendations;
   final List<MovieBase> similar;
+  // The key represents a country code (more details there: https://developers.themoviedb.org/3/movies/get-movie-watch-providers)
+  final Map<String, WatchProviders> watchProviders;
 
   Movie(
       {required int id,
@@ -71,7 +74,8 @@ class Movie extends MovieBase {
       this.keywords = const [],
       this.videos = const [],
       this.recommendations = const [],
-      this.similar = const []})
+      this.similar = const [],
+      this.watchProviders = const {}})
       : revenue = revenue ?? 0,
         runtime = runtime ?? 0,
         budget = budget ?? 0,
@@ -156,5 +160,8 @@ class Movie extends MovieBase {
         similar: map.containsKey("similar")
             ? MovieBase.listFromJson(map["similar"]["results"], assetResolver)
             : [],
+        watchProviders: map.containsKey("watch/providers")
+            ? WatchProviders.mapFromJson(map["watch/providers"]["results"])
+            : {},
       );
 }
