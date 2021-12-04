@@ -45,7 +45,7 @@ class Creator {
       'gender': getGenderIndex(gender),
       'name': this.name,
       'credit_id': this.creditId,
-      'profile_path': this.profilePath,
+      'profile_path': AssetResolver.getPathFromUrl(this.profilePath),
     };
   }
 }

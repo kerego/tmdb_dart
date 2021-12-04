@@ -131,7 +131,7 @@ class EpisodeBase {
 
   Map<String, dynamic> toMap() {
     return {
-      'air_date': this.airDate,
+      'air_date': this.airDate.toString(),
       'episode_number': this.episodeNumber,
       'id': this.id,
       'name': this.name,
@@ -139,7 +139,7 @@ class EpisodeBase {
       'production_code': this.productionCode,
       'season_number': this.seasonNumber,
       'show_id': this.showId,
-      'still_path': this.stillPath,
+      'still_path': AssetResolver.getPathFromUrl(this.stillPath),
       'vote_average': this.voteAverage,
       'vote_count': this.voteCount,
     };

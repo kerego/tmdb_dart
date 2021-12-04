@@ -30,7 +30,7 @@ class Company {
   Map<String, dynamic> toMap() {
     return {
       'id': this.id,
-      'logo_path': this.logoPath,
+      'logo_path': AssetResolver.getPathFromUrl(this.logoPath),
       'name': this.name,
       'original_country': this.originalCountry,
     };

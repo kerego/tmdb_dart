@@ -96,7 +96,7 @@ class SeasonBase {
       'id': this.id,
       'name': this.name,
       'overview': this.overview,
-      'poster_path': this.posterPath,
+      'poster_path': AssetResolver.getPathFromUrl(this.posterPath),
       'season_number': this.seasonNumber,
     };
   }

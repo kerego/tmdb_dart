@@ -181,8 +181,8 @@ abstract class _CommonBase {
     return {
       'id': this.id,
       'original_language': this.originalLanguage,
-      'backdrop_path': this.backdropPath,
-      'poster_path': this.posterPath,
+      'backdrop_path': AssetResolver.getPathFromUrl(this.backdropPath),
+      'poster_path': AssetResolver.getPathFromUrl(this.posterPath),
       'overview': this.overview,
       'genre_ids': this.genreIds,
       'popularity': this.popularity,

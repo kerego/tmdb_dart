@@ -14,8 +14,8 @@ class ImageCollection {
 
   Map<String, dynamic> toMap() {
     return {
-      'backdrops': this.backdrops,
-      'posters': this.posters,
+      'backdrops': this.backdrops.map((e) => e.toMap()).toList(),
+      'posters': this.posters.map((e) => e.toMap()).toList(),
     };
   }
 

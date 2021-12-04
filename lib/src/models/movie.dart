@@ -190,7 +190,7 @@ class Movie extends MovieBase {
       'videos': this.videos.map((e) => e.toMap()).toList(),
       'recommendations': this.recommendations.map((e) => e.toMap()).toList(),
       'similar': this.similar.map((e) => e.toMap()).toList(),
-      'watchProviders': this.watchProviders.map(
+      'watch_providers': this.watchProviders.map(
         (key, value) {
           return MapEntry(
             key,

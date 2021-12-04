@@ -1,3 +1,5 @@
+import 'package:tmdb_dart/src/settings/asset-resolver.dart';
+
 class ImageInfo {
   final num aspectRatio;
   final String? filePath;
@@ -28,7 +30,7 @@ class ImageInfo {
   Map<String, dynamic> toMap() {
     return {
       'aspect_ratio': this.aspectRatio,
-      'file_path': this.filePath,
+      'file_path': AssetResolver.getPathFromUrl(this.filePath),
       'height': this.height,
       'iso_639_1': this.iso,
       'vote_average': this.voteAverage,

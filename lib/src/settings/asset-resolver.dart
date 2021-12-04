@@ -1,5 +1,4 @@
 import '../models/asset-quality.dart';
-
 import 'configuration.dart';
 import 'quality-settings.dart';
 
@@ -8,6 +7,19 @@ class AssetResolver {
   final QualitySettings _qualitySettings;
 
   AssetResolver(this._configuration, this._qualitySettings);
+
+  static String? getPathFromUrl(String? url) {
+    try {
+      if (url == null) {
+        return null;
+      }
+      return url.split('/').last;
+    } catch (e) {
+      print(
+          'AssetResolver.getPathFromUrl split error and returns null detail ;$e');
+      return null;
+    }
+  }
 
   String? getBackdropPath(String? assetUrl) {
     return _getPathWithResolution(assetUrl, _configuration.backdropSizes,

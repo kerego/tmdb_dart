@@ -1,3 +1,5 @@
+import 'package:tmdb_dart/src/settings/asset-resolver.dart';
+
 class WatchProviders {
   WatchProviders({
     this.link,
@@ -63,7 +65,7 @@ class Provider {
   Map<String, dynamic> toMap() {
     return {
       'display_priority': this.displayPriority,
-      'logo_path': this.logoPath,
+      'logo_path': AssetResolver.getPathFromUrl(this.logoPath),
       'provider_id': this.providerId,
       'provider_name': this.providerName,
     };

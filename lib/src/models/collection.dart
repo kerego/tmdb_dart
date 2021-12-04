@@ -17,8 +17,8 @@ class Collection {
     return {
       'id': this.id,
       'name': this.name,
-      'poster_path': this.posterPath,
-      'backdrop_path': this.backdropPath,
+      'poster_path': AssetResolver.getPathFromUrl(this.posterPath),
+      'backdrop_path': AssetResolver.getPathFromUrl(this.backdropPath),
     };
   }
 }
