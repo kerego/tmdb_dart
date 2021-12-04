@@ -8,4 +8,11 @@ class Genre {
 
   static List<Genre> listFromJson(List<dynamic> list) =>
       list.map((x) => Genre.fromJson(x)).toList(growable: false);
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': this.id,
+      'name': this.name,
+    };
+  }
 }

@@ -38,4 +38,14 @@ class Creator {
       list
           .map((x) => Creator.fromJson(x, assetResolver))
           .toList(growable: false);
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': this.id,
+      'gender': getGenderIndex(gender),
+      'name': this.name,
+      'credit_id': this.creditId,
+      'profile_path': this.profilePath,
+    };
+  }
 }

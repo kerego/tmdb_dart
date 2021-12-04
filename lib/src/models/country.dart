@@ -10,4 +10,11 @@ class Country {
 
   static List<Country> listFromJson(List<dynamic> list) =>
       list.map((x) => Country.fromJson(x)).toList(growable: false);
+
+  Map<String, dynamic> toMap() {
+    return {
+      'iso': this.iso,
+      'name': this.name,
+    };
+  }
 }

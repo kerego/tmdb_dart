@@ -61,6 +61,17 @@ class TvBase extends _CommonBase {
       list
           .map((x) => TvBase.fromJson(x, assetResolver))
           .toList(growable: false);
+
+  Map<String, dynamic> toMap() {
+    final _toMap = {
+      'first_air_date': this.firstAirDate,
+      'name': this.name,
+      'original_name': this.originalName,
+      'origin_country': this.originCountry,
+    };
+    _toMap.addAll(super.toMap());
+    return _toMap;
+  }
 }
 
 class MovieBase extends _CommonBase {
@@ -127,6 +138,18 @@ class MovieBase extends _CommonBase {
       list
           .map((x) => MovieBase.fromJson(x, assetResolver))
           .toList(growable: false);
+
+  Map<String, dynamic> toMap() {
+    final _toMap = {
+      'adult': this.adult,
+      'release_date': this.releaseDate.toString(),
+      'original_title': this.originalTitle,
+      'title': this.title,
+      'video': this.video,
+    };
+    _toMap.addAll(super.toMap());
+    return _toMap;
+  }
 }
 
 abstract class _CommonBase {
@@ -153,4 +176,18 @@ abstract class _CommonBase {
   )   : voteCount = voteCount ?? 0,
         voteAverage = voteAverage ?? 0,
         popularity = popularity ?? 0;
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': this.id,
+      'original_language': this.originalLanguage,
+      'backdrop_path': this.backdropPath,
+      'poster_path': this.posterPath,
+      'overview': this.overview,
+      'genre_ids': this.genreIds,
+      'popularity': this.popularity,
+      'vote_count': this.voteCount,
+      'vote_average': this.voteAverage,
+    };
+  }
 }

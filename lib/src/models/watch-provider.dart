@@ -29,6 +29,15 @@ class WatchProviders {
   static Map<String, WatchProviders> mapFromJson(Map<String, dynamic> map) =>
       map.map((country, watchProvidersJson) => MapEntry(country,
           WatchProviders.fromJson(watchProvidersJson as Map<String, dynamic>)));
+
+  Map<String, dynamic> toMap() {
+    return {
+      'link': this.link,
+      'flatrate': this.flatrate?.map((e) => e.toMap()).toList(),
+      'rent': this.rent?.map((e) => e.toMap()).toList(),
+      'buy': this.buy?.map((e) => e.toMap()).toList(),
+    };
+  }
 }
 
 class Provider {
@@ -50,4 +59,13 @@ class Provider {
         providerId: json["provider_id"],
         providerName: json["provider_name"],
       );
+
+  Map<String, dynamic> toMap() {
+    return {
+      'display_priority': this.displayPriority,
+      'logo_path': this.logoPath,
+      'provider_id': this.providerId,
+      'provider_name': this.providerName,
+    };
+  }
 }

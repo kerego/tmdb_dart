@@ -1,7 +1,5 @@
 import '../settings/asset-resolver.dart';
-
 import 'alternative-title.dart';
-import 'video.dart';
 import 'collection.dart';
 import 'company.dart';
 import 'content-base.dart';
@@ -12,6 +10,7 @@ import 'external-info.dart';
 import 'genre.dart';
 import 'image-collection.dart';
 import 'keyword.dart';
+import 'video.dart';
 import 'watch-provider.dart';
 
 class Movie extends MovieBase {
@@ -37,6 +36,7 @@ class Movie extends MovieBase {
   final List<Video> videos;
   final List<MovieBase> recommendations;
   final List<MovieBase> similar;
+
   // The key represents a country code (more details there: https://developers.themoviedb.org/3/movies/get-movie-watch-providers)
   final Map<String, WatchProviders> watchProviders;
 
@@ -164,4 +164,44 @@ class Movie extends MovieBase {
             ? WatchProviders.mapFromJson(map["watch/providers"]["results"])
             : {},
       );
+
+  Map<String, dynamic> toMap() {
+    final _toMap = {
+      'belongs_to_collection': this.belongsToCollection?.toMap(),
+      'budget': this.budget,
+      'genres': this.genres.map((e) => e.toMap()).toList(),
+      'homepage': this.homepage,
+      'imdb_id': this.imdbId,
+      'production_companies':
+          this.productionCompanies.map((e) => e.toMap()).toList(),
+      'production_countries':
+          this.productionCountries.map((e) => e.toMap()).toList(),
+      'revenue': this.revenue,
+      'runtime': this.runtime,
+      'spoken_languages': this.spokenLanguages.map((e) => e.toMap()).toList(),
+      'status': this.status,
+      'tagline': this.tagline,
+      'images': this.images?.toMap(),
+      'alternative_titles':
+          this.alternativeTitles.map((e) => e.toMap()).toList(),
+      'credits': this.credits?.toMap(),
+      'external_ids': this.externalIds?.toMap(),
+      'keywords': this.keywords.map((e) => e.toMap()).toList(),
+      'videos': this.videos.map((e) => e.toMap()).toList(),
+      'recommendations': this.recommendations.map((e) => e.toMap()).toList(),
+      'similar': this.similar.map((e) => e.toMap()).toList(),
+      'watchProviders': this.watchProviders.map(
+        (key, value) {
+          return MapEntry(
+            key,
+            value.toMap(),
+          );
+        },
+      ),
+    };
+
+    _toMap.addAll(super.toMap());
+
+    return _toMap;
+  }
 }

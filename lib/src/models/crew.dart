@@ -1,6 +1,5 @@
 import '../helpers/gender-resolver.dart';
 import '../settings/asset-resolver.dart';
-
 import 'creator.dart';
 import 'gender.dart';
 
@@ -43,4 +42,14 @@ class Crew extends Creator {
     AssetResolver assetResolver,
   ) =>
       list.map((x) => Crew.fromJson(x, assetResolver)).toList(growable: false);
+
+  Map<String, dynamic> toMap() {
+    final _toMap = <String, dynamic>{
+      'department': this.department,
+      'job': this.job,
+    };
+
+    _toMap.addAll(super.toMap());
+    return _toMap;
+  }
 }
