@@ -1,5 +1,5 @@
 class ExternalInfo {
-  final String imdbId;
+  final String? imdbId;
   final String? facebookId;
   final String? instagramId;
   final String? twitterId;
