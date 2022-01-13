@@ -12,4 +12,13 @@ class Collection {
     posterPath = assetResolver.getPosterPath(map["poster_path"]);
     backdropPath = assetResolver.getBackdropPath(map["backdrop_path"]);
   }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': this.id,
+      'name': this.name,
+      'poster_path': AssetResolver.getPathFromUrl(this.posterPath),
+      'backdrop_path': AssetResolver.getPathFromUrl(this.backdropPath),
+    };
+  }
 }

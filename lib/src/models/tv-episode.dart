@@ -59,6 +59,16 @@ class TvEpisode extends EpisodeBase {
       list
           .map((x) => TvEpisode.fromJson(x, assetResolver))
           .toList(growable: false);
+
+  Map<String, dynamic> toMap() {
+    final _toMap = <String, dynamic>{
+      'crew': this.crew.map((e) => e.toMap()).toList(),
+      'guest_stars': this.guestStars.map((e) => e.toMap()).toList(),
+    };
+    _toMap.addAll(super.toMap());
+
+    return _toMap;
+  }
 }
 
 class EpisodeBase {
@@ -118,4 +128,20 @@ class EpisodeBase {
       list
           .map((x) => EpisodeBase.fromJson(x, assetResolver))
           .toList(growable: false);
+
+  Map<String, dynamic> toMap() {
+    return {
+      'air_date': this.airDate.toString(),
+      'episode_number': this.episodeNumber,
+      'id': this.id,
+      'name': this.name,
+      'overview': this.overview,
+      'production_code': this.productionCode,
+      'season_number': this.seasonNumber,
+      'show_id': this.showId,
+      'still_path': AssetResolver.getPathFromUrl(this.stillPath),
+      'vote_average': this.voteAverage,
+      'vote_count': this.voteCount,
+    };
+  }
 }

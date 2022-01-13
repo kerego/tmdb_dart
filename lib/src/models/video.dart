@@ -37,4 +37,17 @@ class Video {
 
   static List<Video> listFromJson(List<dynamic> list) =>
       list.map((x) => Video.fromJson(x)).toList(growable: false);
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': this.id,
+      'iso_639_1': this.iso_639_1,
+      'iso_3166_1': this.iso_3166_1,
+      'key': this.key,
+      'name': this.name,
+      'site': this.site,
+      'size': this.size,
+      'type': this.type,
+    };
+  }
 }

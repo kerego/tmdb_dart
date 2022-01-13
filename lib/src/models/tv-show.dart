@@ -1,7 +1,5 @@
 import '../settings/asset-resolver.dart';
-
 import 'alternative-title.dart';
-import 'video.dart';
 import 'cast.dart';
 import 'company.dart';
 import 'content-base.dart';
@@ -13,9 +11,11 @@ import 'external-info.dart';
 import 'genre.dart';
 import 'image-collection.dart';
 import 'keyword.dart';
+import 'video.dart';
 import 'watch-provider.dart';
 
 part 'tv-episode.dart';
+
 part 'tv-season.dart';
 
 class TvShow extends TvBase {
@@ -26,7 +26,7 @@ class TvShow extends TvBase {
   final bool inProduction;
   final List<String> languages;
   final Date? lastAirDate;
-  final dynamic lastEpisodeToAir;
+  final EpisodeBase? lastEpisodeToAir;
   final List<Company> networks;
   final int numOfEpisodes;
   final int numOfSeasons;
@@ -44,6 +44,7 @@ class TvShow extends TvBase {
   final List<Video> videos;
   final List<TvBase> recommendations;
   final List<TvBase> similar;
+
   // The key represents a country code (more details there: https://developers.themoviedb.org/3/movies/get-movie-watch-providers)
   final Map<String, WatchProviders> watchProviders;
 
@@ -169,4 +170,42 @@ class TvShow extends TvBase {
             ? WatchProviders.mapFromJson(map["watch/providers"]["results"])
             : {},
       );
+
+  Map<String, dynamic> toMap() {
+    final _toMap = {
+      'created_by': this.createdBy.map((e) => e.toMap()).toList(),
+      'episodeRunTime': this.episodeRunTime,
+      'genres': this.genres.map((e) => e.toMap()).toList(),
+      'homepage': this.homepage,
+      'inProduction': this.inProduction,
+      'languages': this.languages,
+      'last_air_date': this.lastAirDate.toString(),
+      'last_episode_to_air': this.lastEpisodeToAir?.toMap(),
+      'networks': this.networks.map((e) => e.toMap()).toList(),
+      'number_of_episodes': this.numOfEpisodes,
+      'number_of_seasons': this.numOfSeasons,
+      'production_companies': this.productionCompanies.map((e) {
+        return e.toMap();
+      }).toList(),
+      'seasons': this.seasons.map((e) => e.toMap()).toList(),
+      'status': this.status,
+      'type': this.type,
+      'images': this.images,
+      'alternative_titles': this.alternativeTitles.map((e) {
+        return e.toMap();
+      }).toList(),
+      'credits': this.credits?.toMap(),
+      'externalIds': this.externalIds?.toMap(),
+      'keywords': this.keywords.map((e) => e.toMap()).toList(),
+      'videos': this.videos.map((e) => e.toMap()).toList(),
+      'recommendations': this.recommendations.map((e) => e.toMap()).toList(),
+      'similar': this.similar.map((e) => e.toMap()).toList(),
+      'watchProviders': this.watchProviders.map((key, value) {
+        return MapEntry(key, value.toMap());
+      }),
+    };
+    _toMap.addAll(super.toMap());
+
+    return _toMap;
+  }
 }

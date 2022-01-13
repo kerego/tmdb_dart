@@ -36,6 +36,14 @@ class TvSeason extends SeasonBase {
         seasonNumber: map["season_number"],
         episodes: TvEpisode.listFromJson(map["episodes"] ?? [], assetResolver),
       );
+
+  Map<String, dynamic> toMap() {
+    final _toMap = <String, dynamic>{
+      'episodes': this.episodes.map((e) => e.toMap()).toList(),
+    };
+    _toMap.addAll(super.toMap());
+    return _toMap;
+  }
 }
 
 class SeasonBase {
@@ -80,4 +88,16 @@ class SeasonBase {
       list
           .map((x) => SeasonBase.fromJson(x, assetResolver))
           .toList(growable: false);
+
+  Map<String, dynamic> toMap() {
+    return {
+      'air_date': this.airDate.toString(),
+      'episode_count': this.episodeCount,
+      'id': this.id,
+      'name': this.name,
+      'overview': this.overview,
+      'poster_path': AssetResolver.getPathFromUrl(this.posterPath),
+      'season_number': this.seasonNumber,
+    };
+  }
 }

@@ -11,4 +11,12 @@ class AlternativeTitle {
 
   static List<AlternativeTitle> listFromJson(List<dynamic> list) =>
       list.map((x) => AlternativeTitle.fromJson(x)).toList(growable: false);
+
+  Map<String, dynamic> toMap() {
+    return {
+      'iso_3166_1': this.iso3166_1,
+      'title': this.title,
+      'type': this.type,
+    };
+  }
 }

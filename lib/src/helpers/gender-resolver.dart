@@ -10,3 +10,14 @@ Gender getGender(int? gender) {
       return Gender.Other;
   }
 }
+
+int getGenderIndex(Gender gender) {
+  switch (gender) {
+    case Gender.Female:
+      return 1;
+    case Gender.Male:
+      return 2;
+    default:
+      return 0;
+  }
+}

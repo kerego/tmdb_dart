@@ -1,6 +1,5 @@
 import '../helpers/gender-resolver.dart';
 import '../settings/asset-resolver.dart';
-
 import 'creator.dart';
 import 'gender.dart';
 
@@ -48,4 +47,15 @@ class Cast extends Creator {
     AssetResolver assetResolver,
   ) =>
       list.map((x) => Cast.fromJson(x, assetResolver)).toList(growable: false);
+
+  Map<String, dynamic> toMap() {
+    final _toMap = {
+      'cast_id': this.castId,
+      'character': this.character,
+      'order': this.order,
+    };
+
+    _toMap.addAll(super.toMap());
+    return _toMap;
+  }
 }

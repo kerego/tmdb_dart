@@ -26,4 +26,13 @@ class Company {
       list
           .map((x) => Company.fromJson(x, assetResolver))
           .toList(growable: false);
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': this.id,
+      'logo_path': AssetResolver.getPathFromUrl(this.logoPath),
+      'name': this.name,
+      'original_country': this.originalCountry,
+    };
+  }
 }
