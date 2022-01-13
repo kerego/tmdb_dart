@@ -100,3 +100,8 @@
 ## 0.2.1
 
 * [Tiphanie Dousset](https://github.com/tiphdousset), [Felix Dietze](https://github.com/fdietze) - Add watch providers to movie and tv show details via AppendSettings
+
+
+## 0.2.2
+
+* [Onat Çipli](https://github.com/onatcipli) - Add toMap method to models
